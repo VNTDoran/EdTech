@@ -16,7 +16,9 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService.logout().subscribe(() => {});
+  }
 
   login(loginForm: NgForm) {
     console.log(loginForm.value);

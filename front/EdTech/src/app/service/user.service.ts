@@ -26,11 +26,16 @@ export class UserService {
   }
 
   logout(): Observable<any> {
+    this.clearUserData();
     return this.http.post(
       this.PATH_OF_API + '/api/auth/signout',
       {},
       this.httpOptions
     );
+  }
+  private clearUserData(): void {
+    localStorage.removeItem('roles');
+    localStorage.removeItem('jwtToken');
   }
 
   public forUser() {

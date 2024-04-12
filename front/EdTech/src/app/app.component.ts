@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { UserAuthService } from './service/user-auth.service';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -14,22 +15,29 @@ interface SideNavToggle {
 export class AppComponent {
   title = 'EdTech';
 
-  showNavbar = false;
+  isLoggedIn: boolean = false;
+  userRole: string | null = null;
+  isSideNavCollapsed: boolean = false;
+  screenWidth: number = window.innerWidth;
 
-  isSideNavCollapsed = false;
-  screenWidth = 0;
+  constructor(private userAuthService: UserAuthService) {}
 
-  onToggleSideNav(data: SideNavToggle): void {
-    this.screenWidth = data.screenWidth;
-    this.isSideNavCollapsed = data.collapsed;
+  ngOnInit() {
+    this.isLoggedIn = this.userAuthService.isLoggedIn();
+    this.userAuthService
+      .isLoggedInChanged()
+      .subscribe((isLoggedIn: boolean) => {
+        this.isLoggedIn = isLoggedIn;
+        if (this.isLoggedIn) {
+          const roles = this.userAuthService.getRoles();
+          if (roles && roles.length > 0) {
+            this.userRole = roles;
+          }
+        }
+      });
   }
 
-  constructor(private router: Router) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.showNavbar = !event.url.includes('/login');
-        console.log(this.showNavbar);
-      }
-    });
+  onToggleSideNav(isOpen: boolean) {
+    this.isSideNavCollapsed = !isOpen;
   }
 }

@@ -26,6 +26,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./coupens/coupens.module').then((m) => m.CoupensModule),
   },
+  { path: '**', component: LoginComponent },
   { path: 'pages', component: PagesComponent },
   { path: 'classes', component: ClassesComponent },
   { path: 'media', component: MediaComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'class/:id', component: ClassDetailComponent },
   { path: 'settings', component: SettingsComponent },
+  { path: 'students', component: SettingsComponent },
 ];
 
 @NgModule({

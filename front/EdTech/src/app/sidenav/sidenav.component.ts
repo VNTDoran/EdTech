@@ -46,6 +46,7 @@ export class SidenavComponent implements OnInit {
   screenWidth = 0;
   navData = navbarData;
   multiple: boolean = false;
+  @Output() sideNavToggled = new EventEmitter<boolean>();
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -88,6 +89,10 @@ export class SidenavComponent implements OnInit {
 
   getActiveClass(data: INavbarData): string {
     return this.router.url.includes(data.routeLink) ? 'active' : '';
+  }
+
+  toggleSideNav(isOpen: boolean) {
+    this.sideNavToggled.emit(isOpen);
   }
 
   shrinkItems(item: INavbarData): void {

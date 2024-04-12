@@ -26,6 +26,10 @@
     (click)="assignMajor()"
     class="assign-button"
   >
+    Assign Major
+  </button>
+
+  <button *ngIf="classDetail.scheduleSheet" (click)="assignScheduleSheet()">
     Assign Schedule Sheet
   </button>
   <!-- 
@@ -33,12 +37,7 @@
     Remove Schedule Sheet
   </button>
 
-  <button
-    *ngIf="!classDetail.scheduleSheet"
-    (click)="assignScheduleSheet(classDetail.id)"
-  >
-    Assign Schedule Sheet
-  </button>
+
 
   <button
     *ngIf="classDetail.scheduleSheet"

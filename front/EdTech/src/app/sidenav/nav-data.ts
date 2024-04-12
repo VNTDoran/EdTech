@@ -11,6 +11,11 @@ export const navbarData: INavbarData[] = [
     icon: 'fal fa-file',
     label: 'Classes',
   },
+  {
+    routeLink: 'students',
+    icon: 'fal fa-file',
+    label: 'Students',
+  },
   // {
   //   routeLink: 'products',
   //   icon: 'fal fa-box-open',

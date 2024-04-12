@@ -1,22 +1,39 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserAuthService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
+  private isLoggedInSubject: Subject<boolean> = new Subject<boolean>();
 
   public setRoles(roles: []) {
     localStorage.setItem('roles', JSON.stringify(roles));
+    this.updateIsLoggedInStatus();
   }
 
-  public getRoles(): [] {
-    // @ts-ignore
-    return JSON.parse(localStorage.getItem('roles'));
+  public getRoles(): string {
+    const rolesString = localStorage.getItem('roles');
+    if (rolesString) {
+      return JSON.parse(rolesString);
+    } else {
+      return '';
+    }
   }
 
   public setToken(jwtToken: string) {
     localStorage.setItem('jwtToken', jwtToken);
+    this.updateIsLoggedInStatus();
+  }
+
+  public isLoggedInChanged(): Observable<boolean> {
+    return this.isLoggedInSubject.asObservable();
+  }
+
+  private updateIsLoggedInStatus() {
+    this.isLoggedInSubject.next(this.isLoggedIn());
   }
 
   public getToken(): string {
@@ -28,7 +45,9 @@ export class UserAuthService {
     localStorage.clear();
   }
 
-  public isLoggedIn() {
-    return this.getRoles() && this.getToken();
+  public isLoggedIn(): boolean {
+    const roles = this.getRoles();
+    const token = this.getToken();
+    return !!roles && roles.length > 0 && !!token;
   }
 }
