@@ -1,0 +1,13 @@
+<div class="card-container">
+  <div class="card" *ngFor="let classe of filteredClasses; let i = index">
+    <div class="card-inner" [style.background-color]="getRandomColor(i)">
+      <div class="card-content">
+        <h3 class="card-title">{{ classe.name }}</h3>
+        <p class="card-description">
+          {{ classe.major ? classe.major.name : "" }}
+        </p>
+        <button class="view-button" (click)="viewClass(classe.id)">View</button>
+      </div>
+    </div>
+  </div>
+</div>

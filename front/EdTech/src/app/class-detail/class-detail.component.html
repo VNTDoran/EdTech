@@ -1,0 +1,57 @@
+<div class="class-detail">
+  <h2>Class Details</h2>
+  <div>
+    <h3>Class Name:</h3>
+    <p>{{ classDetail.name }}</p>
+  </div>
+  <div>
+    <h3>Major:</h3>
+    <p>{{ classDetail.major?.name || "Not available" }}</p>
+  </div>
+  <div>
+    <h3>Schedule Sheet:</h3>
+    <p>{{ classDetail.scheduleSheet?.link || "Not available" }}</p>
+  </div>
+  <div>
+    <h3>Students:</h3>
+    <ul>
+      <!-- <li *ngFor="let student of classDetail.students">{{ student.name }}</li> -->
+    </ul>
+  </div>
+</div>
+
+<div class="button-container" *ngIf="classDetail">
+  <button
+    *ngIf="classDetail.major"
+    (click)="assignMajor()"
+    class="assign-button"
+  >
+    Assign Schedule Sheet
+  </button>
+  <!-- 
+  <button *ngIf="classDetail.major" (click)="removeMajor(classDetail.id)">
+    Remove Schedule Sheet
+  </button>
+
+  <button
+    *ngIf="!classDetail.scheduleSheet"
+    (click)="assignScheduleSheet(classDetail.id)"
+  >
+    Assign Schedule Sheet
+  </button>
+
+  <button
+    *ngIf="classDetail.scheduleSheet"
+    (click)="removeScheduleSheet(classDetail.id)"
+  >
+    Remove Schedule Sheet
+  </button>
+
+  <button (click)="modifyClass(classDetail.id)">Modify Class</button> -->
+
+  <button (click)="deleteClass(classDetail.id)" class="delete-button">
+    Delete Class
+  </button>
+</div>
+
+<ng-template #modalContainer></ng-template>
