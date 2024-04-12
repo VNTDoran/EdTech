@@ -26,7 +26,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./coupens/coupens.module').then((m) => m.CoupensModule),
   },
-  { path: '**', component: LoginComponent },
   { path: 'pages', component: PagesComponent },
   { path: 'classes', component: ClassesComponent },
   { path: 'media', component: MediaComponent },
