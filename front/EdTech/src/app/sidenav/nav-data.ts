@@ -13,8 +13,13 @@ export const navbarData: INavbarData[] = [
   },
   {
     routeLink: 'students',
-    icon: 'fal fa-file',
+    icon: 'fal fa-person-carry',
     label: 'Students',
+  },
+  {
+    routeLink: 'newstudents',
+    icon: 'fal fa-person-booth',
+    label: 'New Students',
   },
   // {
   //   routeLink: 'products',

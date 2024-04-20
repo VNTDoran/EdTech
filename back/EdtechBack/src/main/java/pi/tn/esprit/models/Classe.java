@@ -18,4 +18,7 @@ public class Classe {
     private Major major;
     @OneToOne(cascade = CascadeType.ALL)
     private ScheduleSheet scheduleSheet;
+
+    @ManyToOne
+    private Student student;
 }

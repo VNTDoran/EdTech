@@ -76,4 +76,8 @@ export class ClassDetailComponent implements OnInit {
       }
     );
   }
+
+  viewStudents() {
+    this.router.navigate(['/students', this.classId]);
+  }
 }

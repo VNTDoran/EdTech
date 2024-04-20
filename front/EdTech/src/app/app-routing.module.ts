@@ -11,6 +11,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { LoginComponent } from './login/login.component';
 import { ClassesComponent } from './classes/classes.component';
 import { ClassDetailComponent } from './class-detail/class-detail.component';
+import { StudentsComponent } from './students/students.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -33,7 +34,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'class/:id', component: ClassDetailComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'students', component: SettingsComponent },
+  { path: 'students/:id', component: StudentsComponent },
+  { path: 'students', component: StudentsComponent },
 ];
 
 @NgModule({

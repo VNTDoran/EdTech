@@ -27,6 +27,8 @@ import { AdminSidenavComponent } from './admin-sidenav/admin-sidenav.component';
 import { StudentSidenavComponent } from './student-sidenav/student-sidenav.component';
 import { TeacherSidenavComponent } from './teacher-sidenav/teacher-sidenav.component';
 import { GuestSidenavComponent } from './guest-sidenav/guest-sidenav.component';
+import { StudentsComponent } from './students/students.component';
+import { NewstudentsComponent } from './newstudents/newstudents.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { GuestSidenavComponent } from './guest-sidenav/guest-sidenav.component';
     StudentSidenavComponent,
     TeacherSidenavComponent,
     GuestSidenavComponent,
+    StudentsComponent,
+    NewstudentsComponent,
   ],
   imports: [
     BrowserModule,
