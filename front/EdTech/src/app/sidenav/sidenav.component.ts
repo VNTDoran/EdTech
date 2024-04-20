@@ -15,6 +15,9 @@ import {
 import { Router } from '@angular/router';
 import { fadeInOut, INavbarData } from './helper';
 import { navbarData } from './nav-data';
+import { navbarDataStudent } from './nav-data-student';
+import { UserService } from '../service/user.service';
+import { UserAuthService } from '../service/user-auth.service';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -60,10 +63,13 @@ export class SidenavComponent implements OnInit {
     }
   }
 
-  constructor(public router: Router) {}
+  constructor(public router: Router, private userService: UserAuthService) {}
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
+    if (this.userService.getRoles() === 'ROLE_ADMIN') {
+      this.navData = navbarData;
+    }
   }
 
   toggleCollapse(): void {

@@ -1,26 +1,7 @@
 <ng-container *ngIf="isLoggedIn">
-  <ng-container *ngIf="userRole === 'ROLE_ADMIN'">
-    <app-sidenav (sideNavToggled)="onToggleSideNav($event)"></app-sidenav>
+  <ng-container>
+    <app-sidenav></app-sidenav>
   </ng-container>
-  <ng-container *ngIf="userRole === 'student'">
-    <app-student-sidenav
-      (sideNavToggled)="onToggleSideNav($event)"
-    ></app-student-sidenav>
-  </ng-container>
-  <ng-container *ngIf="userRole === 'teacher'">
-    <app-teacher-sidenav
-      (sideNavToggled)="onToggleSideNav($event)"
-    ></app-teacher-sidenav>
-  </ng-container>
-  <ng-container *ngIf="userRole === 'guest'">
-    <app-guest-sidenav
-      (sideNavToggled)="onToggleSideNav($event)"
-    ></app-guest-sidenav>
-  </ng-container>
-  <app-body
-    [collapsed]="isSideNavCollapsed"
-    [screenWidth]="screenWidth"
-  ></app-body>
 </ng-container>
 
 <ng-container *ngIf="!isLoggedIn">

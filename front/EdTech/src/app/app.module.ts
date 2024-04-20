@@ -23,12 +23,9 @@ import { CustomDialogComponent } from './custom-dialog/custom-dialog.component';
 import { ModalMajorComponent } from './modal-major/modal-major.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalScheduleComponent } from './modal-schedule/modal-schedule.component';
-import { AdminSidenavComponent } from './admin-sidenav/admin-sidenav.component';
-import { StudentSidenavComponent } from './student-sidenav/student-sidenav.component';
-import { TeacherSidenavComponent } from './teacher-sidenav/teacher-sidenav.component';
-import { GuestSidenavComponent } from './guest-sidenav/guest-sidenav.component';
 import { StudentsComponent } from './students/students.component';
 import { NewstudentsComponent } from './newstudents/newstudents.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -47,12 +44,9 @@ import { NewstudentsComponent } from './newstudents/newstudents.component';
     CustomDialogComponent,
     ModalMajorComponent,
     ModalScheduleComponent,
-    AdminSidenavComponent,
-    StudentSidenavComponent,
-    TeacherSidenavComponent,
-    GuestSidenavComponent,
     StudentsComponent,
     NewstudentsComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
