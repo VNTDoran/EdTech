@@ -5,6 +5,7 @@ import { UserAuthService } from './service/user-auth.service';
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;
+  hidden: boolean;
 }
 
 @Component({
@@ -18,6 +19,8 @@ export class AppComponent {
   isLoggedIn: boolean = false;
   userRole: string | null = null;
   isSideNavCollapsed: boolean = false;
+  hidden: boolean = true;
+
   screenWidth: number = window.innerWidth;
 
   constructor(private userAuthService: UserAuthService) {}
@@ -37,7 +40,9 @@ export class AppComponent {
       });
   }
 
-  onToggleSideNav(isOpen: boolean) {
-    this.isSideNavCollapsed = !isOpen;
+  onToggleSideNav(data: SideNavToggle): void {
+    this.screenWidth = data.screenWidth;
+    this.isSideNavCollapsed = data.collapsed;
+    this.hidden = data.hidden
   }
 }

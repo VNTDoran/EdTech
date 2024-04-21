@@ -1,14 +1,4 @@
-.body {
-    width: calc(100% - 5rem);
-    height: 100vh;
-    margin-left: 5rem;
-    z-index: 0;
-    position: relative;
-    top: 0;
-    transition: all .5s ease;
-    background: #f4f7fa;
-    padding: 3rem;
-}
+
 
 .body-trimmed {
     width: calc(100% - 16.5625rem);
@@ -18,4 +8,26 @@
 .body-md-screen {
     width: calc(100% - 5rem);
     margin-left: 5rem;
+}
+
+.body-normal {
+    height: 100vh;
+    width: calc(100%-5rem);
+    z-index: 0;
+    margin-left: 5rem;
+    position: relative;
+    top: 0;
+    transition: all .5s ease;
+    background: #f4f7fa;
+    padding: 3rem;
+}
+
+.body-hidden {
+    height: 100vh;
+    z-index: 0;
+    position: relative;
+    top: 0;
+    transition: all .5s ease;
+    background: #f4f7fa;
+    padding: 3rem;
 }

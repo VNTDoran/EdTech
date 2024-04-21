@@ -12,7 +12,7 @@ import {
   OnInit,
   HostListener,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, RouterEvent, Event } from '@angular/router';
 import { fadeInOut, INavbarData } from './helper';
 import { navbarData } from './nav-data';
 import { navbarDataStudent } from './nav-data-student';
@@ -22,6 +22,7 @@ import { UserAuthService } from '../service/user-auth.service';
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;
+  hidden: boolean;
 }
 
 @Component({
@@ -46,9 +47,11 @@ interface SideNavToggle {
 export class SidenavComponent implements OnInit {
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
   collapsed = false;
+  hidden = true;
   screenWidth = 0;
   navData = navbarData;
   multiple: boolean = false;
+  isNavbarVisible: boolean = false;
   @Output() sideNavToggled = new EventEmitter<boolean>();
 
   @HostListener('window:resize', ['$event'])
@@ -59,17 +62,42 @@ export class SidenavComponent implements OnInit {
       this.onToggleSideNav.emit({
         collapsed: this.collapsed,
         screenWidth: this.screenWidth,
+        hidden : this.hidden,
       });
     }
   }
 
-  constructor(public router: Router, private userService: UserAuthService) {}
+  constructor(public router: Router, private userService: UserAuthService, private route: ActivatedRoute) {
+    this.router.events.subscribe(url => {
+      const excludedRoutes = ['http://localhost:4200/','http://localhost:4200/home', 'http://localhost:4200/about', 'http://localhost:4200/login']; // Add more routes as needed
+    const currentUrl = window.location.href;
+    let isExcluded = false;
+    for (const route of excludedRoutes) {
+      if (route === currentUrl) {
+        isExcluded = true;
+        break;
+      }
+    }
+
+    this.isNavbarVisible = !isExcluded;
+
+    
+    this.hidden = isExcluded;
+    this.onToggleSideNav.emit({
+      collapsed: this.collapsed,
+      screenWidth: this.screenWidth,
+      hidden : this.hidden,
+    });
+    })
+  }
 
   ngOnInit(): void {
+    
     this.screenWidth = window.innerWidth;
     if (this.userService.getRoles() === 'ROLE_ADMIN') {
       this.navData = navbarData;
     }
+    
   }
 
   toggleCollapse(): void {
@@ -77,6 +105,7 @@ export class SidenavComponent implements OnInit {
     this.onToggleSideNav.emit({
       collapsed: this.collapsed,
       screenWidth: this.screenWidth,
+      hidden : this.hidden
     });
   }
 
@@ -85,6 +114,7 @@ export class SidenavComponent implements OnInit {
     this.onToggleSideNav.emit({
       collapsed: this.collapsed,
       screenWidth: this.screenWidth,
+      hidden : this.hidden
     });
   }
 

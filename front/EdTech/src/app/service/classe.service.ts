@@ -68,7 +68,6 @@ export class ClasseService {
       'Authorization',
       `Bearer ${jwtToken}`
     );
-    console.log('test');
     return this.http.put<void>(
       `${this.apiUrl}/assign-major/${classId}/${majorId}`,
       { headers }
