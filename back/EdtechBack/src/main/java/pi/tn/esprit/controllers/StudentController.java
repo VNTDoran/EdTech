@@ -7,12 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pi.tn.esprit.Utils.Mailer;
+import pi.tn.esprit.models.ERole;
+import pi.tn.esprit.models.Role;
 import pi.tn.esprit.models.Student;
+import pi.tn.esprit.models.User;
 import pi.tn.esprit.security.jwt.AuthTokenFilter;
 import pi.tn.esprit.security.jwt.JwtUtils;
 import pi.tn.esprit.services.StudentService;
+import pi.tn.esprit.services.UserService;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.HashSet;
+
 
 @RestController
 @RequestMapping("/api/students")
@@ -20,6 +29,9 @@ import java.util.List;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private AuthTokenFilter authtok;
@@ -33,6 +45,18 @@ public class StudentController {
         String token = authtok.parseJwt(request);
         if (token != null && jwtUtils.validateToken(token)) {
             List<Student> students = studentService.retrieveAllStudents();
+            return ResponseEntity.ok().body(students);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Operation(description = "Retrieves all new students")
+    @GetMapping("/retrieve-allnew")
+    public ResponseEntity<List<Student>> retrieveAllNewStudents(HttpServletRequest request) {
+        String token = authtok.parseJwt(request);
+        if (token != null && jwtUtils.validateToken(token)) {
+            List<Student> students = studentService.retrieveAllNewStudents();
             return ResponseEntity.ok().body(students);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -58,6 +82,23 @@ public class StudentController {
         if (token != null && jwtUtils.validateToken(token)) {
             Student student = studentService.retrieveStudent(studentId);
             return student != null ? ResponseEntity.ok(student) : ResponseEntity.notFound().build();
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Operation(description = "Retrieves a new meeting")
+    @GetMapping("/retrievemeet/{time}")
+    public ResponseEntity<String> retrieveNewMeet(@PathVariable String time, HttpServletRequest request) {
+        String token = authtok.parseJwt(request);
+        if (token != null && jwtUtils.validateToken(token)) {
+            String meeting = studentService.retrieveNewMeeting(time);
+            if (meeting != null){
+                String url = "https://us05web.zoom.us/s/";
+
+                Mailer.sendMail(time,url+meeting,"houssemkacem@yahoo.fr");
+            }
+            return meeting != null ? ResponseEntity.ok(meeting) : ResponseEntity.notFound().build();
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
@@ -117,6 +158,19 @@ public class StudentController {
         String token = authtok.parseJwt(request);
         if (token != null && jwtUtils.validateToken(token)) {
             studentService.deassignClasseFromStudent(studentId);
+            return ResponseEntity.noContent().build();
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Operation(description = "Assign role to new student")
+    @PutMapping("/assign-newstudent/{userId}")
+    public ResponseEntity<Void> assignNewStudent(@PathVariable int userId, HttpServletRequest request) {
+        String token = authtok.parseJwt(request);
+        if (token != null && jwtUtils.validateToken(token)) {
+            userService.changeNewUserType(userId);
+            System.out.println("done");
             return ResponseEntity.noContent().build();
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

@@ -28,6 +28,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    
     if (this.userAuthService.getToken() !== null) {
       console.log(route.data['roles']);
       console.log(this.userService.roleMatch(route.data['roles']));

@@ -16,4 +16,8 @@ public interface StudentService {
     void deassignClasseFromStudent(int studentId);
 
     List<Student> retrieveAllStudentsByClass(int classeId);
+
+    String retrieveNewMeeting(String time);
+
+    List<Student> retrieveAllNewStudents();
 }

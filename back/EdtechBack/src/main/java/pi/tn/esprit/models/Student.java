@@ -19,8 +19,15 @@ public class Student {
     private int id;
     private String name;
     private String cin;
+    private int confirmed;
     @ManyToOne
     private Classe classe;
 
-    
+
+    public Student(String username, String s, int i) {
+        this.name = username;
+        this.cin = s;
+        System.out.println(confirmed);
+        this.confirmed = i;
+    }
 }

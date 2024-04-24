@@ -61,28 +61,9 @@ export class StudentsComponent {
   }
 
   viewStudent(arg0: number) {
-    const eventData = {
-      summary: this.eventTitle,
-      start: {
-        dateTime: this.startTime.toISOString(),
-        timeZone: 'UTC+1',
-      },
-      end: {
-        dateTime: this.endTime.toISOString(),
-        timeZone: 'UTC+1',
-      },
-      location: this.location,
-    };
 
-    this.meetService.createEvent(eventData).subscribe(
-      (response) => {
-        console.log('Event created:', response);
-      },
-      (error) => {
-        console.error('Error:', error);
-      }
-    );
+   
   }
 
-  Schedule() {}
+
 }

@@ -11,6 +11,8 @@ import { ClassesComponent } from './classes/classes.component';
 import { ClassDetailComponent } from './class-detail/class-detail.component';
 import { StudentsComponent } from './students/students.component';
 import { HomeComponent } from './home/home.component';
+import { JoinUniversityComponent } from './join-university/join-university.component';
+import { NewstudentsComponent } from './newstudents/newstudents.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -26,9 +28,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./coupens/coupens.module').then((m) => m.CoupensModule),
   },
+  { path: 'newstudents', component: NewstudentsComponent },
   { path: 'pages', component: PagesComponent },
   { path: 'home', component: HomeComponent },
-
+  { path: 'join', component: JoinUniversityComponent },
   { path: 'classes', component: ClassesComponent },
   { path: 'media', component: MediaComponent },
   { path: 'forbidden', component: ForbiddenComponent },

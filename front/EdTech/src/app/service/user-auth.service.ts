@@ -28,6 +28,16 @@ export class UserAuthService {
     this.updateIsLoggedInStatus();
   }
 
+  public getId() : number {
+    var id = localStorage.getItem("id") ? localStorage.getItem("id") : "";
+    var idInt: number = +id!;
+    return idInt;
+  }
+
+  public setId(id: string) {
+    localStorage.setItem('id', id);
+  }
+
   public isLoggedInChanged(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
   }

@@ -26,6 +26,16 @@ export class StudentService {
     return this.http.get<Student[]>(`${this.apiUrl}/retrieve-all`, { headers });
   }
 
+  getAllNewStudents(): Observable<Student[]> {
+    const jwtToken = this.userAuthService.getToken();
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${jwtToken}`
+    );
+
+    return this.http.get<Student[]>(`${this.apiUrl}/retrieve-allnew`, { headers });
+  }
+
   getAllStudentsByClass(classId: number): Observable<Student[]> {
     const jwtToken = this.userAuthService.getToken();
     const headers = new HttpHeaders().set(

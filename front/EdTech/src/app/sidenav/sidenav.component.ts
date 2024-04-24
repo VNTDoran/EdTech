@@ -16,6 +16,7 @@ import { Router, ActivatedRoute, NavigationEnd, RouterEvent, Event } from '@angu
 import { fadeInOut, INavbarData } from './helper';
 import { navbarData } from './nav-data';
 import { navbarDataStudent } from './nav-data-student';
+import { navbarDataGuest } from './nav-data-guest';
 import { UserService } from '../service/user.service';
 import { UserAuthService } from '../service/user-auth.service';
 
@@ -81,6 +82,11 @@ export class SidenavComponent implements OnInit {
 
     this.isNavbarVisible = !isExcluded;
 
+    if (this.userService.getRoles() === 'ROLE_ADMIN') {
+      this.navData = navbarData;
+    } else if (this.userService.getRoles() === 'ROLE_GUEST') {
+      this.navData = navbarDataGuest;
+    }
     
     this.hidden = isExcluded;
     this.onToggleSideNav.emit({
@@ -92,11 +98,7 @@ export class SidenavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
     this.screenWidth = window.innerWidth;
-    if (this.userService.getRoles() === 'ROLE_ADMIN') {
-      this.navData = navbarData;
-    }
     
   }
 

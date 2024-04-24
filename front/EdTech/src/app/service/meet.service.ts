@@ -1,26 +1,37 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserAuthService } from './user-auth.service';
+import { tap, catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root',
 })
+  
+  
 export class MeetService {
-  private token = 'AIzaSyBJN7YbIPyUqT6pMV7AI7-55euBZ4mkaSE';
-  private readonly CALENDAR_API_URL =
-    'https://www.googleapis.com/calendar/v3/calendars';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private userAuthService: UserAuthService
+  ) {}
 
-  createEvent(eventData: any): Observable<any> {
-    const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${this.token}`)
-      .set('Content-Type', 'application/json');
+  private apiUrl = 'http://localhost:7777/api/students';
 
-    return this.http.post<any>(
-      `${this.CALENDAR_API_URL}/primary/events`,
-      eventData,
+
+  createEvent(time: string): Observable<string> {
+    const jwtToken = this.userAuthService.getToken();
+    
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${jwtToken}`
+    );
+  
+    return this.http.get<string>(
+      `${this.apiUrl}/retrievemeet/${time}`,
       { headers }
     );
   }
+  
 }

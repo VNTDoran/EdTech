@@ -26,6 +26,7 @@ import { ModalScheduleComponent } from './modal-schedule/modal-schedule.componen
 import { StudentsComponent } from './students/students.component';
 import { NewstudentsComponent } from './newstudents/newstudents.component';
 import { HomeComponent } from './home/home.component';
+import { JoinUniversityComponent } from './join-university/join-university.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { HomeComponent } from './home/home.component';
     StudentsComponent,
     NewstudentsComponent,
     HomeComponent,
+    JoinUniversityComponent,
   ],
   imports: [
     BrowserModule,

@@ -69,6 +69,7 @@ public class AuthController {
     List<String> roles = userDetails.getAuthorities().stream()
             .map(item -> item.getAuthority())
             .collect(Collectors.toList());
+    System.out.println(roles);
 
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
             .body(new UserInfoResponse(userDetails.getId(),
@@ -112,6 +113,12 @@ public class AuthController {
             Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(modRole);
+
+            break;
+          case "guest":
+            Role guestRole = roleRepository.findByName(ERole.ROLE_GUEST)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(guestRole);
 
             break;
           default:
