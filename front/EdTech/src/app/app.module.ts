@@ -27,6 +27,7 @@ import { StudentsComponent } from './students/students.component';
 import { NewstudentsComponent } from './newstudents/newstudents.component';
 import { HomeComponent } from './home/home.component';
 import { JoinUniversityComponent } from './join-university/join-university.component';
+import { ModalStudentComponent } from './modal-student/modal-student.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { JoinUniversityComponent } from './join-university/join-university.compo
     NewstudentsComponent,
     HomeComponent,
     JoinUniversityComponent,
+    ModalStudentComponent,
   ],
   imports: [
     BrowserModule,

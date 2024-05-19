@@ -110,4 +110,17 @@ export class StudentService {
       { headers }
     );
   }
+
+
+  acceptStudent(studentId: number): Observable<void> {
+    console.log(studentId)
+    const jwtToken = this.userAuthService.getToken();
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${jwtToken}`
+    );
+    return this.http.put<void>(`${this.apiUrl}/confirm-newstudent/${studentId}`, {
+      headers,
+    });
+  }
 }

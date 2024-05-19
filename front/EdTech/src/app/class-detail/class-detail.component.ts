@@ -5,6 +5,7 @@ import { ClasseService } from '../service/classe.service';
 import { ModalMajorComponent } from '../modal-major/modal-major.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalScheduleComponent } from '../modal-schedule/modal-schedule.component';
+import { ModalStudentComponent } from '../modal-student/modal-student.component';
 
 @Component({
   selector: 'app-class-detail',
@@ -44,6 +45,15 @@ export class ClassDetailComponent implements OnInit {
       classId: this.classId,
     };
     this.dialog.open(ModalMajorComponent, dialogConfig);
+  }
+
+  
+  addStudent() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      classId: this.classId,
+    };
+    this.dialog.open(ModalStudentComponent, dialogConfig);
   }
 
   assignScheduleSheet() {

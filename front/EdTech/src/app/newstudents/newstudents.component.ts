@@ -58,4 +58,9 @@ export class NewstudentsComponent {
       }
     );
   }
+
+  Accept(id: number) {
+    console.log(id)
+    this.studentService.acceptStudent(id).subscribe();
+  }
 }

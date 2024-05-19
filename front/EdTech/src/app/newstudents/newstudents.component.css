@@ -37,6 +37,9 @@
   
   .details {
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align items horizontally */
     bottom: 0;
     left: 0;
     width: 100%;
@@ -44,6 +47,17 @@
     text-align: center;
     background-color: rgba(255, 255, 255, 0.8);
   }
+  
+  .details .name, 
+  .details .major, 
+  .details button {
+    margin-bottom: 10px; /* Add space between elements */
+  }
+  
+  .details button:last-child {
+    margin-bottom: 0; /* Remove bottom margin for the last button */
+  }
+  
   
   .name {
     font-size: 1.5rem;
@@ -56,3 +70,21 @@
     color: #666666;
   }
   
+  .details button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Padding */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Default display */
+    font-size: 16px; /* Font size */
+    margin: 4px 2px; /* Margin */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+  }
+  
+  .details button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  } 

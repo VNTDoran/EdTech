@@ -1,0 +1,14 @@
+<div class="modal-ui">
+    <h2>Select Students</h2>
+    <ul class="majors-list">
+      <li *ngFor="let student of students" (click)="selectStudent(student)">
+        <input type="radio" name="selectedStudent" [checked]="isSelected(student)" />
+        <span>{{ student.name }}</span>
+      </li>
+    </ul>
+    <div class="buttons">
+      <button (click)="assignStudent()">Assign</button>
+      <button (click)="closeModal()">Cancel</button>
+    </div>
+  </div>
+  
