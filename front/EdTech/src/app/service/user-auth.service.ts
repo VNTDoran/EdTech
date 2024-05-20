@@ -39,8 +39,8 @@ export class UserAuthService {
   }
 
   public getName(): string {
-    return localStorage.getItem('name') ? localStorage.getItem('name') : '';
-  }
+  return localStorage.getItem('name')! || '';
+}
 
   public setName(name: string) {
     localStorage.setItem('name', name);
