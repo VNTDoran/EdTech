@@ -12,9 +12,9 @@ export const navbarData: INavbarData[] = [
     label: 'Classes',
   },
   {
-    routeLink: 'students',
+    routeLink: 'students-network',
     icon: 'fal fa-person-carry',
-    label: 'Students',
+    label: 'Students Network',
   },
   {
     routeLink: 'newstudents',

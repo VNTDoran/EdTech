@@ -1,0 +1,93 @@
+<div class="dialog" [style.height.px]="dialogWidth">
+  <div class="title">
+    <div class="topic"><b>Create post</b></div>
+    <div class="cross" (click)="closeDialog()">
+      <div aria-label="Close" class="" role="button" tabindex="0">
+        <i class="fas fa-times"></i>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="profile-info" routerLink="/profile">
+    <div class="profile-img">
+      <img src="../../assets/images/user.png" alt="" />
+    </div>
+    <div class="profile-name">
+      <b>{{username}}</b>
+    </div>
+  </div>
+
+  <div class="write-post">
+    <textarea
+      placeholder="What's on your mind?"
+      id="textarea"
+      [(ngModel)]="postContent"
+      name="postContent"
+      #postContentInput="ngModel"
+      required
+    ></textarea>
+  </div>
+  <div class="add" (dragover)="allowDrop($event)" (drop)="handleDrop($event)">
+    <div class="addContainer">
+      <div class="addText" *ngIf="!fileAttached  && attachedFiles.length === 0">Add to your post</div>
+      <div class="attached-files">
+        <div *ngFor="let file of attachedFiles" class="attached-file">
+          {{ file.name }}
+          <i class="fas fa-times" (click)="removeAttachedFile(file)"></i>
+        </div>
+        
+      </div>
+      <div class="icons">
+        <!-- Photo upload -->
+        <label for="photoInput" class="icon" title="Photo">
+          <i class="fas fa-image fa-lg" style="color: #63e6be"></i>
+        </label>
+        <input
+          type="file"
+          id="photoInput"
+          style="display: none"
+          accept="image/*"
+          (change)="handleFileInput($event, 'photo')"
+        />
+
+        <!-- Video upload -->
+        <label for="videoInput" class="icon" title="Video">
+          <i class="far fa-video fa-lg" style="color: #ffd43b"></i>
+        </label>
+        <input
+          type="file"
+          id="videoInput"
+          style="display: none"
+          accept="video/*"
+          (change)="handleFileInput($event, 'video')"
+        />
+
+        <!-- PDF upload -->
+        <label for="pdfInput" class="icon" title="PDF">
+          <i class="far fa-file-pdf fa-lg" style="color: #e21d1d"></i>
+        </label>
+        <input
+          type="file"
+          id="pdfInput"
+          style="display: none"
+          accept=".pdf"
+          (change)="handleFileInput($event, 'pdf')"
+        />
+
+        <!-- DOC upload -->
+        <label for="docInput" class="icon" title="DOC">
+          <i class="fal fa-file-word fa-lg" style="color: #0a379e"></i>
+        </label>
+        <input
+          type="file"
+          id="docInput"
+          style="display: none"
+          accept=".doc,.docx"
+          (change)="handleFileInput($event, 'doc')"
+        />
+      </div>
+    </div>
+  </div>
+
+  <button routerLink="/home" [disabled]="!postContent.trim()">Post</button>
+</div>

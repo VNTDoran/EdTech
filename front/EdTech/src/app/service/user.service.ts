@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserAuthService } from './user-auth.service';
-
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -38,6 +39,22 @@ export class UserService {
     localStorage.removeItem('jwtToken');
   }
 
+
+  becomeUnconfirmedUser(): Observable<void> {
+    const jwtToken = this.userAuthService.getToken();
+    const id = this.userAuthService.getId();
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${jwtToken}`
+    );
+    return this.http.put<void>(
+      `http://localhost:7777/api/students/assign-newstudent/${id}`,
+      { headers }
+    );
+  }
+
+
+
   public forUser() {
     return this.http.get(this.PATH_OF_API + '/forUser', {
       responseType: 'text',
@@ -50,7 +67,6 @@ export class UserService {
     });
   }
 
-  // @ts-ignore
   public roleMatch(allowedRoles: any): boolean {
     let isMatch = false;
     const userRoles: any = this.userAuthService.getRoles();
@@ -64,5 +80,6 @@ export class UserService {
         }
       }
     }
+    return true;
   }
 }

@@ -11,6 +11,7 @@ import { ClassesComponent } from './classes/classes.component';
 import { ClassDetailComponent } from './class-detail/class-detail.component';
 import { StudentsComponent } from './students/students.component';
 import { HomeComponent } from './home/home.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -30,7 +31,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
 
   { path: 'classes', component: ClassesComponent },
-  { path: 'media', component: MediaComponent },
+  { path: 'media', component: CreatePostComponent },
   { path: 'forbidden', component: ForbiddenComponent },
   { path: 'login', component: LoginComponent },
   { path: 'class/:id', component: ClassDetailComponent },

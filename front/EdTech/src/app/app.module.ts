@@ -26,6 +26,8 @@ import { ModalScheduleComponent } from './modal-schedule/modal-schedule.componen
 import { StudentsComponent } from './students/students.component';
 import { NewstudentsComponent } from './newstudents/newstudents.component';
 import { HomeComponent } from './home/home.component';
+import { CreatePostComponent } from './create-post/create-post.component';
+import { CreatePostDialogComponent } from './create-post-dialog/create-post-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { HomeComponent } from './home/home.component';
     StudentsComponent,
     NewstudentsComponent,
     HomeComponent,
+    CreatePostComponent,
+    CreatePostDialogComponent,
   ],
   imports: [
     BrowserModule,
