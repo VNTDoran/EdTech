@@ -22,7 +22,7 @@ export class CreatePostDialogComponent implements OnInit {
   constructor(private userService: UserService, private userAuth: UserAuthService) {}
 
   ngOnInit() {
-    username = this.userAuth.getName();
+    this.username = this.userAuth.getName();
   }
 
   closeDialog() {
