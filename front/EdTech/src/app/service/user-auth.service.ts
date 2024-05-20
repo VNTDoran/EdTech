@@ -39,8 +39,7 @@ export class UserAuthService {
   }
 
   public getName(): string {
-    var name = localStorage.getItem('name') ? localStorage.getItem('name') : '';
-    return name;
+    return localStorage.getItem('name') ? localStorage.getItem('name') : '';
   }
 
   public setName(name: string) {
