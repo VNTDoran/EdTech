@@ -38,6 +38,15 @@ export class UserAuthService {
     localStorage.setItem('id', id);
   }
 
+  public getName(): string {
+    var name = localStorage.getItem('name') ? localStorage.getItem('name') : '';
+    return name;
+  }
+
+  public setName(name: string) {
+    localStorage.setItem('name', name);
+  }
+
   public isLoggedInChanged(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
   }
