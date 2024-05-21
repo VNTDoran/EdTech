@@ -8,17 +8,17 @@ export const navbarData: INavbarData[] = [
   },
   {
     routeLink: 'classes',
-    icon: 'fal fa-file',
+    icon: 'fal fa-users-class',
     label: 'Classes',
   },
   {
     routeLink: 'students',
-    icon: 'fal fa-person-carry',
+    icon: 'fal fa-user-graduate',
     label: 'Students',
   },
   {
     routeLink: 'newstudents',
-    icon: 'fal fa-person-booth',
+    icon: 'fal fa-user',
     label: 'New Students',
   },
   // {

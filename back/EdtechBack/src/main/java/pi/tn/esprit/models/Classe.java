@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import pi.tn.esprit.models.Major;
+
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -19,6 +22,6 @@ public class Classe {
     @OneToOne(cascade = CascadeType.ALL)
     private ScheduleSheet scheduleSheet;
 
-    @ManyToOne
-    private Student student;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classe")
+    private Set<Student> students;
 }

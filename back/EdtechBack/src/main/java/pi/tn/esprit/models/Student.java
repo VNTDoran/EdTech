@@ -1,6 +1,7 @@
 package pi.tn.esprit.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class Student {
     private String name;
     private String cin;
     private int confirmed;
+    @JsonIgnore
     @ManyToOne
     private Classe classe;
 

@@ -3,8 +3,7 @@ package pi.tn.esprit.services;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pi.tn.esprit.models.Classe;
-import pi.tn.esprit.models.Student;
+import pi.tn.esprit.models.*;
 import pi.tn.esprit.repository.ClasseRepository;
 import pi.tn.esprit.repository.StudentRepository;
 
@@ -13,8 +12,10 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -23,6 +24,7 @@ public class StudentServiceImpl implements StudentService {
     StudentRepository studentRepository;
     @Autowired
     ClasseRepository classeRepository;
+
 
     @Autowired
     public StudentServiceImpl(StudentRepository studentRepository) {
@@ -72,7 +74,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> retrieveAllStudentsByClass(int classeId) {
-        return studentRepository.findStudentsByClasse_Id(2);
+        return studentRepository.findStudentsByClasse_Id(classeId);
     }
 
     @Override

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pi.tn.esprit.models.ERole;
 import pi.tn.esprit.models.Role;
+import pi.tn.esprit.models.Student;
 import pi.tn.esprit.models.User;
 import pi.tn.esprit.payload.request.LoginRequest;
 import pi.tn.esprit.payload.request.SignupRequest;
@@ -31,6 +32,7 @@ import pi.tn.esprit.payload.response.JwtResponse;
 import pi.tn.esprit.payload.response.MessageResponse;
 import pi.tn.esprit.payload.response.UserInfoResponse;
 import pi.tn.esprit.repository.RoleRepository;
+import pi.tn.esprit.repository.StudentRepository;
 import pi.tn.esprit.repository.UserRepository;
 import pi.tn.esprit.security.jwt.JwtUtils;
 import pi.tn.esprit.security.services.UserDetailsImpl;
@@ -47,6 +49,8 @@ public class AuthController {
 
   @Autowired
   RoleRepository roleRepository;
+  @Autowired
+  StudentRepository studentRepository;
 
   @Autowired
   PasswordEncoder encoder;
@@ -109,6 +113,12 @@ public class AuthController {
             roles.add(adminRole);
 
             break;
+          case "student":
+            Role newStdRole = roleRepository.findByName(ERole.ROLE_UNCONFIRMEDSTUDENT)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(newStdRole);
+
+            break;
           case "mod":
             Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -131,7 +141,10 @@ public class AuthController {
 
     user.setRoles(roles);
     userRepository.save(user);
-
+    if (roles.iterator().next().getName().equals(ERole.ROLE_UNCONFIRMEDSTUDENT)){
+      Student student = new Student(user.getUsername(),"",0);
+      studentRepository.save(student);
+    }
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
 

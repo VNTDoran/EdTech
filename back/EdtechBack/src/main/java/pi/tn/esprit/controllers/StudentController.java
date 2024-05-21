@@ -69,6 +69,8 @@ public class StudentController {
         String token = authtok.parseJwt(request);
         if (token != null && jwtUtils.validateToken(token)) {
             List<Student> students = studentService.retrieveAllStudentsByClass(classeId);
+            System.out.println(students);
+            System.out.println(classeId);
             return ResponseEntity.ok().body(students);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -165,12 +167,12 @@ public class StudentController {
     }
 
     @Operation(description = "Assign role to new student")
-    @PutMapping("/assign-newstudent/{userId}")
-    public ResponseEntity<Void> assignNewStudent(@PathVariable int userId, HttpServletRequest request) {
+    @PutMapping("/confirm-newstudent/{userId}")
+    public ResponseEntity<Void> confirmNewStudent(@PathVariable int userId, HttpServletRequest request) {
         String token = authtok.parseJwt(request);
+        System.out.println("ts");
         if (token != null && jwtUtils.validateToken(token)) {
-            userService.changeNewUserType(userId);
-            System.out.println("done");
+            userService.confirmNewUser(userId);
             return ResponseEntity.noContent().build();
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
