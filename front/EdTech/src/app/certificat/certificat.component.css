@@ -1,0 +1,22 @@
+/* Ajout de quelques styles personnalisés */
+.container {
+    padding-top: 50px;
+  }
+  
+  .list-group-item {
+    border-color: #dee2e6;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .btn {
+    transition: all 0.3s ease;
+  }
+  
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  

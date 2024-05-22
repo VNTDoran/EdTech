@@ -19,5 +19,7 @@ public class Certificate {
     private String description;
     private String logoLink;
     private int score;
+    @ManyToOne
+    private Major major;
 
 }

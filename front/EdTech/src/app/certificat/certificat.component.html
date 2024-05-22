@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-header bg-secondary text-white">
+            Add a New Certificate
+          </div>
+          <div class="card-body">
+            <form (submit)="addCertificate()">
+              <div class="form-group">
+                <label for="newCertificateName">Name</label>
+                <input type="text" class="form-control" id="newCertificateName" name="newCertificateName" [(ngModel)]="newCertificate.name" required>
+              </div>
+              <div class="form-group">
+                <label for="newCertificateDescription">Description</label>
+                <input type="text" class="form-control" id="newCertificateDescription" name="newCertificateDescription" [(ngModel)]="newCertificate.description">
+              </div>
+              <div class="form-group">
+                <label for="newCertificateLogoLink">Logo Link</label>
+                <input type="text" class="form-control" id="newCertificateLogoLink" name="newCertificateLogoLink" [(ngModel)]="newCertificate.logoLink" required>
+              </div>
+              <div class="form-group">
+                <label for="newCertificateScore">Score</label>
+                <input type="number" class="form-control" id="newCertificateScore" name="newCertificateScore" [(ngModel)]="newCertificate.score" required>
+              </div>
+              <button type="submit" class="btn btn-secondary btn-block">Add Certificate</button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header bg-secondary text-white">
+            Certificates
+          </div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let certificate of certificates; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <span class="font-weight-bold">{{ certificate.name }}</span>
+                <span>{{ certificate.description }}</span>
+              </div>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-secondary" (click)="startEditCertificate(i)">Edit</button>
+                <button class="btn btn-sm btn-danger" (click)="deleteCertificate(certificate.id)">Delete</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  

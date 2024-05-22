@@ -17,7 +17,8 @@ import java.util.Set;
         private int id;
         private String name;
         private String description;
-
+        @ManyToOne
+        private Certificate certificate;
         @OneToMany(cascade = CascadeType.ALL, mappedBy = "major")
         @JsonIgnore
         private Set<Classe> courses;
