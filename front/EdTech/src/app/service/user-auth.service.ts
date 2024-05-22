@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { RegisterRequest } from '../model/register-request'
-import { AuthenticationResponse } from '../model/authentication-response'
+import { RegisterRequest } from '../model/register-request';
+import { AuthenticationResponse } from '../model/authentication-response';
+import { AuthenticationRequest } from '../model/authentication-request';
 import {VerificationRequest} from '../model/verification-request';
 
 
@@ -51,11 +52,6 @@ export class UserAuthService {
     (`${this.baseUrl}/signup`, registerRequest);
   }
 
-  verifyCode(verificationRequest: VerificationRequest) {
-    return this.http.post<AuthenticationResponse>
-    (`${this.baseUrl}/verify`, verificationRequest);
-  }
-
   public isLoggedInChanged(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
   }
@@ -66,11 +62,23 @@ export class UserAuthService {
 
   public getToken(): string {
     // @ts-ignore
-    return localStorage.getItem('jwtToken');
+    return localStorage.getItem('token');
   }
 
   public clear() {
     localStorage.clear();
+  }
+
+  login(
+    authRequest: AuthenticationRequest
+  ) {
+    return this.http.post<AuthenticationResponse>
+    (`${this.baseUrl}/signin`, authRequest);
+  }
+
+  verifyCode(verificationRequest: VerificationRequest) {
+    return this.http.post<AuthenticationResponse>
+    (`${this.baseUrl}/verify`, verificationRequest);
   }
 
   public isLoggedIn(): boolean {

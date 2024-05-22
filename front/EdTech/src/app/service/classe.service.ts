@@ -20,6 +20,7 @@ export class ClasseService {
 
   getAllClasses(): Observable<Classe[]> {
     const jwtToken = this.userAuthService.getToken();
+    console.log(jwtToken)
     const headers = new HttpHeaders().set(
       'Authorization',
       `Bearer ${jwtToken}`
