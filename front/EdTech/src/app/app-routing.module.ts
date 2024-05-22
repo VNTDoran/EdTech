@@ -13,6 +13,7 @@ import { StudentsComponent } from './students/students.component';
 import { HomeComponent } from './home/home.component';
 import { JoinUniversityComponent } from './join-university/join-university.component';
 import { NewstudentsComponent } from './newstudents/newstudents.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -40,6 +41,9 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent },
   { path: 'students/:id', component: StudentsComponent },
   { path: 'students', component: StudentsComponent },
+  { path: 'register', component: RegisterComponent },
+
+  
 ];
 
 @NgModule({

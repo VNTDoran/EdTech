@@ -70,7 +70,7 @@ export class SidenavComponent implements OnInit {
 
   constructor(public router: Router, private userService: UserAuthService, private route: ActivatedRoute) {
     this.router.events.subscribe(url => {
-      const excludedRoutes = ['http://localhost:4200/','http://localhost:4200/home', 'http://localhost:4200/about', 'http://localhost:4200/login']; // Add more routes as needed
+      const excludedRoutes = ['http://localhost:4200/','http://localhost:4200/register','http://localhost:4200/home', 'http://localhost:4200/about', 'http://localhost:4200/login']; // Add more routes as needed
     const currentUrl = window.location.href;
     let isExcluded = false;
     for (const route of excludedRoutes) {

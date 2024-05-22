@@ -28,6 +28,8 @@ import pi.tn.esprit.models.Student;
 import pi.tn.esprit.models.User;
 import pi.tn.esprit.payload.request.LoginRequest;
 import pi.tn.esprit.payload.request.SignupRequest;
+import pi.tn.esprit.payload.request.VerificationRequest;
+import pi.tn.esprit.payload.response.AuthenticationResponse;
 import pi.tn.esprit.payload.response.JwtResponse;
 import pi.tn.esprit.payload.response.MessageResponse;
 import pi.tn.esprit.payload.response.UserInfoResponse;
@@ -36,6 +38,8 @@ import pi.tn.esprit.repository.StudentRepository;
 import pi.tn.esprit.repository.UserRepository;
 import pi.tn.esprit.security.jwt.JwtUtils;
 import pi.tn.esprit.security.services.UserDetailsImpl;
+import pi.tn.esprit.services.AuthenticationService;
+import pi.tn.esprit.twofa.TwoFactorAuthenticationService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -58,28 +62,16 @@ public class AuthController {
   @Autowired
   JwtUtils jwtUtils;
 
+  TwoFactorAuthenticationService twoFactorAuthenticationService;
+  @Autowired
+  AuthenticationService service;
+
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-    Authentication authentication = authenticationManager
-            .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+    var response = service.authenticate(loginRequest);
+    return ResponseEntity.ok(response);
 
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-
-    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
-    ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
-    String jwtToken = jwtUtils.generateTokenFromUsername(loginRequest.getUsername());
-    List<String> roles = userDetails.getAuthorities().stream()
-            .map(item -> item.getAuthority())
-            .collect(Collectors.toList());
-    System.out.println(roles);
-
-    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-            .body(new UserInfoResponse(userDetails.getId(),
-                    userDetails.getUsername(),
-                    userDetails.getEmail(),
-                    roles,jwtToken));
   }
 
   @PostMapping("/signup")
@@ -91,61 +83,15 @@ public class AuthController {
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
       return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
     }
+    System.out.println("//////////ddd");
 
-    // Create new user's account
-    User user = new User(signUpRequest.getUsername(),
-            signUpRequest.getEmail(),
-            encoder.encode(signUpRequest.getPassword()));
-
-    Set<String> strRoles = signUpRequest.getRole();
-    Set<Role> roles = new HashSet<>();
-
-    if (strRoles == null) {
-      Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-      roles.add(userRole);
-    } else {
-      strRoles.forEach(role -> {
-        switch (role) {
-          case "admin":
-            Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(adminRole);
-
-            break;
-          case "student":
-            Role newStdRole = roleRepository.findByName(ERole.ROLE_UNCONFIRMEDSTUDENT)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(newStdRole);
-
-            break;
-          case "mod":
-            Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(modRole);
-
-            break;
-          case "guest":
-            Role guestRole = roleRepository.findByName(ERole.ROLE_GUEST)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(guestRole);
-
-            break;
-          default:
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        }
-      });
+    if (null != service){
+      var response = service.register(signUpRequest);
+      System.out.println("//////////ee");
+      return ResponseEntity.ok(response);
     }
+    return ResponseEntity.accepted().build();
 
-    user.setRoles(roles);
-    userRepository.save(user);
-    if (roles.iterator().next().getName().equals(ERole.ROLE_UNCONFIRMEDSTUDENT)){
-      Student student = new Student(user.getUsername(),"",0);
-      studentRepository.save(student);
-    }
-    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
 
   @PostMapping("/signout")
@@ -153,5 +99,12 @@ public class AuthController {
     ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
             .body(new MessageResponse("You've been signed out!"));
+  }
+
+  @PostMapping("/verify")
+  public ResponseEntity<?> verifyCode(
+          @RequestBody VerificationRequest verificationRequest
+  ) {
+    return ResponseEntity.ok(service.verifyCode(verificationRequest));
   }
 }

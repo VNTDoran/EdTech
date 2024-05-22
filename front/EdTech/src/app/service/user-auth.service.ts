@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { RegisterRequest } from '../model/register-request'
+import { AuthenticationResponse } from '../model/authentication-response'
+import {VerificationRequest} from '../model/verification-request';
+
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class UserAuthService {
   constructor(private http: HttpClient) {}
   private isLoggedInSubject: Subject<boolean> = new Subject<boolean>();
+  baseUrl = 'http://localhost:7777/api/auth';
 
   public setRoles(roles: []) {
     localStorage.setItem('roles', JSON.stringify(roles));
@@ -36,6 +41,19 @@ export class UserAuthService {
 
   public setId(id: string) {
     localStorage.setItem('id', id);
+  }
+
+  register(
+    registerRequest: RegisterRequest
+  ) {
+    console.log("tried")
+    return this.http.post<AuthenticationResponse>
+    (`${this.baseUrl}/signup`, registerRequest);
+  }
+
+  verifyCode(verificationRequest: VerificationRequest) {
+    return this.http.post<AuthenticationResponse>
+    (`${this.baseUrl}/verify`, verificationRequest);
   }
 
   public isLoggedInChanged(): Observable<boolean> {
