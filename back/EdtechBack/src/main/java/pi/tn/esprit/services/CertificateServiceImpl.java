@@ -30,7 +30,11 @@ public class CertificateServiceImpl implements CertificateService{
     public Certificate retrieveCertificate(int certificateId) {
         return certificateRepository.findById(certificateId).orElse(null);
     }
-
+    public List<Certificate> getCertificatesByCategory(String category) {
+        // Delegate the call to the repository layer
+        System.out.println(category);
+        return certificateRepository.findCertificatesByCategories(category);
+    }
     @Override
     public Certificate addCertificate(Certificate certificate) {
         return certificateRepository.save(certificate);

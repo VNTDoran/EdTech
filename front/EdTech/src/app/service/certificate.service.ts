@@ -2,22 +2,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Certificate } from '../model/Certificate';
+import { Certificate } from '../model/certificate';
 import { Major } from '../model/major';
 import { ScheduleSheet } from '../model/schedule-sheet';
 import { UserAuthService } from './user-auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CertificateService {
-
   private baseUrl = 'http://localhost:7777/api/certificates';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getAllCertificates(): Observable<Certificate[]> {
+  retrieveAllCertificates(): Observable<Certificate[]> {
     return this.http.get<Certificate[]>(`${this.baseUrl}/retrieve-all`);
+  }
+  getCertificatesByCategory(category: string): Observable<Certificate[]> {
+    return this.http.get<Certificate[]>(
+      `${this.baseUrl}/retrieve-by-category/${category}`
+    );
   }
 
   getCertificateById(id: number): Observable<Certificate> {

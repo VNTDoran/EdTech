@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -21,5 +24,7 @@ public class Certificate {
     private int score;
     @ManyToOne
     private Major major;
+    @ElementCollection
+    private List<String> categories; // Add categories field
 
 }

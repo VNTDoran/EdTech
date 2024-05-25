@@ -15,5 +15,5 @@ public interface CertificateService {
     void assignMajorToCertificate(int certificateId, int majorId);
 
     void deassignMajorFromCertificate(int certificateId);
-
+     List<Certificate> getCertificatesByCategory(String category);
 }

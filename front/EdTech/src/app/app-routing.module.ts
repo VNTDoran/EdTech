@@ -14,10 +14,13 @@ import { HomeComponent } from './home/home.component';
 import { JoinUniversityComponent } from './join-university/join-university.component';
 import { NewstudentsComponent } from './newstudents/newstudents.component';
 import { CertificatComponent } from './certificat/certificat.component';
+import { CertificateDetailsComponent } from './certificate-details/certificate-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'detailsCertif/:id', component: CertificateDetailsComponent },
+
   {
     path: 'products',
     loadChildren: () =>
@@ -42,7 +45,6 @@ const routes: Routes = [
   { path: 'students/:id', component: StudentsComponent },
   { path: 'students', component: StudentsComponent },
   { path: 'certificat', component: CertificatComponent },
-
 ];
 
 @NgModule({

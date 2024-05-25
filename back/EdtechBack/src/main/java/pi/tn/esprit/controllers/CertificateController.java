@@ -53,6 +53,15 @@ public class CertificateController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+    @GetMapping("/retrieve-by-category/{category}")
+    public ResponseEntity<List<Certificate>> retrieveCertificatesByCategory(@PathVariable String category) {
+        List<Certificate> certificates = certificateService.getCertificatesByCategory(category);
+        if (certificates.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(certificates, HttpStatus.OK);
+        }
+    }
 
     @Operation(description = "Adds a new certificate")
     @PostMapping("/add")

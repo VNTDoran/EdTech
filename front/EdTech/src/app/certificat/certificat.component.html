@@ -1,51 +1,136 @@
-<div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="card mb-4">
-          <div class="card-header bg-secondary text-white">
-            Add a New Certificate
-          </div>
-          <div class="card-body">
-            <form (submit)="addCertificate()">
-              <div class="form-group">
-                <label for="newCertificateName">Name</label>
-                <input type="text" class="form-control" id="newCertificateName" name="newCertificateName" [(ngModel)]="newCertificate.name" required>
-              </div>
-              <div class="form-group">
-                <label for="newCertificateDescription">Description</label>
-                <input type="text" class="form-control" id="newCertificateDescription" name="newCertificateDescription" [(ngModel)]="newCertificate.description">
-              </div>
-              <div class="form-group">
-                <label for="newCertificateLogoLink">Logo Link</label>
-                <input type="text" class="form-control" id="newCertificateLogoLink" name="newCertificateLogoLink" [(ngModel)]="newCertificate.logoLink" required>
-              </div>
-              <div class="form-group">
-                <label for="newCertificateScore">Score</label>
-                <input type="number" class="form-control" id="newCertificateScore" name="newCertificateScore" [(ngModel)]="newCertificate.score" required>
-              </div>
-              <button type="submit" class="btn btn-secondary btn-block">Add Certificate</button>
-            </form>
-          </div>
+<div class="container mt-5">
+  <!-- Header with Add Certificate button and category dropdown -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-center text-primary">Certificates</h2>
+    <button
+      class="btn btn-outline-primary"
+      (click)="showAddForm = !showAddForm"
+    >
+      {{ showAddForm ? "Hide Form" : "Add Certificate" }}
+    </button>
+  </div>
+
+  <!-- Add Certificate form -->
+  <div *ngIf="showAddForm" class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="card-title text-center text-secondary">
+        {{ editIndex !== null ? "Edit Certificate" : "Add a New Certificate" }}
+      </h2>
+      <!-- Form for adding or editing certificates -->
+      <form
+        (ngSubmit)="
+          editIndex !== null ? handleEditCertificate() : addCertificate()
+        "
+      >
+        <!-- Certificate name -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input
+            id="name"
+            name="name"
+            class="form-control"
+            required
+            type="text"
+            [(ngModel)]="newCertificate.name"
+          />
         </div>
-        
-        <div class="card">
-          <div class="card-header bg-secondary text-white">
-            Certificates
+        <!-- Certificate description -->
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <input
+            id="description"
+            name="description"
+            class="form-control"
+            type="text"
+            [(ngModel)]="newCertificate.description"
+          />
+        </div>
+        <!-- Certificate logo link -->
+        <div class="mb-3">
+          <label for="logoLink" class="form-label">Logo Link</label>
+          <input
+            id="logoLink"
+            name="logoLink"
+            class="form-control"
+            required
+            type="text"
+            [(ngModel)]="newCertificate.logoLink"
+          />
+        </div>
+        <!-- Certificate score -->
+        <div class="mb-3">
+          <label for="score" class="form-label">Score</label>
+          <input
+            id="score"
+            name="score"
+            class="form-control"
+            required
+            type="number"
+            [(ngModel)]="newCertificate.score"
+          />
+        </div>
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary w-100">
+          {{ editIndex !== null ? "Save Changes" : "Add Certificate" }}
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dropdown to select category -->
+  <select
+    [(ngModel)]="selectedCategory"
+    (change)="filterByCategory(selectedCategory)"
+  >
+    <option value="">All Categories</option>
+    <option value="safe">safe</option>
+    <option value="category1">Category 2</option>
+    <!-- Add more options as needed for different categories -->
+  </select>
+
+  <!-- Display certificates -->
+  <div class="row">
+    <div *ngFor="let certificate of certificates" class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <!-- Certificate image -->
+        <img
+          [src]="certificate.logoLink"
+          class="card-img-top"
+          alt="{{ certificate.name }}"
+        />
+        <div class="card-body">
+          <!-- Certificate name -->
+          <h5 class="card-title text-primary">{{ certificate.name }}</h5>
+          <!-- Certificate description -->
+          <p class="card-text text-muted">{{ certificate.description }}</p>
+          <!-- Certificate score -->
+          <p class="card-text">
+            <strong>Score:</strong> {{ certificate.score }}
+          </p>
+          <!-- Buttons for Edit, Delete, and View Details -->
+          <div class="d-flex justify-content-between">
+            <button
+              class="btn btn-outline-warning"
+              (click)="startEditCertificate(certificate.id)"
+            >
+              Edit
+            </button>
+            <button
+              class="btn btn-outline-danger ml-2"
+              (click)="deleteCertificate(certificate.id)"
+            >
+              Delete
+            </button>
           </div>
-          <ul class="list-group list-group-flush">
-            <li *ngFor="let certificate of certificates; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <span class="font-weight-bold">{{ certificate.name }}</span>
-                <span>{{ certificate.description }}</span>
-              </div>
-              <div class="btn-group">
-                <button class="btn btn-sm btn-secondary" (click)="startEditCertificate(i)">Edit</button>
-                <button class="btn btn-sm btn-danger" (click)="deleteCertificate(certificate.id)">Delete</button>
-              </div>
-            </li>
-          </ul>
+          <!-- View Details button -->
+          <button
+            class="btn btn-info mt-2"
+            (click)="openCertificateDetails(certificate)"
+          >
+            View Details
+          </button>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

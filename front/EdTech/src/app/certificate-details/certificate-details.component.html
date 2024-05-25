@@ -1,0 +1,14 @@
+<div class="container mt-5" *ngIf="certificate">
+  <div class="card shadow-sm">
+    <img
+      [src]="certificate.logoLink"
+      class="card-img-top"
+      alt="{{ certificate.name }}"
+    />
+    <div class="card-body">
+      <h2 class="card-title text-primary">{{ certificate.name }}</h2>
+      <p class="card-text text-muted">{{ certificate.description }}</p>
+      <p class="card-text"><strong>Score:</strong> {{ certificate.score }}</p>
+    </div>
+  </div>
+</div>
