@@ -122,4 +122,13 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> retrieveAllNewStudents() {
         return studentRepository.findStudentByConfirmed(0);
     }
+   @Override
+    public void decrementerpoints(int studentId,int scoreCertif){
+       Optional<Student> optionalStudent = studentRepository.findById(studentId);
+       if (optionalStudent.isPresent()){
+           Student student = optionalStudent.get();
+           student.setPoints(student.getPoints()-scoreCertif);
+           studentRepository.save(student);
+       }
+    }
 }

@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
         this.userAuthService.setId(response.id);
         const role = response.roles[0];
         if (role === 'ROLE_ADMIN') {
+          this.userAuthService.setIsAdmin("true");
           this.router.navigate(['/dashboard']);
         } else {
           this.router.navigate(['/dashboard']);

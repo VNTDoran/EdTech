@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pi.tn.esprit.models.Certificate;
+import pi.tn.esprit.models.Comment;
 import pi.tn.esprit.security.jwt.AuthTokenFilter;
 import pi.tn.esprit.security.jwt.JwtUtils;
 import pi.tn.esprit.services.CertificateService;
@@ -25,6 +26,23 @@ public class CertificateController {
 
     @Autowired
     private JwtUtils jwtUtils;
+    @PostMapping("/{certificateId}/ratings")
+    public ResponseEntity<Certificate> addRating(@PathVariable int certificateId, @RequestBody int rating) {
+        Certificate certificate = certificateService.addRating(certificateId, rating);
+        return ResponseEntity.ok(certificate);
+    }
+
+    @PostMapping("/{certificateId}/comments")
+    public ResponseEntity<Comment> addComment(@PathVariable int certificateId, @RequestBody Comment comment) {
+        Comment newComment = certificateService.addComment(certificateId, comment.getUsername(), comment.getText());
+        return ResponseEntity.ok(newComment);
+    }
+
+    @GetMapping("/{certificateId}/comments")
+    public ResponseEntity<List<Comment>> getComments(@PathVariable int certificateId) {
+        List<Comment> comments = certificateService.getComments(certificateId);
+        return ResponseEntity.ok(comments);
+    }
 
     @Operation(description = "Retrieves all certificates")
     @GetMapping("/retrieve-all")

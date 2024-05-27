@@ -7,9 +7,9 @@ export const navbarData: INavbarData[] = [
     label: 'Dashboard',
   },
   {
-    routeLink: 'Certificat',
-    icon: 'fal fa-home',
-    label: 'Certificate',
+    routeLink: 'certificat',
+    icon: 'far fa-file-certificate',
+    label: 'Certificates',
   },
   {
     routeLink: 'classes',

@@ -19,6 +19,7 @@ import { CertificateDetailsComponent } from './certificate-details/certificate-d
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'certificat', component: CertificatComponent },
   { path: 'detailsCertif/:id', component: CertificateDetailsComponent },
 
   {

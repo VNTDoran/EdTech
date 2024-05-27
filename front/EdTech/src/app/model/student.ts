@@ -3,4 +3,5 @@ export interface Student {
   cin: string;
   name: string;
   description: string;
+  points: number;
 }

@@ -123,4 +123,15 @@ export class StudentService {
       headers,
     });
   }
+  decrementerPoints(studentId: number, scoreCertif: number):Observable<void> {
+   
+    const jwtToken = this.userAuthService.getToken();
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${jwtToken}`
+    );
+    return this.http.put<void>(`${this.apiUrl}/decrementer-points/${studentId}`,scoreCertif,{
+      headers,
+    });
+  }
 }

@@ -3,9 +3,11 @@ package pi.tn.esprit.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pi.tn.esprit.models.Certificate;
+import pi.tn.esprit.models.Comment;
 import pi.tn.esprit.models.Major;
 import pi.tn.esprit.models.ScheduleSheet;
 import pi.tn.esprit.repository.CertificateRepository;
+import pi.tn.esprit.repository.CommentRepository;
 import pi.tn.esprit.repository.MajorRepository;
 import pi.tn.esprit.repository.ScheduleSheetRepository;
 
@@ -20,6 +22,26 @@ public class CertificateServiceImpl implements CertificateService{
     private CertificateRepository certificateRepository;
     @Autowired
     private MajorRepository majorRepository;
+    @Autowired
+    private CommentRepository commentRepository;
+    public Certificate addRating(int certificateId, int rating) {
+        Certificate certificate = certificateRepository.findById(certificateId).orElse(null);
+        certificate.getRatings().add(rating);
+        return certificateRepository.save(certificate);
+    }
+
+    public Comment addComment(int certificateId, String username, String text) {
+        Certificate certificate = certificateRepository.findById(certificateId).orElse(null);
+        Comment comment = new Comment();
+        comment.setUsername(username);
+        comment.setText(text);
+        comment.setCertificate(certificate);
+        return commentRepository.save(comment);
+    }
+
+    public List<Comment> getComments(int certificateId) {
+        return commentRepository.findByCertificateId(certificateId);
+    }
 
     @Override
     public List<Certificate> retrieveAllCertificates() {

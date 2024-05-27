@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 import { Certificate } from '../model/certificate';
-import { Major } from '../model/major';
-import { ScheduleSheet } from '../model/schedule-sheet';
-import { UserAuthService } from './user-auth.service';
+import { Comment } from '../model/comment';
+
 
 @Injectable({
   providedIn: 'root',
@@ -38,5 +36,17 @@ export class CertificateService {
 
   modifyCertificate(certificate: Certificate): Observable<Certificate> {
     return this.http.put<Certificate>(`${this.baseUrl}/modify`, certificate);
+  }
+  getComments(certificateId: number): Observable<Comment[]> {
+    return this.http.get<Comment[]>(`${this.baseUrl}/${certificateId}/comments`);
+  }
+
+  addComment(certificateId: number, comment: Comment): Observable<Comment> {
+    return this.http.post<Comment>(`${this.baseUrl}/${certificateId}/comments`, comment);
+  }
+
+  addRating(certificateId: number, rating: number): Observable<Certificate> {
+    console.log(rating)
+    return this.http.post<Certificate>(`${this.baseUrl}/${certificateId}/ratings`, rating);
   }
 }

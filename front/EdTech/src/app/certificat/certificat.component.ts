@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CertificateService } from '../service/certificate.service';
+import { StudentService } from '../service/student.service';
 import { Certificate } from '../model/certificate';
 import { Router } from '@angular/router';
+import { UserAuthService } from '../service/user-auth.service';
 
 @Component({
   selector: 'app-certificat',
@@ -16,18 +18,26 @@ export class CertificatComponent implements OnInit {
     description: '',
     logoLink: '',
     score: 0,
+    category: '',
+    comments: [],
+    ratings: [],
   };
   editIndex: number | null = null;
   showAddForm: boolean = false;
-  selectedCategory: string = ''; // Track selected category
+  selectedCategory: string = ''; 
+  isAdmin: boolean = false;
 
   constructor(
     private certificateService: CertificateService,
-    private router: Router
+    private studentService: StudentService,
+    private authService:UserAuthService,
+    private router: Router,
+    private userService : UserAuthService
   ) {}
 
   ngOnInit(): void {
     this.getAllCertificates();
+    this.isAdmin = this.userService.getIsAdmin();
   }
 
   getAllCertificates(): void {
@@ -132,7 +142,31 @@ export class CertificatComponent implements OnInit {
       description: '',
       logoLink: '',
       score: 0,
+      category: '',
+      comments: [],
+      ratings: [],
     };
     this.showAddForm = false;
+  }
+  isScoreSufficient(score: number): boolean {
+    this.studentService.getStudentById(this.authService.getId()).subscribe(
+      (student) => {
+        return student.points >= score;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    return false;
+  }
+  getCertificate(score: number) {
+    this.studentService.getStudentById(this.authService.getId()).subscribe(
+      (student) => {
+        this.studentService.decrementerPoints(student.id,score)
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

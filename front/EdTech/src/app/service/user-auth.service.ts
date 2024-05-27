@@ -28,6 +28,12 @@ export class UserAuthService {
     this.updateIsLoggedInStatus();
   }
 
+  public setIsAdmin(bool : string) {
+    localStorage.setItem('isAdmin', bool);
+  }
+  public getIsAdmin():boolean {
+    return localStorage.getItem('isAdmin')==='true'? true : false;
+  }
   public getId() : number {
     var id = localStorage.getItem("id") ? localStorage.getItem("id") : "";
     var idInt: number = +id!;

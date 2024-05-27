@@ -2,7 +2,7 @@
   <!-- Header with Add Certificate button and category dropdown -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="text-center text-primary">Certificates</h2>
-    <button
+    <button *ngIf="isAdmin"
       class="btn btn-outline-primary"
       (click)="showAddForm = !showAddForm"
     >
@@ -109,13 +109,13 @@
           </p>
           <!-- Buttons for Edit, Delete, and View Details -->
           <div class="d-flex justify-content-between">
-            <button
+            <button *ngIf="isAdmin"
               class="btn btn-outline-warning"
               (click)="startEditCertificate(certificate.id)"
             >
               Edit
             </button>
-            <button
+            <button *ngIf="isAdmin"
               class="btn btn-outline-danger ml-2"
               (click)="deleteCertificate(certificate.id)"
             >
@@ -129,6 +129,7 @@
           >
             View Details
           </button>
+          <button *ngIf=" isScoreSufficient(certificate.score)" class="btn btn-primary" (click)="getCertificate(certificate.score)">Obtenir le Certificat</button>
         </div>
       </div>
     </div>
