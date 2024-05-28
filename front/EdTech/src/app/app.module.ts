@@ -28,6 +28,10 @@ import { NewstudentsComponent } from './newstudents/newstudents.component';
 import { HomeComponent } from './home/home.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { CreatePostDialogComponent } from './create-post-dialog/create-post-dialog.component';
+import { PostListComponent } from './post-list/post-list.component';
+import { EditPostDialogComponent } from './edit-post-dialog/edit-post-dialog.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { TimeAgoPipe } from './time-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -51,6 +55,10 @@ import { CreatePostDialogComponent } from './create-post-dialog/create-post-dial
     HomeComponent,
     CreatePostComponent,
     CreatePostDialogComponent,
+    PostListComponent,
+    EditPostDialogComponent,
+    ConfirmDialogComponent,
+    TimeAgoPipe,
   ],
   imports: [
     BrowserModule,

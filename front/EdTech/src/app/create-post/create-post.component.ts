@@ -8,6 +8,7 @@ import { CreatePostDialogComponent } from '../create-post-dialog/create-post-dia
   styleUrls: ['./create-post.component.css'],
 })
 export class CreatePostComponent implements OnInit {
+  posts!: any[];
   constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {}

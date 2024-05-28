@@ -13,7 +13,7 @@
       <img src="../../assets/images/user.png" alt="" />
     </div>
     <div class="profile-name">
-      <b>{{username}}</b>
+      <b>{{ username }}</b>
     </div>
   </div>
 
@@ -29,13 +29,14 @@
   </div>
   <div class="add" (dragover)="allowDrop($event)" (drop)="handleDrop($event)">
     <div class="addContainer">
-      <div class="addText" *ngIf="!fileAttached  && attachedFiles.length === 0">Add to your post</div>
+      <div class="addText" *ngIf="!fileAttached && attachedFiles.length === 0">
+        Add to your post
+      </div>
       <div class="attached-files">
         <div *ngFor="let file of attachedFiles" class="attached-file">
           {{ file.name }}
           <i class="fas fa-times" (click)="removeAttachedFile(file)"></i>
         </div>
-        
       </div>
       <div class="icons">
         <!-- Photo upload -->
@@ -89,5 +90,5 @@
     </div>
   </div>
 
-  <button routerLink="/home" [disabled]="!postContent.trim()">Post</button>
+  <button [disabled]="!postContent.trim()" (click)="submitPost()">Post</button>
 </div>
