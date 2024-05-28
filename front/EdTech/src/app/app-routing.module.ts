@@ -11,6 +11,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { LoginComponent } from './login/login.component';
 import { ClassesComponent } from './classes/classes.component';
 import { ClassDetailComponent } from './class-detail/class-detail.component';
+import {ClubsComponent} from "./clubs/clubs.component";
+import { EventComponent } from './event/event.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -26,7 +28,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./coupens/coupens.module').then((m) => m.CoupensModule),
   },
-  { path: '**', component: LoginComponent },
+
   { path: 'pages', component: PagesComponent },
   { path: 'classes', component: ClassesComponent },
   { path: 'media', component: MediaComponent },
@@ -35,6 +37,9 @@ const routes: Routes = [
   { path: 'class/:id', component: ClassDetailComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'students', component: SettingsComponent },
+  { path: 'clubs', component: ClubsComponent},
+  { path: 'events', component: EventComponent},
+  { path: '**', component: LoginComponent },
 ];
 
 @NgModule({
