@@ -47,13 +47,19 @@ public class PostController {
     @Operation(description = "Retrieves all posts")
     @GetMapping("/retrieve-all-posts")
     public ResponseEntity<List<Post>> retrieveAllPosts(HttpServletRequest request) {
-        String token = authtok.parseJwt(request);
-        if (token != null && jwtUtils.validateToken(token)) {
-            List<Post> posts = postService.getAllPosts();
-            System.out.println(posts);
-            return ResponseEntity.ok().body(posts);
-        } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        try {
+            String token = authtok.parseJwt(request);
+            if (token != null && jwtUtils.validateToken(token)) {
+                List<Post> posts = postService.getAllPosts();
+                System.out.println(posts);  // Logging for debugging
+                return ResponseEntity.ok().body(posts);
+            } else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+            // Log the exception
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

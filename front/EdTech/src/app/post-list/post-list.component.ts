@@ -29,12 +29,14 @@ export class PostListComponent implements OnInit {
   }
 
   loadPosts() {
+    console.log('Fetching posts...');
     this.postService.getAllPosts().subscribe(
       (posts: Post[]) => {
+        console.log('Posts fetched successfully:', posts);
         this.posts = posts.map((post) => ({
           ...post,
           showEllipsisMenu: false,
-          comments: []
+          comments: [] // Initialize comments array for each post
         }));
         this.posts.forEach(post => this.loadComments(post));
       },
@@ -43,30 +45,34 @@ export class PostListComponent implements OnInit {
       }
     );
   }
-
+  
   loadComments(post: Post) {
+    console.log(`Loading comments for post ${post.id}`);
     this.commentService.getCommentsByPostId(post.id).subscribe(
       (comments: Comment[]) => {
+        console.log(`Comments for post ${post.id}:`, comments);
         post.comments = comments;
       },
       (error) => {
-        console.error('Error loading comments:', error);
+        console.error(`Error loading comments for post ${post.id}:`, error);
       }
     );
   }
-
+  
   addComment(post: Post, commentContent: string) {
     const comment: Partial<Comment> = { content: commentContent };
+    console.log(`Adding comment to post ${post.id}:`, comment);
     this.commentService.addComment(post.id, comment).subscribe(
       (newComment: Comment) => {
+        console.log(`Comment added to post ${post.id}:`, newComment);
         post.comments.unshift(newComment); // Add the new comment to the top of the comments array
       },
       (error) => {
-        console.error('Error adding comment:', error);
+        console.error(`Error adding comment to post ${post.id}:`, error);
       }
     );
   }
-
+  
   deletePost(postId: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
@@ -78,8 +84,8 @@ export class PostListComponent implements OnInit {
       if (result) {
         this.postService.deletePost(postId).subscribe(
           () => {
-            // Reload posts after successful deletion
-            this.loadPosts();
+            // Remove the deleted post from the local array
+            this.posts = this.posts.filter((post) => post.id !== postId);
           },
           (error) => {
             console.error('Error deleting post:', error);
