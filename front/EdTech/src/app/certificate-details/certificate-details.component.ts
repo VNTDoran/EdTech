@@ -12,8 +12,9 @@ import { Comment } from '../model/comment';
 export class CertificateDetailsComponent implements OnInit {
   certificate: Certificate | null = null;
   comments: Comment[] = [];
-  newComment: Comment = {id:0, username: '', text: '' };
+  newComment: Comment = { id: 0, username: '', text: '' };
   averageRating: number = 0;
+  averageRatingStars: number[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -55,23 +56,24 @@ export class CertificateDetailsComponent implements OnInit {
     );
   }
 
-  addRating(rating: number): void {
-    const id: number = +this.route.snapshot.paramMap.get('id')!;
-    this.certificateService.addRating(id, rating).subscribe(
-      (certificate) => {
-        this.certificate = certificate;
-        this.calculateAverageRating();
-      },
-      (error) => console.log(error)
-    );
+  addRating(star: number): void {
+    if (this.certificate) {
+      this.certificate.ratings.push(star);
+      this.calculateAverageRating();
+    }
   }
 
   calculateAverageRating(): void {
-    if (this.certificate && this.certificate.ratings && this.certificate.ratings.length > 0) {
-      const total = this.certificate.ratings.reduce((acc, rating) => acc + rating, 0);
+    if (this.certificate && this.certificate.ratings.length > 0) {
+      const total = this.certificate.ratings.reduce(
+        (acc, rating) => acc + rating,
+        0
+      );
       this.averageRating = total / this.certificate.ratings.length;
+      this.averageRatingStars = Array(Math.round(this.averageRating)).fill(1);
     } else {
       this.averageRating = 0;
+      this.averageRatingStars = [];
     }
   }
 

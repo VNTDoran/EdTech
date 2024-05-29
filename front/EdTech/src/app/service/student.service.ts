@@ -33,7 +33,9 @@ export class StudentService {
       `Bearer ${jwtToken}`
     );
 
-    return this.http.get<Student[]>(`${this.apiUrl}/retrieve-allnew`, { headers });
+    return this.http.get<Student[]>(`${this.apiUrl}/retrieve-allnew`, {
+      headers,
+    });
   }
 
   getAllStudentsByClass(classId: number): Observable<Student[]> {
@@ -50,7 +52,7 @@ export class StudentService {
   }
 
   getStudentById(id: number): Observable<Student> {
-    const url = `${this.apiUrl}/retrieve/${id}`;
+    const url = `${this.apiUrl}/retrievebyuserid/${id}`;
     return this.http.get<Student>(url);
   }
 
@@ -69,8 +71,6 @@ export class StudentService {
       headers,
     });
   }
-
-
 
   addStudent(student: Student): Observable<Student> {
     const jwtToken = this.userAuthService.getToken();
@@ -129,28 +129,32 @@ export class StudentService {
     );
   }
 
-
   acceptStudent(studentId: number): Observable<void> {
-    console.log(studentId)
+    console.log(studentId);
     const jwtToken = this.userAuthService.getToken();
     const headers = new HttpHeaders().set(
       'Authorization',
       `Bearer ${jwtToken}`
     );
-    return this.http.put<void>(`${this.apiUrl}/confirm-newstudent/${studentId}`, {
-      headers,
-    });
+    return this.http.put<void>(
+      `${this.apiUrl}/confirm-newstudent/${studentId}`,
+      {
+        headers,
+      }
+    );
   }
-  decrementerPoints(studentId: number, scoreCertif: number):Observable<void> {
-   
+  decrementerPoints(studentId: number, scoreCertif: number): Observable<void> {
     const jwtToken = this.userAuthService.getToken();
     const headers = new HttpHeaders().set(
       'Authorization',
       `Bearer ${jwtToken}`
     );
-    return this.http.put<void>(`${this.apiUrl}/decrementer-points/${studentId}`,scoreCertif,{
-      headers,
-    });
+    return this.http.put<void>(
+      `${this.apiUrl}/decrementer-points/${studentId}`,
+      scoreCertif,
+      {
+        headers,
+      }
+    );
   }
-
 }

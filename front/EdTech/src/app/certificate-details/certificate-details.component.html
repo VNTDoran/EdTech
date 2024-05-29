@@ -1,61 +1,88 @@
 <div class="container mt-5" *ngIf="certificate">
-  <!-- Comments Section -->
-  <div class="comments-section mt-4">
-      <h3 class="text-secondary">Comments</h3>
-      <div *ngFor="let comment of comments" class="comment mb-2">
-        <strong>{{ comment.username }}</strong>
-        <p>{{ comment.text }}</p>
-      </div>
-  
-      <div class="add-comment mt-3">
-        <h4 class="text-secondary">Add a Comment</h4>
-        <form (ngSubmit)="addComment()">
-          <div class="mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Your name"
-              [(ngModel)]="newComment.username"
-              name="username"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <textarea
-              class="form-control"
-              placeholder="Your comment"
-              [(ngModel)]="newComment.text"
-              name="text"
-              required
-            ></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
-    </div>
-  
-    <!-- Ratings Section -->
-    <div class="ratings-section mt-4">
-      <h3 class="text-secondary">Rate this Certificate</h3>
-      <div class="rating-buttons">
-        <button class="btn btn-outline-primary" *ngFor="let star of [1, 2, 3, 4, 5]" (click)="addRating(star)">
-          {{ star }} Star{{ star > 1 ? 's' : '' }}
-        </button>
-      </div>
-      <div class="average-rating mt-2">
-        <strong>Average Rating:</strong> {{ averageRating | number: '1.1-1' }}
-      </div>
-    </div>
   <div class="card shadow-sm">
-    <img
-      [src]="certificate.logoLink"
-      class="card-img-top"
-      alt="{{ certificate.name }}"
-    />
+    <div class="position-relative">
+      <img
+        [src]="certificate.logoLink"
+        class="card-img-top"
+        alt="{{ certificate.name }}"
+      />
+      <div
+        class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+      >
+        <h2 class="text-white">{{ certificate.name }}</h2>
+      </div>
+    </div>
     <div class="card-body">
-      <h2 class="card-title text-primary">{{ certificate.name }}</h2>
+      <h3 class="card-title text-primary">{{ certificate.name }}</h3>
       <p class="card-text text-muted">{{ certificate.description }}</p>
       <p class="card-text"><strong>Score:</strong> {{ certificate.score }}</p>
+    </div>
+  </div>
+
+  <!-- Ratings Section -->
+  <div class="ratings-section mt-4 p-4 bg-light rounded shadow-sm">
+    <h4 class="text-secondary mb-3">Rate this Certificate</h4>
+    <div class="rating-buttons d-flex justify-content-around">
+      <button
+        class="btn btn-outline-primary"
+        *ngFor="let star of [1, 2, 3, 4, 5]"
+        (click)="addRating(star)"
+      >
+        <i class="fa-solid fa-star"></i> {{ star }}
+      </button>
+    </div>
+    <div class="average-rating mt-3 text-center">
+      <strong>Average Rating:</strong>
+      <ng-container *ngFor="let star of averageRatingStars">
+        <i class="fas fa-star text-warning"></i>
+      </ng-container>
+      <ng-container *ngIf="averageRatingStars.length < 5">
+        <ng-container
+          *ngFor="let _ of [].constructor(5 - averageRatingStars.length)"
+        >
+          <i class="far fa-star"></i>
+        </ng-container>
+      </ng-container>
+      ({{ averageRating | number : "1.1-1" }})
+    </div>
+  </div>
+
+  <!-- Comments Section -->
+  <div class="comments-section mt-4 p-4 bg-light rounded shadow-sm">
+    <h4 class="text-secondary mb-3">Comments</h4>
+    <div
+      *ngFor="let comment of comments"
+      class="comment mb-2 p-2 border-bottom"
+    >
+      <strong>{{ comment.username }}</strong>
+      <p>{{ comment.text }}</p>
+    </div>
+
+    <div class="add-comment mt-3">
+      <h5 class="text-secondary">Add a Comment</h5>
+      <form (ngSubmit)="addComment()">
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Your name"
+            [(ngModel)]="newComment.username"
+            name="username"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <textarea
+            class="form-control"
+            placeholder="Your comment"
+            [(ngModel)]="newComment.text"
+            name="text"
+            required
+            rows="3"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Submit</button>
+      </form>
     </div>
   </div>
 </div>

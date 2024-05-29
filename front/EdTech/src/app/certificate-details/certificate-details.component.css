@@ -1,4 +1,4 @@
-.container {
+/* .container {
   max-width: 800px;
 }
 
@@ -21,4 +21,8 @@
 
 .img-fluid {
   margin-bottom: 15px;
+} */
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+  text-align: center;
 }

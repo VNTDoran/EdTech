@@ -107,6 +107,17 @@ public class StudentController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+    @Operation(description = "Retrieves a specific student by ID")
+    @GetMapping("/retrievebyuserid/{studentId}")
+    public ResponseEntity<Student> retrieveStudentbyUserId(@PathVariable Long studentId, HttpServletRequest request) {
+        String token = authtok.parseJwt(request);
+        if (token != null && jwtUtils.validateToken(token)) {
+            Student student = studentRepository.findStudentByUserId(studentId);
+            return student != null ? ResponseEntity.ok(student) : ResponseEntity.notFound().build();
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
 
     @Operation(description = "Retrieves a new meeting")
     @GetMapping("/retrievemeet/{time}")

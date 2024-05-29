@@ -24,21 +24,24 @@ export class CertificatComponent implements OnInit {
   };
   editIndex: number | null = null;
   showAddForm: boolean = false;
-  selectedCategory: string = ''; 
+  selectedCategory: string = '';
   isAdmin: boolean = false;
-  currentScore : number = 0;
+  currentScore: number = 0;
   constructor(
     private certificateService: CertificateService,
     private studentService: StudentService,
-    private authService:UserAuthService,
+    private authService: UserAuthService,
     private router: Router,
-    private userService : UserAuthService
+    private userService: UserAuthService
   ) {}
 
   ngOnInit(): void {
     this.getAllCertificates();
     this.isAdmin = this.userService.getIsAdmin();
-    if (!this.isAdmin){this.getStudentScore();}
+    if (!this.isAdmin) {
+      console.log('ffrffd');
+      this.getStudentScore();
+    }
   }
 
   getAllCertificates(): void {
@@ -83,10 +86,12 @@ export class CertificatComponent implements OnInit {
   }
 
   startEditCertificate(index: number): void {
-    if (index >= 0 && index < this.certificates.length) {
+    console.log(index);
+    if (index < this.certificates.length) {
       this.editIndex = index;
       this.newCertificate = { ...this.certificates[index] };
       this.showAddForm = true;
+      console.log('showwwwwwwwww');
     }
   }
 
@@ -153,6 +158,7 @@ export class CertificatComponent implements OnInit {
     this.studentService.getStudentById(this.authService.getId()).subscribe(
       (student) => {
         this.currentScore = student.points;
+        console.log(student);
       },
       (error) => {
         console.log(error);
@@ -162,7 +168,7 @@ export class CertificatComponent implements OnInit {
   getCertificate(score: number) {
     this.studentService.getStudentById(this.authService.getId()).subscribe(
       (student) => {
-        this.studentService.decrementerPoints(student.id,score)
+        this.studentService.decrementerPoints(student.id, score).subscribe();
       },
       (error) => {
         console.log(error);
