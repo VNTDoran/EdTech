@@ -41,7 +41,9 @@ export class LoginComponent {
     this.userAuthService.verifyCode(verifyRequest)
       .subscribe({
         next: (response) => {
-          console.log(response.accessToken)
+        this.userAuthService.setRoles(response.role!);
+        this.userAuthService.setToken(response.accessToken as string);
+        this.userAuthService.setId(response.id!);
           localStorage.setItem('token', response.accessToken as string);
           this.router.navigate(['dashboard']);
         }

@@ -22,6 +22,9 @@ public class Student {
     private String cin;
     private int confirmed;
     @JsonIgnore
+    @OneToOne
+    private User user;
+    @JsonIgnore
     @ManyToOne
     private Classe classe;
 

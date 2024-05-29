@@ -178,4 +178,16 @@ public class StudentController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+
+    @Operation(description = "Join us")
+    @PutMapping("/confirm-join/{userId}")
+    public ResponseEntity<Void> confirmJoin(@PathVariable int userId, HttpServletRequest request) {
+        String token = authtok.parseJwt(request);
+        if (token != null && jwtUtils.validateToken(token)) {
+            userService.joinUs(userId);
+            return ResponseEntity.noContent().build();
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
 }

@@ -48,4 +48,21 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    @Override
+    public void joinUs(int id) {
+        Optional<User> usr = userRepository.findById(id);
+        if (usr.isPresent()) {
+            User user = usr.get();
+            Set<Role> roles = new HashSet<>();
+            Role newStdRole = roleRepository.findByName(ERole.ROLE_UNCONFIRMEDSTUDENT)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(newStdRole);
+            Student student = new Student(user.getUsername(),"",0);
+            student.setUser(user);
+            studentRepository.save(student);
+            user.setRoles(roles);
+            userRepository.save(user);
+        }
+    }
+
 }

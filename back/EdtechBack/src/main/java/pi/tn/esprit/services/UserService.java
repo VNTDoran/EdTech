@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface UserService {
     void confirmNewUser(int id);
+    void joinUs(int id);
 }

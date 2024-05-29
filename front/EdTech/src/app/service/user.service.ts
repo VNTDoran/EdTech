@@ -48,7 +48,7 @@ export class UserService {
       `Bearer ${jwtToken}`
     );
     return this.http.put<void>(
-      `http://localhost:7777/api/students/assign-newstudent/${id}`,
+      `http://localhost:7777/api/students/confirm-join/${id}`,
       { headers }
     );
   }

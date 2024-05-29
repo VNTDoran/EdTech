@@ -83,11 +83,9 @@ public class AuthController {
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
       return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
     }
-    System.out.println("//////////ddd");
 
     if (null != service){
       var response = service.register(signUpRequest);
-      System.out.println("//////////ee");
       return ResponseEntity.ok(response);
     }
     return ResponseEntity.accepted().build();

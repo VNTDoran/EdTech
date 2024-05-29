@@ -43,6 +43,7 @@ const routes: Routes = [
   { path: 'students', component: StudentsComponent },
   { path: 'register', component: RegisterComponent },
 
+
   
 ];
 

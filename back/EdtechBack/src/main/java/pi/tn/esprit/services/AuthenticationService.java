@@ -47,8 +47,6 @@ public class AuthenticationService {
     private final TwoFactorAuthenticationService tfaService;
 
     public AuthenticationResponse register(SignupRequest request) {
-        System.out.println("//////////ddd");
-
         var user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -60,7 +58,7 @@ public class AuthenticationService {
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+            Role userRole = roleRepository.findByName(ERole.ROLE_GUEST)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         } else {
@@ -76,12 +74,6 @@ public class AuthenticationService {
                         Role newStdRole = roleRepository.findByName(ERole.ROLE_UNCONFIRMEDSTUDENT)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(newStdRole);
-
-                        break;
-                    case "mod":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
 
                         break;
                     case "guest":
@@ -168,6 +160,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateTokenFromUsername(user.getUsername());
         return AuthenticationResponse.builder()
                 .id(user.getId())
+                .role(user.getRoles().iterator().next().getName().name())
                 .username(user.getUsername())
                 .accessToken(jwtToken)
                 .build();

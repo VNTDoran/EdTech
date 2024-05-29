@@ -16,6 +16,7 @@ public class AuthenticationResponse {
 
     private Long id;
     private String username;
+    private String role;
     private String accessToken;
     private String refreshToken;
     private String secretImageUri;

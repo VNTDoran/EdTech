@@ -16,6 +16,8 @@ import { Router, ActivatedRoute, NavigationEnd, RouterEvent, Event } from '@angu
 import { fadeInOut, INavbarData } from './helper';
 import { navbarData } from './nav-data';
 import { navbarDataStudent } from './nav-data-student';
+import { navbarDataUncomf } from './nav-data-uncomfstudent';
+import { navbarDataTeacher } from './nav-data-teacher';
 import { navbarDataGuest } from './nav-data-guest';
 import { UserService } from '../service/user.service';
 import { UserAuthService } from '../service/user-auth.service';
@@ -81,11 +83,17 @@ export class SidenavComponent implements OnInit {
     }
 
     this.isNavbarVisible = !isExcluded;
-
+      console.log(this.userService.getRoles());
     if (this.userService.getRoles() === 'ROLE_ADMIN') {
       this.navData = navbarData;
     } else if (this.userService.getRoles() === 'ROLE_GUEST') {
       this.navData = navbarDataGuest;
+    }else if (this.userService.getRoles() === 'ROLE_UNCONFIRMEDSTUDENT') {
+      this.navData = navbarDataUncomf;
+    }else if (this.userService.getRoles() === 'ROLE_TEACHER') {
+      this.navData = navbarDataTeacher;
+    }else if (this.userService.getRoles() === 'ROLE_USER') {
+      this.navData = navbarDataStudent;
     }
     
     this.hidden = isExcluded;

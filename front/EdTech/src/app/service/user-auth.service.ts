@@ -15,22 +15,18 @@ export class UserAuthService {
   private isLoggedInSubject: Subject<boolean> = new Subject<boolean>();
   baseUrl = 'http://localhost:7777/api/auth';
 
-  public setRoles(roles: []) {
-    localStorage.setItem('roles', JSON.stringify(roles));
+  public setRoles(role : string) {
+    localStorage.setItem('roles',role);
     this.updateIsLoggedInStatus();
   }
 
   public getRoles(): string {
-    const rolesString = localStorage.getItem('roles');
-    if (rolesString) {
-      return JSON.parse(rolesString);
-    } else {
-      return '';
-    }
+    return localStorage.getItem('roles')!;
+    
   }
 
   public setToken(jwtToken: string) {
-    localStorage.setItem('jwtToken', jwtToken);
+    localStorage.setItem('token', jwtToken);
     this.updateIsLoggedInStatus();
   }
 
@@ -84,6 +80,6 @@ export class UserAuthService {
   public isLoggedIn(): boolean {
     const roles = this.getRoles();
     const token = this.getToken();
-    return !!roles && roles.length > 0 && !!token;
+    return !!roles && !!token;
   }
 }
