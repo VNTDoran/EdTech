@@ -1,0 +1,36 @@
+<quiz-navbar></quiz-navbar>
+
+<div class="row">
+  <ng-container *ngIf="quizzes.length > 0; else noQuizzes">
+  <div class="col-6" *ngFor="let quiz of quizzes">
+    <ng-container
+      *ngTemplateOutlet="quizCard; context: { quiz }"
+    ></ng-container>
+  </div>
+</ng-container>
+</div>
+
+<ng-template #quizCard let-quiz="quiz">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="mb-0">Quiz : #{{ quiz.id }}</h2>
+    </div>
+
+    <div class="card-body">
+      <p class="badge text-dark border fs-6">{{quiz.category}}</p>
+      <h3 class="text-center fw-bold fs-5">{{ quiz.title }}</h3>
+      <div class="text-end text-secondary fs-6">Your Score: <span class="badge badge-success bg-success fs-5">N/A</span></div>
+      
+    </div>
+
+    <div class="card-footer">
+      <a class="btn btn-sm btn-secondary me-1" [routerLink]="'/quiz/play/' + quiz.id"> Play </a>
+      <button disabled class="btn btn-sm btn-danger">Delete</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #noQuizzes>
+  <div class="col-12 fs-4 text-secondary text-center mt-4"><p>No quizzes available.</p>
+  </div>
+</ng-template>
