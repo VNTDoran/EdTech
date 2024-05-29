@@ -96,7 +96,7 @@ public class StudentServiceImpl implements StudentService {
                 "     } \r\n" +
                 "  \r\n" +
                 " }";
-        String bearerToken = "eyJzdiI6IjAwMDAwMSIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6Ijc1ZDZhM2MzLTZkZDktNDNlYy1iYWE5LTA4NTRjOTQ4ZjNkYiJ9.eyJ2ZXIiOjksImF1aWQiOiIxYjNlZmQyYWU0ODg0NTNkN2I4ZWEwZTVkMTc0NGI2NCIsImNvZGUiOiJvbE9tNGhpaVpjWTJiQ1VDZnR1U05PTnlDUUV3SkdKWUEiLCJpc3MiOiJ6bTpjaWQ6MHhkd3JkV2tRd2E2OEtSMmI3WWlJdyIsImdubyI6MCwidHlwZSI6MCwidGlkIjowLCJhdWQiOiJodHRwczovL29hdXRoLnpvb20udXMiLCJ1aWQiOiJ3elY5b3RvRlJzeXNrVE1NdVIyaG9nIiwibmJmIjoxNzEzOTY4NjI1LCJleHAiOjE3MTM5NzIyMjUsImlhdCI6MTcxMzk2ODYyNSwiYWlkIjoiaHJ2R3JsX1VRcS1Fa0d4YVFqWVBiZyJ9.g2aFrJeuLCnaJRwCWPgDRyjKMRvc_MWwLL7CzIe2UjZUDPK7q_8Ux_Q9pr6cKfwER6JATyvEkbWVk2o2POwsBQ";
+        String bearerToken = "eyJzdiI6IjAwMDAwMSIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6ImNhNmQ5NDdiLWY3YTktNGQ5NC05N2FmLWRmOWIzNjNhMGRjOCJ9.eyJ2ZXIiOjksImF1aWQiOiIxYjNlZmQyYWU0ODg0NTNkN2I4ZWEwZTVkMTc0NGI2NCIsImNvZGUiOiJ6TjluZ3ZERjhpcDVqSHhhOExKVGdLVzdlZjlEZzZSanciLCJpc3MiOiJ6bTpjaWQ6MHhkd3JkV2tRd2E2OEtSMmI3WWlJdyIsImdubyI6MCwidHlwZSI6MCwidGlkIjowLCJhdWQiOiJodHRwczovL29hdXRoLnpvb20udXMiLCJ1aWQiOiJ3elY5b3RvRlJzeXNrVE1NdVIyaG9nIiwibmJmIjoxNzE2OTgxNjA3LCJleHAiOjE3MTY5ODUyMDcsImlhdCI6MTcxNjk4MTYwNywiYWlkIjoiaHJ2R3JsX1VRcS1Fa0d4YVFqWVBiZyJ9.DegYwo2s6b2I3NbOXdZTUvOc2ViwdbsMRNgCHmc68-1kdfRDto9C5M1LCkZ7Yx8vOiyu-Fp4H_fyIUTrWd17Qg";
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.zoom.us/v2/users/me/meetings"))

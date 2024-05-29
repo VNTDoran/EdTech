@@ -32,7 +32,7 @@ public class Mailer {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-            message.setSubject("No More Stock Alert");
+            message.setSubject("Zoom meeting");
 
             String htmlContent = generateHtmlContent(time,link);
 
