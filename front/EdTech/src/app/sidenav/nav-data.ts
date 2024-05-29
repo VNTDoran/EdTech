@@ -21,6 +21,11 @@ export const navbarData: INavbarData[] = [
     icon: 'fal fa-user',
     label: 'New Students',
   },
+  {
+    routeLink: 'certificat',
+    icon: 'far fa-file-certificate',
+    label: 'Certificates',
+  },
   // {
   //   routeLink: 'products',
   //   icon: 'fal fa-box-open',
@@ -56,31 +61,6 @@ export const navbarData: INavbarData[] = [
   //     },
   //   ],
   // },
-  {
-    routeLink: 'statistics',
-    icon: 'fal fa-chart-bar',
-    label: 'Statistics',
-  },
-  {
-    routeLink: 'coupens',
-    icon: 'fal fa-tags',
-    label: 'Coupens',
-    items: [
-      {
-        routeLink: 'coupens/list',
-        label: 'List Coupens',
-      },
-      {
-        routeLink: 'coupens/create',
-        label: 'Create Coupens',
-      },
-    ],
-  },
-  {
-    routeLink: 'media',
-    icon: 'fal fa-camera',
-    label: 'Media',
-  },
   {
     routeLink: 'settings',
     icon: 'fal fa-cog',

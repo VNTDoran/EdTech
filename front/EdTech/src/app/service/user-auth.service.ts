@@ -24,6 +24,12 @@ export class UserAuthService {
     return localStorage.getItem('roles')!;
     
   }
+  public setIsAdmin(bool : string) {
+    localStorage.setItem('isAdmin', bool);
+  }
+  public getIsAdmin():boolean {
+    return localStorage.getItem('isAdmin')==='true'? true : false;
+  }
 
   public setToken(jwtToken: string) {
     localStorage.setItem('token', jwtToken);

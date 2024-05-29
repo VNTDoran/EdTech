@@ -63,6 +63,19 @@ public class StudentController {
         }
     }
 
+    @Operation(description = "decrementer points ")
+    @PutMapping("/decrementer-points/{studentId}")
+    public ResponseEntity<Void> decrementerPoints(@PathVariable int studentId,@RequestBody int scoreCertif, HttpServletRequest request) {
+        String token = authtok.parseJwt(request);
+        if (token != null && jwtUtils.validateToken(token)) {
+            studentService.decrementerpoints(studentId, scoreCertif);
+            return ResponseEntity.noContent().build();
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+
     @Operation(description = "Retrieves all students by class")
     @GetMapping("/retrieve-all-by-class/{classeId}")
     public ResponseEntity<List<Student>> retrieveAllStudentsByClass(@PathVariable int classeId,HttpServletRequest request) {
@@ -80,6 +93,7 @@ public class StudentController {
     @Operation(description = "Retrieves a specific student by ID")
     @GetMapping("/retrieve/{studentId}")
     public ResponseEntity<Student> retrieveStudent(@PathVariable int studentId, HttpServletRequest request) {
+        System.out.println("test");
         String token = authtok.parseJwt(request);
         if (token != null && jwtUtils.validateToken(token)) {
             Student student = studentService.retrieveStudent(studentId);

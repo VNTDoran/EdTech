@@ -21,6 +21,7 @@ public class Student {
     private String name;
     private String cin;
     private int confirmed;
+    private int points;
     @JsonIgnore
     @OneToOne
     private User user;

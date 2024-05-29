@@ -43,7 +43,12 @@ export class LoginComponent {
         next: (response) => {
         this.userAuthService.setRoles(response.role!);
         this.userAuthService.setToken(response.accessToken as string);
-        this.userAuthService.setId(response.id!);
+          this.userAuthService.setId(response.id!);
+          if (response.role == 'ROLE_ADMIN') {
+            this.userAuthService.setIsAdmin("true");
+          } else {
+            this.userAuthService.setIsAdmin("false");
+          }
           localStorage.setItem('token', response.accessToken as string);
           this.router.navigate(['dashboard']);
         }

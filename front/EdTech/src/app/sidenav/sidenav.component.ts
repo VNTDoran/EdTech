@@ -83,7 +83,6 @@ export class SidenavComponent implements OnInit {
     }
 
     this.isNavbarVisible = !isExcluded;
-      console.log(this.userService.getRoles());
     if (this.userService.getRoles() === 'ROLE_ADMIN') {
       this.navData = navbarData;
     } else if (this.userService.getRoles() === 'ROLE_GUEST') {

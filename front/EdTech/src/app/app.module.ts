@@ -29,6 +29,8 @@ import { HomeComponent } from './home/home.component';
 import { JoinUniversityComponent } from './join-university/join-university.component';
 import { ModalStudentComponent } from './modal-student/modal-student.component';
 import { RegisterComponent } from './register/register.component';
+import { CertificatComponent } from './certificat/certificat.component';
+import { CertificateDetailsComponent } from './certificate-details/certificate-details.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { RegisterComponent } from './register/register.component';
     JoinUniversityComponent,
     ModalStudentComponent,
     RegisterComponent,
+    CertificatComponent,
+    CertificateDetailsComponent,
   ],
   imports: [
     BrowserModule,

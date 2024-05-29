@@ -1,0 +1,24 @@
+.container {
+  max-width: 800px;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  font-size: 1.5rem;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-footer {
+  padding: 15px;
+  background-color: #f8f9fa;
+}
+
+.img-fluid {
+  margin-bottom: 15px;
+}

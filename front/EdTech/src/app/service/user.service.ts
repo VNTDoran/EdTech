@@ -36,7 +36,8 @@ export class UserService {
   }
   private clearUserData(): void {
     localStorage.removeItem('roles');
-    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('token');
+    localStorage.removeItem('isAdmin');
   }
 
 

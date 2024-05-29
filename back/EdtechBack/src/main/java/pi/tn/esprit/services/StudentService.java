@@ -20,4 +20,5 @@ public interface StudentService {
     String retrieveNewMeeting(String time);
 
     List<Student> retrieveAllNewStudents();
+    void decrementerpoints(int studentId, int scoreCertif);
 }
