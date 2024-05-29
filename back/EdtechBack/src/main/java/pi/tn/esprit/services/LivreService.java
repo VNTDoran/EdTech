@@ -9,6 +9,6 @@ public interface LivreService {
     Livre retrieveLivre(Long LivreId);
     Livre addLivre(Livre Livre);
     void removeLivre(Long LivreId);
-
+    Livre incrementScore(Long id);
   
 }

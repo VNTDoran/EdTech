@@ -20,7 +20,6 @@ public class Livre {
     private String isbn;
     private Date datePublication;
     private int exemplairesDisponibles;
+    private int score = 0;
 
-    @ManyToMany(mappedBy = "livres")
-    private List<User> user;
 }

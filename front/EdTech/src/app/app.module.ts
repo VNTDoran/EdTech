@@ -28,6 +28,11 @@ import { NewstudentsComponent } from './newstudents/newstudents.component';
 import { HomeComponent } from './home/home.component';
 import { JoinUniversityComponent } from './join-university/join-university.component';
 import { ModalStudentComponent } from './modal-student/modal-student.component';
+import { LivresComponent } from './bibliotheque/livres/livres.component';
+import { DocumentsComponent } from './bibliotheque/documents/documents.component';
+import { BibliothequeComponent } from './bibliotheque/bibliotheque.component';
+import { LivreDetailsComponent } from './livre-details/livre-details.component';
+import { DocumentDetailsComponent } from './document-details/document-details.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +56,11 @@ import { ModalStudentComponent } from './modal-student/modal-student.component';
     HomeComponent,
     JoinUniversityComponent,
     ModalStudentComponent,
+    LivresComponent,
+    DocumentsComponent,
+    BibliothequeComponent,
+    LivreDetailsComponent,
+    DocumentDetailsComponent,
   ],
   imports: [
     BrowserModule,

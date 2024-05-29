@@ -13,6 +13,11 @@ import { StudentsComponent } from './students/students.component';
 import { HomeComponent } from './home/home.component';
 import { JoinUniversityComponent } from './join-university/join-university.component';
 import { NewstudentsComponent } from './newstudents/newstudents.component';
+import { LivresComponent} from './bibliotheque/livres/livres.component';
+import { DocumentsComponent} from "./bibliotheque/documents/documents.component";
+import { BibliothequeComponent } from './bibliotheque/bibliotheque.component';
+import { LivreDetailsComponent } from "./livre-details/livre-details.component";
+import  {DocumentDetailsComponent } from "./document-details/document-details.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -40,6 +45,11 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent },
   { path: 'students/:id', component: StudentsComponent },
   { path: 'students', component: StudentsComponent },
+  { path: 'livres', component: LivresComponent },
+  { path: 'documents', component: DocumentsComponent},
+  {path:'bibliotheque', component:BibliothequeComponent},
+  {path: 'livre/:id', component: LivreDetailsComponent },
+  {path: 'document/:id', component: DocumentDetailsComponent },
 ];
 
 @NgModule({

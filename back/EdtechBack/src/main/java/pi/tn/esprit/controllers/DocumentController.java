@@ -77,5 +77,10 @@ public class DocumentController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+
+    @PostMapping("/increment-score/{id}")
+    public Document incrementScore(@PathVariable Long id) {
+        return DocumentService.incrementScore(id);
+    }
 }
 

@@ -42,4 +42,15 @@ public class DocumentServiceImpl implements DocumentService {
     public void removeDocument(Long DocumentId) {
         DocumentRepository.deleteById(DocumentId);
     }
+
+    @Override
+    public Document incrementScore(Long id) {
+        Document document = DocumentRepository.findById(id).orElse(null);
+        if (document != null) {
+            document.setScore(document.getScore() + 1);
+            return DocumentRepository.save(document);
+        }
+        return null;
+    }
+
 }

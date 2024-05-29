@@ -40,4 +40,12 @@ public class LivreServiceImpl implements LivreService {
     public void removeLivre(Long LivreId) {
         LivreRepository.deleteById(LivreId);
     }
+    public Livre incrementScore(Long id) {
+        Livre livre = LivreRepository.findById(id).orElse(null);
+        if (livre != null) {
+            livre.setScore(livre.getScore() + 1);
+            return LivreRepository.save(livre);
+        }
+        return null;
+    }
 }

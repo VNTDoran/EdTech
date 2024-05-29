@@ -77,5 +77,10 @@ public class LivreController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+    @PostMapping("/increment-score/{id}")
+    public Livre incrementScore(@PathVariable Long id) {
+        return LivreService.incrementScore(id);
+    }
+
 }
 

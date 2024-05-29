@@ -22,13 +22,7 @@ public class Document {
         private String titre;
         private String type; // PDF, Word, etc.
         private Date datePublication;
-
-    @ManyToMany(mappedBy = "documents")
-    private List<User> userss;
-
-
-
-
+        private int score = 0;
 
 }
 
