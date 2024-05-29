@@ -1,0 +1,58 @@
+/* Confirm Dialog Container */
+.confirm-dialog {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 700px;
+    margin: 0 auto;
+  }
+  
+  /* Heading */
+  .confirm-dialog h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight:400;
+    color: #333333;
+  }
+  
+  /* Button Container */
+  .confirm-dialog .buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px; /* Increased margin top for added space */
+  }
+  
+  /* Button Styles */
+  .confirm-dialog button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  /* OK Button */
+  .confirm-dialog button.ok {
+    background-color: #ff5c5c; /* Red color for the Yes button */
+    color: #ffffff;
+  }
+  
+  .confirm-dialog button.ok:hover {
+    background-color: #d23f3f; /* Darker red color on hover */
+  }
+  
+  /* Cancel Button */
+  .confirm-dialog button.cancel {
+    background-color: #f0f0f0; /* Light gray color for the No button */
+    color: #333333;
+    margin-left: 10px;
+  }
+  
+  .confirm-dialog button.cancel:hover {
+    background-color: #dddddd; /* Slightly darker gray color on hover */
+  }
+  

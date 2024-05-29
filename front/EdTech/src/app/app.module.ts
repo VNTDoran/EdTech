@@ -31,6 +31,13 @@ import { ModalStudentComponent } from './modal-student/modal-student.component';
 import { RegisterComponent } from './register/register.component';
 import { CertificatComponent } from './certificat/certificat.component';
 import { CertificateDetailsComponent } from './certificate-details/certificate-details.component';
+import { CreatePostComponent } from './create-post/create-post.component';
+import { CreatePostDialogComponent } from './create-post-dialog/create-post-dialog.component';
+import { PostListComponent } from './post-list/post-list.component';
+import { EditPostDialogComponent } from './edit-post-dialog/edit-post-dialog.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { TimeAgoPipe } from './time-ago.pipe';
+import { NetworkComponent } from './network/network.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +64,13 @@ import { CertificateDetailsComponent } from './certificate-details/certificate-d
     RegisterComponent,
     CertificatComponent,
     CertificateDetailsComponent,
+    CreatePostComponent,
+    CreatePostDialogComponent,
+    PostListComponent,
+    EditPostDialogComponent,
+    ConfirmDialogComponent,
+    TimeAgoPipe,
+    NetworkComponent,
   ],
   imports: [
     BrowserModule,

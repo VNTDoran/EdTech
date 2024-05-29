@@ -1,0 +1,164 @@
+/* Style for the post list */
+.post-list {
+  display: block;
+}
+
+/* Style for the post card */
+.post-card {
+  width: 700px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  margin-bottom: 3%;
+  position: relative;
+}
+
+/* Style for the profile image and card header */
+.profile-img {
+  display: flex;
+  align-items: center;
+}
+
+.profile-img img {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+/* Style for the ellipsis menu */
+.ellipsis-menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 20px;
+}
+
+.ellipsis-icon {
+  cursor: pointer;
+  border-radius: 50%; /* Make it circular */
+  background-color: #f0f0f0;
+  padding: 5px; /* Add padding for spacing */
+}
+
+/* Style for the dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: 60%;
+  left: 40%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+/* Show the dropdown menu when the ellipsis icon is clicked */
+.dropdown-menu.active {
+  display: block;
+}
+
+/* Style for the dropdown items */
+.dropdown-item {
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Style for the dropdown items on hover */
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Style for the card body */
+.card-body {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.card-body p {
+  margin: 0;
+}
+
+/* Style for the reaction counts */
+.reaction-counts {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reaction-counts p {
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Style for the reaction options */
+.reaction-options {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+/* Style for the reaction button */
+.reaction-btn {
+  display: flex;
+  align-items: center;
+  padding: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border-radius: 20px;
+}
+
+/* Style for the reaction button icon */
+.reaction-btn .icon {
+  margin-right: 5px;
+}
+
+.reaction-btn .icon i {
+  font-size: 18px;
+}
+
+/* Style for the liked icon */
+.icon.liked i {
+  color: red;
+}
+
+/* Style for the comment section */
+.comment-section {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.comment-section input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.comment-section button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.comment-section button:hover {
+  background-color: #0056b3;
+}
+.post-date {
+  font-size: 0.8rem;
+  color: #999; /* Light gray color for date */
+  margin-left: 10px;
+}

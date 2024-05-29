@@ -27,6 +27,16 @@ export class UserAuthService {
   public setIsAdmin(bool : string) {
     localStorage.setItem('isAdmin', bool);
   }
+
+  
+  public getName(): string {
+    return localStorage.getItem('name')! || '';
+  }
+  
+    public setName(name: string) {
+      localStorage.setItem('name', name);
+  }
+  
   public getIsAdmin():boolean {
     return localStorage.getItem('isAdmin')==='true'? true : false;
   }

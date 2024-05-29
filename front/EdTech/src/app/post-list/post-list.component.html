@@ -1,0 +1,67 @@
+<div class="post-list">
+  <div *ngFor="let post of posts">
+    <div class="post-card">
+      <div class="ellipsis-menu">
+        <i
+          class="fas fa-ellipsis-h ellipsis-icon"
+          (click)="toggleEllipsisMenu(post)"
+        ></i>
+        <div
+          class="dropdown-menu"
+          [ngClass]="{ active: post.showEllipsisMenu }"
+        >
+          <div class="dropdown-item">Edit</div>
+          <div class="dropdown-item" (click)="deletePost(post.id)">Delete</div>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="profile-img" routerLink="/profile">
+            <img src="../../assets/images/user.png" alt="" />
+            <b>
+              <span class="profile-name">{{
+                post.user ? post.user.username : ""
+              }}</span>
+            </b>
+            <span class="post-date">{{ post.creationDate | timeAgo }}</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>{{ post.content }}</p>
+        </div>
+        <div class="reaction-counts">
+          <p>{{ post.likes.length }} Likes</p>
+          <p>{{ post.comments.length }} Comments</p>
+        </div>
+        <div class="reaction-options">
+          <div class="reaction-btn" (click)="likePost(post)">
+            <div class="icon" [class.liked]="isPostLiked(post)">
+              <i class="far fa-heart"></i>
+            </div>
+          </div>
+          <div class="reaction-btn">
+            <div class="icon">
+              <i class="far fa-comment"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Comment Section -->
+      <div class="comment-section">
+        <div *ngFor="let comment of post.comments">
+          <p>
+            <strong>{{ comment.user.username }}</strong
+            >: {{ comment.content }}
+          </p>
+          <p class="comment-date">
+            {{ comment.creationDate | date : "short" }}
+          </p>
+        </div>
+        <input #commentInput type="text" placeholder="Write a comment..." />
+        <button type="button" (click)="addComment(post, commentInput.value)">
+          Post
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

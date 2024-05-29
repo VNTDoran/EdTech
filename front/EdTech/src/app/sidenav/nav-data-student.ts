@@ -11,4 +11,9 @@ export const navbarDataStudent: INavbarData[] = [
     icon: 'far fa-file-certificate',
     label: 'Certificates',
   },
+  {
+    routeLink: 'network',
+    icon: 'fad fa-globe',
+    label: 'Network',
+  },
 ];

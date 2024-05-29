@@ -16,6 +16,8 @@ import { NewstudentsComponent } from './newstudents/newstudents.component';
 import { RegisterComponent } from './register/register.component';
 import { CertificatComponent } from './certificat/certificat.component';
 import { CertificateDetailsComponent } from './certificate-details/certificate-details.component';
+import { CreatePostComponent } from './create-post/create-post.component';
+import { NetworkComponent } from './network/network.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -46,6 +48,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'certificat', component: CertificatComponent },
   { path: 'detailsCertif/:id', component: CertificateDetailsComponent },
+  { path: 'network', component: NetworkComponent },
 
 
   

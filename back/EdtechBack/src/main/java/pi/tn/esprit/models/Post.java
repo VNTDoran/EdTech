@@ -42,7 +42,7 @@ public class Post {
     private List<User> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();
+    private List<PostComment> comments = new ArrayList<>();
 
 
 }
