@@ -1,0 +1,62 @@
+<div class="background-container">
+  <img src="assets/images/library.jpg" alt="Library Background" class="background-image">
+  <div class="content-container">
+    <div class="container mt-5">
+      <div class="card-header">
+        <h2 class="mb-4">Gestion des Livres</h2>
+      </div>
+
+  <!-- Formulaire d'ajout/modification de livre -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h3 class="card-title">{{ modeEdition ? 'Modifier le Livre' : 'Ajouter un Nouveau Livre' }}</h3>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="modeEdition ? sauvegarderLivre() : ajouterLivre()">
+        <div class="form-group">
+          <label for="titre">Titre</label>
+          <input type="text" id="titre" [(ngModel)]="livreEnCours.titre" name="titre" class="form-control" placeholder="Titre" required>
+        </div>
+        <div class="form-group">
+          <label for="auteur">Auteur</label>
+          <input type="text" id="auteur" [(ngModel)]="livreEnCours.auteur" name="auteur" class="form-control" placeholder="Auteur" required>
+        </div>
+        <div class="form-group">
+          <label for="isbn">ISBN</label>
+          <input type="text" id="isbn" [(ngModel)]="livreEnCours.isbn" name="isbn" class="form-control" placeholder="ISBN" required>
+        </div>
+        <div class="form-group">
+          <label for="anneePublication">Année de Publication</label>
+          <input type="number" id="anneePublication" [(ngModel)]="livreEnCours.anneePublication" name="anneePublication" class="form-control" placeholder="Année de publication" required>
+        </div>
+        <div class="form-group d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary">{{ modeEdition ? 'Sauvegarder' : 'Ajouter' }}</button>
+          <button type="button" class="btn btn-secondary" *ngIf="modeEdition" (click)="annulerEdition()">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+      <!-- Affichage de la liste des livres -->
+      <div class="card mb-4">
+        <div class="card-header bg-purple text-white">
+          <h3 class="card-title">Liste des Livres</h3>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let livre of livres" class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <h5>{{ livre.titre }}</h5>
+              <p class="mb-1">Auteur: {{ livre.auteur }}</p>
+              <p class="mb-1">ISBN: {{ livre.isbn }}</p>
+              <p class="mb-0">Année de Publication: {{ livre.anneePublication }}</p>
+            </div>
+            <div>
+              <button class="btn btn-info btn-sm mr-2" (click)="modifierLivre(livre)">Modifier</button>
+              <button class="btn btn-danger btn-sm" (click)="supprimerLivre(livre.id != null ? livre.id : 0)">Supprimer</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+</div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="background-container">
+  <img style="opacity: 0.5" src="assets/images/R.jpg" alt="Library Background" class="background-image">
+  <div class="content-container">
+    <div class="container mt-5">
+      <div class="card-header">
+        <h2 class="mb-4">Gestion des Documents</h2>
+      </div>
+
+      <!-- Formulaire d'ajout/modification de document -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h3 class="card-title">{{ modeEdition ? 'Modifier le Document' : 'Ajouter un Nouveau Document' }}</h3>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="modeEdition ? sauvegarderDocument() : ajouterDocument()">
+            <div class="form-group">
+              <label for="titre">Titre</label>
+              <input type="text" id="titre" [(ngModel)]="documentEnCours.titre" name="titre" class="form-control" placeholder="Titre" required>
+            </div>
+            <div class="form-group">
+              <label for="auteur">Auteur</label>
+              <input type="text" id="auteur" [(ngModel)]="documentEnCours.auteur" name="auteur" class="form-control" placeholder="Auteur" required>
+            </div>
+            <div class="form-group">
+              <label for="type">Type</label>
+              <input type="text" id="type" [(ngModel)]="documentEnCours.type" name="type" class="form-control" placeholder="Type" required>
+            </div>
+            <div class="form-group">
+              <label for="datePublication">Date de Publication</label>
+              <input type="date" id="datePublication" [(ngModel)]="documentEnCours.datePublication" name="datePublication" class="form-control" placeholder="Date de publication" required>
+            </div>
+            <div class="form-group d-flex justify-content-between">
+              <button type="submit" class="btn btn-primary">{{ modeEdition ? 'Sauvegarder' : 'Ajouter' }}</button>
+              <button type="button" class="btn btn-secondary" *ngIf="modeEdition" (click)="annulerEdition()">Annuler</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Affichage de la liste des documents -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Vos Documents</h3>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let document of documents" class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <h5>{{ document.titre }}</h5>
+              <p class="mb-1">Auteur: {{ document.auteur }}</p>
+              <p class="mb-1">Type: {{ document.type }}</p>
+              <p class="mb-0">Date de Publication: {{ document.datePublication }}</p>
+            </div>
+            <div>
+              <button class="btn btn-info btn-sm mr-2" (click)="modifierDocument(document)">Modifier</button>
+              <button class="btn btn-danger btn-sm" (click)="supprimerDocument(document.id)">Supprimer</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

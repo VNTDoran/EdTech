@@ -1,0 +1,27 @@
+.card-header.bg-purple {
+  background-color: purple !important;
+}
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  margin-bottom: 20px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.card-body p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
