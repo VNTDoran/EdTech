@@ -1,0 +1,86 @@
+<div class="container mt-5">
+    <div class="background-container">
+      <img src="assets/images/image1.jpg" alt="Library Background" class="background-image">
+      <div class="title-container">
+        <h2 class="text-center mb-4">Welcome to our library</h2>
+      </div>
+    </div>
+  
+    <div class="row">
+      <!-- Section Livres -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <h3 class="card-title">Liste des Livres</h3>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let livre of livres" class="list-group-item livre-item">
+              <table class="table table-striped">
+                <tbody>
+                <tr>
+                  <td><strong>Titre:</strong></td>
+                  <td>{{ livre.titre }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Auteur:</strong></td>
+                  <td>{{ livre.auteur }}</td>
+                </tr>
+                <tr>
+                  <td><strong>ISBN:</strong></td>
+                  <td>{{ livre.isbn }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Année de Publication:</strong></td>
+                  <td>{{ livre.anneePublication }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Score:</strong></td>
+                  <td>{{ livre.score }}</td>
+                </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-info btn-sm" (click)="showLivreDetails(livre.id)">Show Details</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <!-- Section Documents -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header bg-success text-white">
+            <h3 class="card-title">Liste des Documents</h3>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let document of documents" class="list-group-item document-item">
+              <table class="table table-striped">
+                <tbody>
+                <tr>
+                  <td><strong>Titre:</strong></td>
+                  <td>{{ document.titre }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Auteur:</strong></td>
+                  <td>{{ document.auteur }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Type:</strong></td>
+                  <td>{{ document.type }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Date de Publication:</strong></td>
+                  <td>{{ document.datePublication }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Score:</strong></td>
+                  <td>{{ document.score }}</td>
+                </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-info btn-sm" (click)="showDocumentDetails(document.id)">Show Details</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

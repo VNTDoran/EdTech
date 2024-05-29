@@ -50,7 +50,6 @@ public class PostController {
         String token = authtok.parseJwt(request);
         if (token != null && jwtUtils.validateToken(token)) {
             List<Post> posts = postService.getAllPosts();
-            System.out.println(posts);
             return ResponseEntity.ok().body(posts);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

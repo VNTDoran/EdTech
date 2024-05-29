@@ -26,6 +26,26 @@ export const navbarData: INavbarData[] = [
     icon: 'far fa-file-certificate',
     label: 'Certificates',
   },
+  {
+    routeLink: 'clubs',
+    icon: 'far fa-club',
+    label: 'Clubs',
+  },
+  {
+    routeLink: 'events',
+    icon: 'far fa-calendar-star',
+    label: 'Events',
+  },
+  {
+    routeLink: 'livres',
+    icon: 'fas fa-book-open',
+    label: 'Books',
+  },
+  {
+    routeLink: 'documents',
+    icon: 'fas fa-file-alt',
+    label: 'Documents',
+  },
   // {
   //   routeLink: 'products',
   //   icon: 'fal fa-box-open',

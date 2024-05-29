@@ -1,0 +1,184 @@
+/* Styles généraux pour l'interface de gestion des documents */
+.background-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .title-background {
+    position: relative;
+    text-align: center; /* Centrer le texte */
+    margin-bottom: 20px; /* Espacement en bas */
+  }
+  
+  /* Styles généraux pour l'interface de gestion des documents */
+  
+  
+  .title-background {
+    position: relative;
+    text-align: center; /* Centrer le texte */
+    margin-bottom: 20px; /* Espacement en bas */
+  }
+  
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover; /* Assurez-vous que l'image couvre entièrement la zone */
+  }
+  .title-container {
+    position: relative;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fond blanc semi-transparent */
+    border-radius: 8px;
+    display: inline-block;
+  }
+  
+  .card-header {
+    text-align: center; /* Centrer le texte */
+    font-weight: bold; /* Mettre en gras */
+    font-style: italic; /* Mettre en italique */
+    border-bottom: 2px solid #ee45d1; /* Bordure violette en bas */
+  }
+  .btn-secondary {
+    background-color: #6c757d; /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+  }
+  
+  .btn-danger {
+    background-color: rgba(184, 53, 220, 0.88); /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+  }
+  
+  .list-group-item {
+    padding: 15px;
+    border-bottom: 1px solid #dee2e6; /* Bordure en bas */
+  }
+  
+  .list-group-item:last-child {
+    border-bottom: none; /* Supprime la bordure en bas du dernier élément */
+  }
+  
+  .list-group-item h5 {
+    margin-bottom: 5px;
+    color: rgb(96, 9, 79); /* Couleur du titre */
+  }
+  
+  .list-group-item p {
+    margin-bottom: 5px;
+  }
+  
+  .btn-info,
+  .btn-danger {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px; /* Coins arrondis */
+    cursor: pointer;
+  }
+  
+  .btn-info {
+    background-color: #1cb817; /* Vert */
+    color: #fff; /* Couleur du texte */
+  }
+  
+  .btn-danger {
+    background-color: rgb(238, 69, 209); /* Rouge */
+    color: #fff; /* Couleur du texte */
+  }
+  
+  .card {
+    background-color: rgba(255, 255, 255, 0.8); /* Fond blanc semi-transparent */
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .card-title {
+    color: #333;
+  }
+  
+  .form-control {
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+  }
+  
+  
+  .title-container {
+    position: relative;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fond blanc semi-transparent */
+    border-radius: 8px;
+    display: inline-block;
+  }
+  
+  .card-header {
+    text-align: center; /* Centrer le texte */
+    font-weight: bold; /* Mettre en gras */
+    font-style: italic; /* Mettre en italique */
+    border-bottom: 2px solid #ee45d1; /* Bordure violette en bas */
+  }
+  .btn-secondary {
+    background-color: #6c757d; /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+  }
+  
+  .btn-danger {
+    background-color: rgba(184, 53, 220, 0.88); /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+  }
+  
+  .list-group-item {
+    padding: 15px;
+    border-bottom: 1px solid #dee2e6; /* Bordure en bas */
+  }
+  
+  .list-group-item:last-child {
+    border-bottom: none; /* Supprime la bordure en bas du dernier élément */
+  }
+  
+  .list-group-item h5 {
+    margin-bottom: 5px;
+    color: #60094f; /* Couleur du titre */
+  }
+  
+  .list-group-item p {
+    margin-bottom: 5px;
+  }
+  
+  .btn-info,
+  .btn-danger {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px; /* Coins arrondis */
+    cursor: pointer;
+  }
+  
+  .btn-info {
+    background-color: #092260; /* Vert */
+    color: #fff; /* Couleur du texte */
+  }
+  
+  .btn-danger {
+    background-color: rgb(238, 69, 209); /* Rouge */
+    color: #fff; /* Couleur du texte */
+  }
+  
+  .card {
+    background-color: rgba(255, 255, 255, 0.8); /* Fond blanc semi-transparent */
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .card-title {
+    color: #333;
+  }
+  
+  .form-control {
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+  }

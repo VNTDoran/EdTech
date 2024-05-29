@@ -1,0 +1,37 @@
+.background-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover; /* Assurez-vous que l'image couvre entièrement la zone */
+  }
+  
+  .title-container {
+    position: relative; /* Pour que le titre soit au-dessus de l'image */
+    z-index: 1; /* Pour que le titre soit au-dessus de l'image */
+    text-align: center;
+    padding-top: 50px; /* Ajoutez un espacement au-dessus du titre si nécessaire */
+  }
+  .title-container h2 {
+    font-weight: bold; /* Rend le titre en gras */
+    font-style: italic; /* Rend le titre incliné */
+  }
+  /* Couleur violette pour la liste des livres */
+  .card-header.bg-primary {
+    background-color: cornflowerblue!important;
+  }
+  
+  /* Couleur rose pour la liste des documents */
+  .card-header.bg-success {
+    background-color: pink !important;
+  }
+  
+  
+  /* Ajoutez d'autres styles CSS au besoin */

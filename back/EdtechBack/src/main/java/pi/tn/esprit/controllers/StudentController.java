@@ -12,6 +12,7 @@ import pi.tn.esprit.models.ERole;
 import pi.tn.esprit.models.Role;
 import pi.tn.esprit.models.Student;
 import pi.tn.esprit.models.User;
+import pi.tn.esprit.repository.StudentRepository;
 import pi.tn.esprit.security.jwt.AuthTokenFilter;
 import pi.tn.esprit.security.jwt.JwtUtils;
 import pi.tn.esprit.services.StudentService;
@@ -38,6 +39,10 @@ public class StudentController {
 
     @Autowired
     private JwtUtils jwtUtils;
+
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Operation(description = "Retrieves all students")
     @GetMapping("/retrieve-all")
@@ -199,6 +204,33 @@ public class StudentController {
         String token = authtok.parseJwt(request);
         if (token != null && jwtUtils.validateToken(token)) {
             userService.joinUs(userId);
+            return ResponseEntity.noContent().build();
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Operation(description = "Paid")
+    @GetMapping("/paid/{userId}")
+    public Boolean paid(@PathVariable Long userId, HttpServletRequest request) {
+        String token = authtok.parseJwt(request);
+        if (token != null && jwtUtils.validateToken(token)) {
+            Student student = studentRepository.findStudentByUserId(userId);
+            return student.getPaid();
+        } else {
+            return false;
+        }
+    }
+
+    @Operation(description = "Paid")
+    @PutMapping("/updatepaid/{userId}")
+    public ResponseEntity<Void> updatePaid(@PathVariable Long userId, HttpServletRequest request) {
+        System.out.println("payment init");
+        String token = authtok.parseJwt(request);
+        if (token != null && jwtUtils.validateToken(token)) {
+            Student student = studentRepository.findStudentByUserId(userId);
+            student.setPaid(true);
+            studentRepository.save(student);
             return ResponseEntity.noContent().build();
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

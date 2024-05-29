@@ -18,6 +18,15 @@ import { CertificatComponent } from './certificat/certificat.component';
 import { CertificateDetailsComponent } from './certificate-details/certificate-details.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { NetworkComponent } from './network/network.component';
+import { PaymentComponent } from './payment/payment.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { ClubsComponent } from './clubs/clubs.component';
+import { EventComponent } from './event/event.component';
+import { LivresComponent} from './livre/livre.component';
+import { DocumentsComponent} from "./document/document.component";
+import { BibliothequeComponent } from './bibliotheque/bibliotheque.component';
+import { LivreDetailsComponent } from "./livre-details/livre-details.component";
+import  {DocumentDetailsComponent } from "./document-details/document-details.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -49,6 +58,15 @@ const routes: Routes = [
   { path: 'certificat', component: CertificatComponent },
   { path: 'detailsCertif/:id', component: CertificateDetailsComponent },
   { path: 'network', component: NetworkComponent },
+  { path: 'payment', component: PaymentComponent },
+  { path: 'confirm', component: ConfirmationComponent },
+  { path: 'clubs', component: ClubsComponent},
+  { path: 'events', component: EventComponent },
+  { path: 'livres', component: LivresComponent },
+  { path: 'documents', component: DocumentsComponent},
+  {path:'bibliotheque', component:BibliothequeComponent},
+  {path: 'livre/:id', component: LivreDetailsComponent },
+  {path: 'document/:id', component: DocumentDetailsComponent },
 
 
   

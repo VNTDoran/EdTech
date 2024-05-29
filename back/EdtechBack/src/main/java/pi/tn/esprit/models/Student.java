@@ -25,11 +25,13 @@ public class Student {
     @JsonIgnore
     @OneToOne
     private User user;
+    @ManyToOne
+    Club club;
     @JsonIgnore
     @ManyToOne
     private Classe classe;
-
-
+    @Column(columnDefinition = "boolean default false")
+    private Boolean paid;
     public Student(String username, String s, int i) {
         this.name = username;
         this.cin = s;

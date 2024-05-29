@@ -54,6 +54,24 @@ export class StudentService {
     return this.http.get<Student>(url);
   }
 
+  getPaid(id: number): Observable<boolean> {
+    const url = `${this.apiUrl}/paid/${id}`;
+    return this.http.get<boolean>(url);
+  }
+
+  setPaid(id: number): Observable<void> {
+    const jwtToken = this.userAuthService.getToken();
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${jwtToken}`
+    );
+    return this.http.put<void>(`${this.apiUrl}/updatepaid/${id}`, {
+      headers,
+    });
+  }
+
+
+
   addStudent(student: Student): Observable<Student> {
     const jwtToken = this.userAuthService.getToken();
     const headers = new HttpHeaders().set(

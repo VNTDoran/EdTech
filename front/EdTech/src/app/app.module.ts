@@ -38,6 +38,16 @@ import { EditPostDialogComponent } from './edit-post-dialog/edit-post-dialog.com
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { TimeAgoPipe } from './time-ago.pipe';
 import { NetworkComponent } from './network/network.component';
+import { PaymentComponent } from './payment/payment.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { ClubsComponent } from './clubs/clubs.component';
+import { EventComponent } from './event/event.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import { BibliothequeComponent } from './bibliotheque/bibliotheque.component';
+import { DocumentDetailsComponent } from './document-details/document-details.component';
+import { LivreDetailsComponent } from './livre-details/livre-details.component';
+import { DocumentsComponent } from './document/document.component';
+import { LivresComponent } from './livre/livre.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +81,15 @@ import { NetworkComponent } from './network/network.component';
     ConfirmDialogComponent,
     TimeAgoPipe,
     NetworkComponent,
+    PaymentComponent,
+    ConfirmationComponent,
+    ClubsComponent,
+    EventComponent,
+    BibliothequeComponent,
+    DocumentDetailsComponent,
+    LivreDetailsComponent,
+    DocumentsComponent,
+    LivresComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +97,7 @@ import { NetworkComponent } from './network/network.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     MatDialogModule,
   ],
   providers: [
