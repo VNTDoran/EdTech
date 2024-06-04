@@ -157,4 +157,18 @@ export class StudentService {
       }
     );
   }
+
+  obtenirCertif(studentId: number, certifId: number): Observable<String> {
+    const jwtToken = this.userAuthService.getToken();
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${jwtToken}`
+    );
+    return this.http.post<String>(
+      `${this.apiUrl}/obtenircertif/${certifId}/${studentId}`,
+      {
+        headers,
+      }
+    );
+  }
 }

@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -32,6 +34,10 @@ public class Student {
     private Classe classe;
     @Column(columnDefinition = "boolean default false")
     private Boolean paid;
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Certificate> certificateList;
     public Student(String username, String s, int i) {
         this.name = username;
         this.cin = s;

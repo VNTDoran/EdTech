@@ -4,9 +4,12 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
+import static pi.tn.esprit.Utils.Mailer.sendMail;
+
 public class test {
     public static void main(String[] args) throws IOException {
-        Scanner myObj = new Scanner(System.in);
+        sendMail("aa","aa","aa");
+        /*Scanner myObj = new Scanner(System.in);
         System.out.println("enter an integer: ");
         try {
             int intnumber = myObj.nextInt();
@@ -26,6 +29,6 @@ public class test {
         }catch (Exception e){
             System.out.println("enter a valid number");
         }
-
+*/
     }
 }

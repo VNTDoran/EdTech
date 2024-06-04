@@ -22,11 +22,12 @@ import { PaymentComponent } from './payment/payment.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { ClubsComponent } from './clubs/clubs.component';
 import { EventComponent } from './event/event.component';
-import { LivresComponent} from './livre/livre.component';
-import { DocumentsComponent} from "./document/document.component";
+import { LivresComponent } from './livre/livre.component';
+import { DocumentsComponent } from './document/document.component';
 import { BibliothequeComponent } from './bibliotheque/bibliotheque.component';
-import { LivreDetailsComponent } from "./livre-details/livre-details.component";
-import  {DocumentDetailsComponent } from "./document-details/document-details.component";
+import { LivreDetailsComponent } from './livre-details/livre-details.component';
+import { DocumentDetailsComponent } from './document-details/document-details.component';
+import { MycertifsComponent } from './mycertifs/mycertifs.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -60,16 +61,15 @@ const routes: Routes = [
   { path: 'network', component: NetworkComponent },
   { path: 'payment', component: PaymentComponent },
   { path: 'confirm', component: ConfirmationComponent },
-  { path: 'clubs', component: ClubsComponent},
+  { path: 'clubs', component: ClubsComponent },
   { path: 'events', component: EventComponent },
   { path: 'livres', component: LivresComponent },
-  { path: 'documents', component: DocumentsComponent},
-  {path:'bibliotheque', component:BibliothequeComponent},
-  {path: 'livre/:id', component: LivreDetailsComponent },
-  {path: 'document/:id', component: DocumentDetailsComponent },
+  { path: 'documents', component: DocumentsComponent },
+  { path: 'mycert', component: MycertifsComponent },
 
-
-  
+  { path: 'bibliotheque', component: BibliothequeComponent },
+  { path: 'livre/:id', component: LivreDetailsComponent },
+  { path: 'document/:id', component: DocumentDetailsComponent },
 ];
 
 @NgModule({

@@ -139,7 +139,7 @@
           <button
             *ngIf="!isAdmin"
             class="btn btn-primary"
-            (click)="getCertificate(certificate.score)"
+            (click)="getCertificate(certificate.score, certificate.id)"
             [disabled]="certificate.score > currentScore"
           >
             Obtenir le Certificat
