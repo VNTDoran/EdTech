@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { QuizRequest, Quiz } from '../quiz/model/quiz';
+import { QuizRequest, Quiz, QuizWrapper } from '../quiz/model/quiz';
 import { UserAuthService } from './user-auth.service';
-import { Question } from '../quiz/model/question';
+import { Question, QuestionResponse } from '../quiz/model/question';
 
 
 
@@ -39,7 +39,7 @@ export class QuizService {
   }
 
 
-  getQuizzes(): Observable<Quiz[]> {
+  getQuizzes(): Observable<QuizWrapper[]> {
     const jwtToken = this.userAuthService.getToken();
     const headers = new HttpHeaders().set(
       'Authorization',
@@ -47,14 +47,28 @@ export class QuizService {
     );
 
     return this.http
-      .get<Quiz[]>(`${this.apiUrl}/get/all`, { headers })
-     
+      .get<QuizWrapper[]>(`${this.apiUrl}/get/all`, { headers })
+
   }
 
-  submitQuiz(id: number, responses: Question[]): Observable<number> {
+  submitQuiz(id: number, responses: QuestionResponse[]): Observable<number> {
     const headers = this.getAuthHeaders();
     return this.http.post<number>(`${this.url}/submit/${id}`, responses, {
       headers,
     });
   }
+
+
+  deleteQuiz(id: number): Observable<string> {
+    const jwtToken = this.userAuthService.getToken();
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${jwtToken}`
+    );
+
+    return this.http
+      .delete<string>(`${this.apiUrl}/${id}`, { headers })
+
+  }
+
 }

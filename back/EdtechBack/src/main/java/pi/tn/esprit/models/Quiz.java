@@ -27,6 +27,8 @@ public class Quiz {
     @Size(max = 100)
     private String title;
 
+    private Integer duration;
+
     @NotBlank
     @Size(max = 50)
     private String category;

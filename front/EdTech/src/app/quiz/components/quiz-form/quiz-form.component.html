@@ -6,32 +6,123 @@
           <h2 class="card-title mb-0">Create Quiz</h2>
         </div>
         <div class="card-body">
-          <form [formGroup]="quizForm" ngClass="form" novalidate="novalidate" (ngSubmit)="onSubmit()">
+          <form
+            [formGroup]="quizForm"
+            ngClass="form"
+            novalidate="novalidate"
+            (ngSubmit)="onSubmit()"
+          >
             <div class="mb-3">
               <label for="title" class="form-label">Quiz Title</label>
-              <input type="text" id="title" formControlName="title" class="form-control" [ngClass]="{'is-invalid': title.invalid && (title.dirty || title.touched)}">
-              <div *ngIf="title?.invalid && (title?.dirty || title?.touched)" class="invalid-feedback">
+              <input
+                type="text"
+                id="title"
+                formControlName="title"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': title.invalid && (title.dirty || title.touched)
+                }"
+              />
+              <div
+                *ngIf="title?.invalid && (title?.dirty || title?.touched)"
+                class="invalid-feedback"
+              >
                 <div>Invalid title</div>
               </div>
             </div>
 
-            <div class="mb-3">
-              <label for="numQuestions" class="form-label">Number of Questions</label>
-              <input type="number" id="numQuestions" formControlName="numQuestions" class="form-control" [ngClass]="{'is-invalid': numQuestions.invalid && (numQuestions.dirty || numQuestions.touched)}">
-              <div *ngIf="numQuestions?.invalid && (numQuestions?.dirty || numQuestions?.touched)" class="invalid-feedback">
-              Invalid Number of Questions
+            <div class="row mb-3">
+              <div class="col-4">
+                <label for="numQuestions" class="form-label"
+                  >Number of Questions</label
+                >
+                <input
+                  type="number"
+                  id="numQuestions"
+                  formControlName="numQuestions"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      numQuestions.invalid &&
+                      (numQuestions.dirty || numQuestions.touched)
+                  }"
+                />
+                <div
+                  *ngIf="
+                    numQuestions?.invalid &&
+                    (numQuestions?.dirty || numQuestions?.touched)
+                  "
+                  class="invalid-feedback"
+                >
+                  Invalid Number of Questions
+                </div>
+              </div>
+              <div class="col-8">
+                <label for="duration" class="form-label"
+                  >Duration (Minutes)</label
+                >
+                <select
+                  id="duration"
+                  formControlName="duration"
+                  class="form-select"
+                  [ngClass]="{
+                    'is-invalid':
+                      duration.invalid && (duration.dirty || duration.touched)
+                  }"
+                >
+                  <option *ngFor="let second of seconds" [value]="second">
+                    {{ second / 60 }} minutes
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    duration?.invalid && (duration?.dirty || duration?.touched)
+                  "
+                  class="invalid-feedback"
+                >
+                  Invalid Duration
+                </div>
               </div>
             </div>
 
             <div class="mb-3">
               <label for="categoryName" class="form-label">Category Name</label>
-              <input type="text" id="categoryName" formControlName="categoryName" class="form-control" [ngClass]="{'is-invalid': categoryName.invalid && (categoryName.dirty || categoryName.touched)}">
-              <div *ngIf="categoryName?.invalid && (categoryName?.dirty || categoryName?.touched)" class="invalid-feedback">
+              <select
+                id="category"
+                formControlName="categoryName"
+                class="form-select"
+                [ngClass]="{
+                  'is-invalid':
+                    categoryName.invalid &&
+                    (categoryName.dirty || categoryName.touched)
+                }"
+              >
+                <option value="" disabled>Select a category</option>
+                <option
+                  *ngFor="let category of questionCategories"
+                  [value]="category"
+                >
+                  {{ category }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  categoryName?.invalid &&
+                  (categoryName?.dirty || categoryName?.touched)
+                "
+                class="invalid-feedback"
+              >
                 Invalid Category
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary" [disabled]="quizForm.invalid">Create Quiz</button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="quizForm.invalid"
+            >
+              Create Quiz
+            </button>
           </form>
         </div>
       </div>

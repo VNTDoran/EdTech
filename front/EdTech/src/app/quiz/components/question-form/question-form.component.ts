@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Question } from '../../model/question';
 import { QuestionService } from '../../../service/question.service';
 import { MatDialog } from '@angular/material/dialog';
+import { QuestionCategory } from '../../model/question-category.enum';
 
 @Component({
   selector: 'app-question-form',
@@ -11,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class QuestionFormComponent {
   questionForm!: FormGroup;
-  categories: string[] = ['Science', 'Math', 'History', 'Literature'];
+  questionCategories = Object.values(QuestionCategory);
 
   constructor(private fb: FormBuilder, private questionService: QuestionService, private dialog: MatDialog) {
     this.initForm()

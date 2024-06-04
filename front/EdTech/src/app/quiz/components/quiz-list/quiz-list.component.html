@@ -1,3 +1,10 @@
+<div class="d-flex justify-content-center opacity-75">
+  <div class="form-check form-switch form-check">
+    <input class="form-check-input fs-5 me-2" style="width: 3rem;" type="checkbox" role="switch" id="flexSwitchCheckChecked" [(ngModel)]="isAdmin">
+    <label class="form-check-label text-secondary fw-bold fs-5 mt-1" for="flexSwitchCheckChecked">Admin</label>
+  </div>
+</div>
+
 <quiz-navbar></quiz-navbar>
 
 <div class="row">
@@ -19,13 +26,16 @@
     <div class="card-body">
       <p class="badge text-dark border fs-6">{{quiz.category}}</p>
       <h3 class="text-center fw-bold fs-5">{{ quiz.title }}</h3>
-      <div class="text-end text-secondary fs-6">Your Score: <span class="badge badge-success bg-success fs-5">N/A</span></div>
-      
+      <div class="text-end text-secondary fs-6">Your Score:
+        <span *ngIf="!quiz.score" class="badge badge-secondary bg-secondary fs-5">N/A</span>
+        <span *ngIf="quiz.score" class="badge badge-success bg-success fs-5">{{quiz.score}}/{{quiz.numQuestions}}</span>
+      </div>
     </div>
 
     <div class="card-footer">
-      <a class="btn btn-sm btn-secondary me-1" [routerLink]="'/quiz/play/' + quiz.id"> Play </a>
-      <button disabled class="btn btn-sm btn-danger">Delete</button>
+      <a *ngIf="!quiz.score"  class="btn btn-sm btn-secondary me-1" [routerLink]="'/quiz/play/' + quiz.id">Play</a>
+      <div *ngIf="quiz.score"  class="btn btn-sm btn-secondary me-1 disabled">Play</div>
+      <button [disabled]="!isAdmin" class="btn btn-sm btn-danger" (click)="deleteQuiz(quiz.id)">Delete</button>
     </div>
   </div>
 </ng-template>
