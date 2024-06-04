@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Club } from '../model/club';
 import { UserAuthService } from './user-auth.service';
@@ -26,6 +26,7 @@ export class ClubService {
     return this.http.post<Club>(this.clubsUrl+"/add", club, { headers });
   }
 
+
   deleteClub(id: number): Observable<void> {
     const url = `${this.clubsUrl}/remove/${id}`;
     return this.http.delete<void>(url);
@@ -44,5 +45,9 @@ export class ClubService {
     const url = `${this.clubsUrl}/deassign-event/${clubId}`;
     return this.http.put<void>(url, {});
   }
+  getClubsWithEventCount(): Observable<Club[]> {
+    return this.http.get<Club[]>(`${this.clubsUrl}/retrieve-all-with-event-count`);
+  }
+
 
 }

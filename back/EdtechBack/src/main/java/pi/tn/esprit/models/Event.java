@@ -20,7 +20,6 @@ public class Event {
     private String name;
     private String description;
     private Date date;
-
     @ManyToOne(cascade = CascadeType.ALL)
     Club club;
 }

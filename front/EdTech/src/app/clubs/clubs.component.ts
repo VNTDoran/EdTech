@@ -11,6 +11,8 @@ import { EventService } from '../service/event.service';
   styleUrls: ['./clubs.component.css']
 })
 export class ClubsComponent implements OnInit {
+
+  clubsWithEventCount: Club[] = [];
   clubs: Club[] = [];
   events: Event[] = [];
   clubForm: FormGroup;
@@ -20,7 +22,10 @@ export class ClubsComponent implements OnInit {
   showDetailModal: boolean = false;
   showEventModal: boolean = false;
   selectedDescription: string | null = null;
-  assignConfirmationMessage: string | null = null;  // Nouvelle variable pour le message de confirmation
+  assignConfirmationMessage: string | null = null;
+  pageSize: number = 3; // Nombre d'éléments par page
+  currentPage: number = 1; // Page actuelle
+  paginatedClubs: Club[] = []; // Liste des clubs affichés sur la page actuelle
 
   constructor(
     private clubService: ClubService,
@@ -36,10 +41,15 @@ export class ClubsComponent implements OnInit {
   ngOnInit(): void {
     this.getClubs();
     this.getEvents();
+    this.updatePaginatedClubs();
+    this.getClubsWithEventCount();
   }
 
   getClubs(): void {
-    this.clubService.getClubs().subscribe(clubs => this.clubs = clubs);
+    this.clubService.getClubs().subscribe(clubs => {
+      this.clubs = clubs;
+      this.updatePaginatedClubs();
+    });
   }
 
   getEvents(): void {
@@ -50,6 +60,7 @@ export class ClubsComponent implements OnInit {
     if (this.clubForm.valid) {
       this.clubService.createClub(this.clubForm.value).subscribe(newClub => {
         this.clubs.push(newClub);
+        this.updatePaginatedClubs();
         this.clubForm.reset();
       });
     }
@@ -64,6 +75,7 @@ export class ClubsComponent implements OnInit {
         const index = this.clubs.findIndex(c => c.id === updatedClub.id);
         if (index !== -1) {
           this.clubs[index] = updatedClub;
+          this.updatePaginatedClubs();
         }
         this.resetFormAndSelectedClub();
       });
@@ -86,6 +98,7 @@ export class ClubsComponent implements OnInit {
   deleteClub(id: number): void {
     this.clubService.deleteClub(id).subscribe(() => {
       this.clubs = this.clubs.filter(club => club.id !== id);
+      this.updatePaginatedClubs();
     });
   }
 
@@ -116,5 +129,31 @@ export class ClubsComponent implements OnInit {
   closeDetail(): void {
     this.showDetailModal = false;
     this.selectedDescription = null;
+  }
+
+  onNextPage(): void {
+    if (this.paginatedClubs.length >= this.pageSize) {
+      this.currentPage++;
+      this.updatePaginatedClubs();
+    }
+  }
+
+  onPreviousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedClubs();
+    }
+  }
+
+  updatePaginatedClubs(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedClubs = this.clubs.slice(startIndex, endIndex);
+  }
+
+  getClubsWithEventCount(): void {
+    this.clubService.getClubsWithEventCount().subscribe(clubs => {
+      this.clubsWithEventCount = clubs;
+    });
   }
 }

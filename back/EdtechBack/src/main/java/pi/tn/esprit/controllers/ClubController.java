@@ -37,6 +37,18 @@ public class ClubController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+    @Operation(description = "Retrieves all clubs with event count")
+    @GetMapping("/retrieve-all-with-event-count")
+    public ResponseEntity<List<Club>> retrieveAllClubsevent(HttpServletRequest request) {
+        String token = authtok.parseJwt(request);
+        if (token != null && jwtUtils.validateToken(token)) {
+            List<Club> clubs = clubService.retrieveAllClubs();
+            clubs.forEach(club -> club.setEventCount(club.getEvents().size()));
+            return ResponseEntity.ok().body(clubs);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
 
     @Operation(description = "Retrieves a specific club by ID")
     @GetMapping("/retrieve/{clubId}")
@@ -135,6 +147,8 @@ public class ClubController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+
+
 
 
 

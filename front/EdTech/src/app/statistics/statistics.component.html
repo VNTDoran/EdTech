@@ -1,29 +1,29 @@
-<!--<h1>Club Statistics</h1>-->
+<h1>Club Statistics</h1>
 
-<!--<div *ngIf="statistics">-->
-<!--  <div class="row">-->
-<!--    <div class="col-md-6">-->
-<!--      <div class="card">-->
-<!--        <div class="card-body">-->
-<!--          <h5 class="card-title">Total Clubs and Events</h5>-->
-<!--          <ngx-charts-pie-chart-->
-<!--            [results]="statistics.totalData"-->
-<!--            [legend]="true"-->
-<!--            (select)="onSelect($event)">-->
-<!--          </ngx-charts-pie-chart>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="col-md-6">-->
-<!--      <div class="card">-->
-<!--        <div class="card-body">-->
-<!--          <h5 class="card-title">Club with Most Events</h5>-->
-<!--          <div *ngIf="statistics.mostEventsClub">-->
-<!--            <p>Name: {{ statistics.mostEventsClub.club.name }}</p>-->
-<!--            <p>Number of Events: {{ statistics.mostEventsClub.eventCount }}</p>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+<div *ngIf="statistics">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Clubs and Events</h5>
+          <ngx-charts-pie-chart
+            [results]="statistics.totalData"
+            [legend]="true"
+            (select)="onSelect($event)">
+          </ngx-charts-pie-chart>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Club with Most Events</h5>
+          <div *ngIf="statistics.mostEventsClub">
+            <p>Name: {{ statistics.mostEventsClub.club.name }}</p>
+            <p>Number of Events: {{ statistics.mostEventsClub.eventCount }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

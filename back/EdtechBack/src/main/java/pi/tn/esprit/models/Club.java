@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,12 +20,20 @@ public class Club {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String description;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="club")
     @JsonIgnore
-    private Set<Etudiant> etudiants;
+    private Set<Etudiant> etudiants = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy="club")
-    private Set<Event> Events;
+    private Set<Event> events = new HashSet<>();
+
+    @Transient
+    private int eventCount;
+
+    public int getEventCount() {
+        return events.size();
+    }
 }

@@ -3,4 +3,5 @@ export interface Club {
   name: string;
   description: string;
   events: Event[];
+  eventCount: number;
 }
