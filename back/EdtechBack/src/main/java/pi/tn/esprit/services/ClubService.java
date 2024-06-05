@@ -18,4 +18,6 @@ public interface ClubService {
     void assignEventToClub(int clubId, int eventId);
 
     void deassignEventFromClub(int clubId);
+    List<Club> getAllClubsWithEventCount();
+
 }

@@ -1,44 +1,110 @@
-<h1>Events</h1>
-
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">Add New Event</h5>
-    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input id="name" formControlName="name" class="form-control" required>
-        <span *ngIf="eventForm.controls['name'].touched && eventForm.controls['name'].invalid" class="text-danger">Name is required</span>
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" formControlName="description" class="form-control" required></textarea>
-        <div class="form-group">
-          <label for="date">Event Date</label>
-          <input id="date" type="date" formControlName="date" class="form-control" required>
+<div class="background-container">
+  <img
+    src="assets/images/event.jpg"
+    alt="event Background"
+    class="background-image"
+  />
+  <div class="content-container">
+    <div class="container mt-5">
+      <div class="card-header"></div>
+      <h1>Events</h1>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Add New Event</h5>
+          <form
+            [formGroup]="eventForm"
+            (ngSubmit)="onSubmit()"
+            enctype="multipart/form-data"
+          >
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                id="name"
+                formControlName="name"
+                class="form-control"
+                required
+              />
+              <span
+                *ngIf="
+                  eventForm.controls['name'].touched &&
+                  eventForm.controls['name'].invalid
+                "
+                class="text-danger"
+                >Name is required</span
+              >
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea
+                id="description"
+                formControlName="description"
+                class="form-control"
+                required
+              ></textarea>
+              <span
+                *ngIf="
+                  eventForm.controls['description'].touched &&
+                  eventForm.controls['description'].invalid
+                "
+                class="text-danger"
+                >Description is required</span
+              >
+            </div>
+            <div class="form-group">
+              <label for="date">Event Date</label>
+              <input
+                id="date"
+                type="date"
+                formControlName="date"
+                class="form-control"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="eventForm.invalid"
+            >
+              Create
+            </button>
+            <span class="mr-5"></span>
+            <button
+              type="button"
+              (click)="updateEvent()"
+              class="btn btn-info"
+              [disabled]="!selectedEvent"
+            >
+              Update
+            </button>
+          </form>
         </div>
-
-        <span *ngIf="eventForm.controls['description'].touched && eventForm.controls['description'].invalid" class="text-danger">Description is required</span>
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">Create</button>
-      <span class="mr-2"></span>
-      <button type="button" (click)="updateEvent()" class="btn btn-info" [disabled]="!selectedEvent">Update</button>
-    </form>
 
-  </div>
-</div>
-
-<div class="card bg-light mb-3">
-  <div class="card-body">
-    <h5 class="card-title">List of Events</h5>
-    <ul class="list-group">
-      <li *ngFor="let event of events" class="list-group-item">
-        <span>{{ event.name }}</span>
-        <div class="button-container">
-          <button (click)="selectEventForUpdate(event)" class="btn btn-primary green-button">Update</button>
-          <button (click)="deleteEvent(event.id)" class="btn btn-danger red-button">Delete</button>
-
+      <div class="card bg-light mb-3">
+        <div class="card-body">
+          <h5 class="card-title">List of Events</h5>
+          <ul class="list-group">
+            <li *ngFor="let event of events" class="list-group-item">
+              <span>{{ event.name }}</span>
+              <img *ngIf="event.image" [src]="event.image" alt="Event Image" />
+              <div class="button-container">
+                <button
+                  (click)="selectEventForUpdate(event)"
+                  class="btn btn-primary green-button"
+                >
+                  Update
+                </button>
+                <button
+                  (click)="deleteEvent(event.id)"
+                  class="btn btn-danger red-button"
+                >
+                  Delete
+                </button>
+              </div>
+            </li>
+          </ul>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </div>

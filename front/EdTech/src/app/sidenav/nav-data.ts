@@ -27,6 +27,11 @@ export const navbarData: INavbarData[] = [
     label: 'Certificates',
   },
   {
+    routeLink: 'quiz',
+    icon: 'far fa-question',
+    label: 'Quiz',
+  },
+  {
     routeLink: 'clubs',
     icon: 'far fa-club',
     label: 'Clubs',

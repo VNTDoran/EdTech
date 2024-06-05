@@ -9,8 +9,11 @@ import pi.tn.esprit.models.Student;
 import pi.tn.esprit.repository.ClubRepository;
 import pi.tn.esprit.repository.StudentRepository;
 import pi.tn.esprit.repository.EventRepository;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ClubServiceImpl implements ClubService {
@@ -35,9 +38,16 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public Club addClub(Club club)
-    {
-        return clubRepository.save(club);
+    public Club addClub(Club club) {
+        if (club.getEtudiants() == null) {
+            club.setEtudiants(new HashSet<>());
+        }
+        if (club.getEvents() == null) {
+            club.setEvents(new HashSet<>());
+        }
+        {
+            return clubRepository.save(club);
+        }
     }
 
     @Override
@@ -48,23 +58,26 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public Club modifyClub(Club club)
     {
-        Club oldClub = clubRepository.findById(club.getId()).get();
-        oldClub.setName(club.getName());
-        return clubRepository.save(oldClub);
+        Club oldClub = clubRepository.findById(club.getId()).orElse(null);
+        if (oldClub != null) {
+            oldClub.setName(club.getName());
+            oldClub.setDescription(club.getDescription());
+            return clubRepository.save(oldClub);
+        }
+        return null;
     }
 
     @Override
     public void assignEtudiantToClub(int clubId, int etudiantId) {
         Club club = clubRepository.findById(clubId).orElse(null);
         Student etudiant = etudiantRepository.findById(etudiantId).orElse(null);
-        System.out.println(club.getName());
-        System.out.println(etudiant.getName());
 
         if (club != null && etudiant != null) {
             club.getEtudiants().add(etudiant);
             etudiant.setClub(club);
             etudiantRepository.save(etudiant);
-        }}
+        }
+    }
 
 
 
@@ -72,7 +85,7 @@ public class ClubServiceImpl implements ClubService {
     public void deassignEtudiantFromClub(int clubId) {
         Club club = clubRepository.findById(clubId).orElse(null);
         if (club != null) {
-            club.setEtudiants(null);
+            club.setEtudiants(new HashSet<>());
             clubRepository.save(club);
         }
 
@@ -82,9 +95,6 @@ public class ClubServiceImpl implements ClubService {
     public void assignEventToClub(int clubId, int eventId) {
         Club club = clubRepository.findById(clubId).orElse(null);
         Event event = eventRepository.findById(eventId).orElse(null);
-        System.out.println(club.getName());
-        System.out.println(event.getName());
-
         if (club != null && event != null) {
             club.getEvents().add(event);
             event.setClub(club);
@@ -95,8 +105,18 @@ public class ClubServiceImpl implements ClubService {
     public void deassignEventFromClub(int clubId) {
         Club club = clubRepository.findById(clubId).orElse(null);
         if (club != null) {
-            club.setEvents(null);
+            club.setEvents(new HashSet<>());
             clubRepository.save(club);
         }
+    }
+
+    @Override
+    public List<Club> getAllClubsWithEventCount() {
+        return clubRepository.findAll().stream()
+                .map(club -> {
+                    club.setEventCount(club.getEvents().size());
+                    return club;
+                })
+                .collect(Collectors.toList());
     }
 }

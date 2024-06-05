@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Club } from '../model/club';
 import { UserAuthService } from './user-auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ClubService {
   private clubsUrl = 'http://localhost:7777/api/clubs';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getClubs(): Observable<Club[]> {
-    console.log( this.http.get<Club[]>(this.clubsUrl+"/retrieve-all"));
-    return this.http.get<Club[]>(this.clubsUrl+"/retrieve-all");
+    console.log(this.http.get<Club[]>(this.clubsUrl + '/retrieve-all'));
+    return this.http.get<Club[]>(this.clubsUrl + '/retrieve-all');
   }
 
   getAllClubs(): Observable<Club[]> {
@@ -23,7 +23,7 @@ export class ClubService {
 
   createClub(club: Club): Observable<Club> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Club>(this.clubsUrl+"/add", club, { headers });
+    return this.http.post<Club>(this.clubsUrl + '/add', club, { headers });
   }
 
   deleteClub(id: number): Observable<void> {
@@ -44,5 +44,9 @@ export class ClubService {
     const url = `${this.clubsUrl}/deassign-event/${clubId}`;
     return this.http.put<void>(url, {});
   }
-
+  getClubsWithEventCount(): Observable<Club[]> {
+    return this.http.get<Club[]>(
+      `${this.clubsUrl}/retrieve-all-with-event-count`
+    );
+  }
 }

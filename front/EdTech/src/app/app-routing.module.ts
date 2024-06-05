@@ -66,7 +66,10 @@ const routes: Routes = [
   { path: 'livres', component: LivresComponent },
   { path: 'documents', component: DocumentsComponent },
   { path: 'mycert', component: MycertifsComponent },
-
+  {
+    path: 'quiz',
+    loadChildren: () => import('./quiz/quiz.module').then((m) => m.QuizModule),
+  },
   { path: 'bibliotheque', component: BibliothequeComponent },
   { path: 'livre/:id', component: LivreDetailsComponent },
   { path: 'document/:id', component: DocumentDetailsComponent },
