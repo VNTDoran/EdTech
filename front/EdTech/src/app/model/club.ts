@@ -1,6 +1,7 @@
 export interface Club {
-    id: number;
-    name: string;
-    description: string;
-    events: Event[];
-  }
+  id: number;
+  name: string;
+  description: string;
+  events: Event[];
+  eventCount: number;
+}

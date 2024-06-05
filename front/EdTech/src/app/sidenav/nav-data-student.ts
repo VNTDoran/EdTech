@@ -21,9 +21,9 @@ export const navbarDataStudent: INavbarData[] = [
     icon: 'far fa-books',
     label: 'Bibliotheque',
   },
-  // {
-  //   routeLink: 'payment',
-  //   icon: 'fas fa-money-check-edit-alt',
-  //   label: 'Payment',
-  // },
+  {
+    routeLink: 'payment',
+    icon: 'fas fa-money-check-edit-alt',
+    label: 'Payment',
+  },
 ];

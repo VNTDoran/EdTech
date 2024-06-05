@@ -1,93 +1,243 @@
-<h1>Clubs</h1>
-
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">Add New Club</h5>
-    <form [formGroup]="clubForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input id="name" formControlName="name" class="form-control" required>
-        <div *ngIf="clubForm.get('name')?.invalid && clubForm.get('name')?.touched" class="text-danger">
-          Name is required.
+<div class="background-container">
+  <img
+    src="assets/images/imgg.jpg"
+    alt="Library Background"
+    class="background-image"
+  />
+  <div class="content-container">
+    <div class="container mt-5">
+      <div class="card-header">
+        <h1>Clubs</h1>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Add New Club</h5>
+          <form [formGroup]="clubForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                id="name"
+                formControlName="name"
+                class="form-control"
+                required
+              />
+              <div
+                *ngIf="
+                  clubForm.get('name')?.invalid && clubForm.get('name')?.touched
+                "
+                class="text-danger"
+              >
+                Name is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea
+                id="description"
+                formControlName="description"
+                class="form-control"
+                required
+              ></textarea>
+              <div
+                *ngIf="
+                  clubForm.get('description')?.invalid &&
+                  clubForm.get('description')?.touched
+                "
+                class="text-danger"
+              >
+                Description is required.
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="clubForm.invalid"
+            >
+              Create
+            </button>
+            <span class="mr-2"></span>
+            <button
+              type="button"
+              (click)="updateClub()"
+              class="btn btn-info"
+              [disabled]="!selectedClub"
+            >
+              Update
+            </button>
+          </form>
         </div>
       </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" formControlName="description" class="form-control" required></textarea>
-        <div *ngIf="clubForm.get('description')?.invalid && clubForm.get('description')?.touched" class="text-danger">
-          Description is required.
+
+      <div class="card bg-light mb-3">
+        <div class="card-body">
+          <h5 class="card-title">List of Clubs</h5>
+          <ul class="list-group">
+            <li
+              *ngFor="let club of paginatedClubs"
+              class="list-group-item d-flex justify-content-between align-items-center"
+            >
+              <span>{{ club.name }}</span>
+              <div class="button-container">
+                <button
+                  (click)="selectClubForUpdate(club)"
+                  class="btn btn-primary green-button"
+                >
+                  Update
+                </button>
+                <button
+                  (click)="deleteClub(club.id)"
+                  class="btn btn-danger red-button"
+                >
+                  Delete
+                </button>
+                <button
+                  (click)="openEventModal(club)"
+                  class="btn btn-secondary"
+                >
+                  Select Event
+                </button>
+                <button
+                  (click)="showClubDetail(club.description)"
+                  class="btn btn-info"
+                >
+                  Detail
+                </button>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="clubForm.invalid">Create</button>
-      <span class="mr-2"></span>
-      <button type="button" (click)="updateClub()" class="btn btn-info" [disabled]="!selectedClub">Update</button>
-    </form>
-  </div>
-</div>
 
-<div class="card bg-light mb-3">
-  <div class="card-body">
-    <h5 class="card-title">List of Clubs</h5>
-    <ul class="list-group">
-      <li *ngFor="let club of clubs" class="list-group-item d-flex justify-content-between align-items-center">
-        <span>{{ club.name }}</span>
-        <div class="button-container">
-          <button (click)="selectClubForUpdate(club)" class="btn btn-primary green-button">Update</button>
-          <button (click)="deleteClub(club.id)" class="btn btn-danger red-button">Delete</button>
-          <button (click)="openEventModal(club)" class="btn btn-secondary">Select Event</button>
-          <button (click)="showClubDetail(club.description)" class="btn btn-info">Detail</button>
-        </div>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- Message de confirmation -->
-<div *ngIf="assignConfirmationMessage" class="alert alert-success mt-3">
-  {{ assignConfirmationMessage }}
-</div>
-
-<!-- Modal for displaying club description -->
-<div class="modal fade" tabindex="-1" role="dialog" [ngClass]="{'show d-block': showDetailModal}" style="background-color: rgba(0,0,0,0.5);">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Club Description</h5>
-        <button type="button" class="close" aria-label="Close" (click)="closeDetail()">
-          <span aria-hidden="true">&times;</span>
+      <div class="pagination-container">
+        <button
+          class="btn btn-success"
+          [disabled]="currentPage === 1"
+          (click)="onPreviousPage()"
+        >
+          Previous
+        </button>
+        <span class="ml-2 mr-2">{{ currentPage }}</span>
+        <button
+          class="btn btn-success"
+          [disabled]="paginatedClubs.length < pageSize"
+          (click)="onNextPage()"
+        >
+          Next
         </button>
       </div>
-      <div class="modal-body">
-        <p>{{ selectedDescription }}</p>
+
+      <!-- Message de confirmation -->
+      <div *ngIf="assignConfirmationMessage" class="alert alert-success mt-3">
+        {{ assignConfirmationMessage }}
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeDetail()">Close</button>
+
+      <!-- Modal for displaying club description -->
+      <div
+        class="modal fade"
+        tabindex="-1"
+        role="dialog"
+        [ngClass]="{ 'show d-block': showDetailModal }"
+        style="background-color: rgba(0, 0, 0, 0.5)"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Club Description</h5>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="closeDetail()"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>{{ selectedDescription }}</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="closeDetail()"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal for displaying event list -->
+      <div
+        class="modal fade"
+        tabindex="-1"
+        role="dialog"
+        [ngClass]="{ 'show d-block': showEventModal }"
+        style="background-color: rgba(0, 0, 0, 0.5)"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">
+                Select Event for {{ selectedClub?.name }}
+              </h5>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="closeEventModal()"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <ul class="list-group">
+                <li
+                  *ngFor="let event of events"
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  <span>{{ event.name }}</span>
+                  <button
+                    (click)="assignEventToClub(event)"
+                    class="btn btn-primary"
+                  >
+                    Assign to Club
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="closeEventModal()"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Modal for displaying event list -->
-<div class="modal fade" tabindex="-1" role="dialog" [ngClass]="{'show d-block': showEventModal}" style="background-color: rgba(0,0,0,0.5);">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Select Event for {{ selectedClub?.name }}</h5>
-        <button type="button" class="close" aria-label="Close" (click)="closeEventModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <ul class="list-group">
-          <li *ngFor="let event of events" class="list-group-item d-flex justify-content-between align-items-center">
-            <span>{{ event.name }}</span>
-            <button (click)="assignEventToClub(event)" class="btn btn-primary">Assign to Club</button>
-          </li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeEventModal()">Close</button>
-      </div>
-    </div>
-  </div>
+<div *ngIf="clubsWithEventCount.length > 0" class="mt-3">
+  <h2>Club Statistics</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Club Name</th>
+        <th>Total Events</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let club of clubsWithEventCount; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ club.name }}</td>
+        <td>{{ club.eventCount }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

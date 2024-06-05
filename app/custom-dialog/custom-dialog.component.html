@@ -1,0 +1,8 @@
+<div class="custom-dialog">
+  <h2>Select an option</h2>
+  <ul>
+    <li *ngFor="let option of options" (click)="selectOption(option)">
+      {{ option.name }}
+    </li>
+  </ul>
+</div>

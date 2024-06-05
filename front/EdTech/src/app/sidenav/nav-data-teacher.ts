@@ -6,9 +6,4 @@ export const navbarDataTeacher: INavbarData[] = [
     icon: 'fal fa-home',
     label: 'Dashboard',
   },
-  {
-    routeLink: 'join',
-    icon: 'fal fa-person-booth',
-    label: 'Join us',
-  },
 ];

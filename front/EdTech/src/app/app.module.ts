@@ -42,7 +42,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { ClubsComponent } from './clubs/clubs.component';
 import { EventComponent } from './event/event.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BibliothequeComponent } from './bibliotheque/bibliotheque.component';
 import { DocumentDetailsComponent } from './document-details/document-details.component';
 import { LivreDetailsComponent } from './livre-details/livre-details.component';
@@ -50,6 +50,9 @@ import { DocumentsComponent } from './document/document.component';
 import { LivresComponent } from './livre/livre.component';
 import { EditCommentDialogComponent } from './edit-comment-dialog/edit-comment-dialog.component';
 import { DeleteCommentDialogComponent } from './delete-comment-dialog/delete-comment-dialog.component';
+import { MycertifsComponent } from './mycertifs/mycertifs.component';
+import { GoogleChartsModule } from 'angular-google-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -94,7 +97,7 @@ import { DeleteCommentDialogComponent } from './delete-comment-dialog/delete-com
     LivresComponent,
     EditCommentDialogComponent,
     DeleteCommentDialogComponent,
-    
+    MycertifsComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,6 +107,8 @@ import { DeleteCommentDialogComponent } from './delete-comment-dialog/delete-com
     HttpClientModule,
     ReactiveFormsModule,
     MatDialogModule,
+    GoogleChartsModule,
+    NgxChartsModule,
   ],
   providers: [
     AuthGuard,

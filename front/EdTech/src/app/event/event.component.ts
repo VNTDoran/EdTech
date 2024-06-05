@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Event } from "../model/event";
+import { Event } from '../model/event';
 import { EventService } from '../service/event.service';
 
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css']
+  styleUrls: ['./event.component.css'],
 })
 export class EventComponent implements OnInit {
   events: Event[] = [];
@@ -17,7 +17,8 @@ export class EventComponent implements OnInit {
     this.eventForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      date: ['', Validators.required]
+      date: ['', Validators.required],
+      image: [null],
     });
   }
 
@@ -25,21 +26,32 @@ export class EventComponent implements OnInit {
     this.getEvents();
   }
 
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.eventForm.patchValue({
+        image: file,
+      });
+    }
+  }
+
   getEvents(): void {
-    this.eventService.getEvents().subscribe(events => this.events = events);
+    this.eventService.getEvents().subscribe((events) => (this.events = events));
   }
 
   onSubmit(): void {
     if (this.eventForm.valid) {
-      const eventDate = this.eventForm.value.date; // Récupération de la date du formulaire
-      const currentDate = new Date().toISOString().split('T')[0]; // Récupération de la date actuelle au format 'YYYY-MM-DD'
+      const formData = this.eventForm.value;
+      const event: Event = {
+        id: 0,
+        name: formData.name,
+        description: formData.description,
+        date: formData.date,
+        clubId: 0,
+        image: null,
+      };
 
-      if (eventDate < currentDate) {
-        this.eventForm.reset();
-        return;
-      }
-
-      this.eventService.createEvent(this.eventForm.value).subscribe(newEvent => {
+      this.eventService.createEvent(event).subscribe((newEvent) => {
         this.events.push(newEvent);
         this.eventForm.reset();
       });
@@ -48,24 +60,25 @@ export class EventComponent implements OnInit {
 
   updateEvent(): void {
     if (this.selectedEvent) {
-      const eventDate = this.eventForm.value.date;
-      const currentDate = new Date().toISOString().split('T')[0];
+      const formData = this.eventForm.value;
+      const event: Event = {
+        id: this.selectedEvent.id,
+        name: formData.name,
+        description: formData.description,
+        date: formData.date,
+        clubId: 0,
+        image: null,
+      };
 
-      if (eventDate < currentDate) {
-        this.deleteEvent(this.selectedEvent.id);
-        return;
-      }
-
-      this.selectedEvent.name = this.eventForm.value.name;
-      this.selectedEvent.description = this.eventForm.value.description;
-
-      this.eventService.updateEvent(this.selectedEvent).subscribe(updatedEvent => {
-        const index = this.events.findIndex(e => e.id === updatedEvent.id);
-        if (index !== -1) {
-          this.events[index] = updatedEvent;
-        }
-        this.resetFormAndSelectedEvent();
-      });
+      this.eventService
+        .updateEvent(this.selectedEvent.id, event)
+        .subscribe((updatedEvent) => {
+          const index = this.events.findIndex((e) => e.id === updatedEvent.id);
+          if (index !== -1) {
+            this.events[index] = updatedEvent;
+          }
+          this.resetFormAndSelectedEvent();
+        });
     }
   }
 
@@ -74,7 +87,8 @@ export class EventComponent implements OnInit {
     this.eventForm.patchValue({
       name: event.name,
       description: event.description,
-      date: event.date
+      date: event.date,
+      image: null,
     });
   }
 
@@ -85,7 +99,7 @@ export class EventComponent implements OnInit {
 
   deleteEvent(id: number): void {
     this.eventService.deleteEvent(id).subscribe(() => {
-      this.events = this.events.filter(event => event.id !== id);
+      this.events = this.events.filter((event) => event.id !== id);
     });
   }
 }

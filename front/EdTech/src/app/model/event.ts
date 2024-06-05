@@ -1,9 +1,8 @@
 export interface Event {
-    id: number;
-    name: string;
-    description: string;
-    clubId: number;
-    date: string;
-  
-  
-  }
+  id: number;
+  name: string;
+  description: string;
+  clubId: number;
+  date: string;
+  image: string | null;
+}

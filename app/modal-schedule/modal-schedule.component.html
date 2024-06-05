@@ -1,0 +1,17 @@
+<div class="modal-ui">
+  <h2>Select Majors</h2>
+  <ul class="majors-list">
+    <li *ngFor="let schedule of schedules" (click)="selectSchedue(schedule)">
+      <input
+        type="radio"
+        name="selectedMajor"
+        [checked]="isSelected(schedule)"
+      />
+      <span>{{ schedule.name }}</span>
+    </li>
+  </ul>
+  <div class="buttons">
+    <button (click)="assignSchedue()">Assign</button>
+    <button (click)="closeModal()">Cancel</button>
+  </div>
+</div>

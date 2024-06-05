@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="mb-0">Quiz: #{{ quiz.id }}</h2>
+    </div>
+    <div class="card-body">
+      <p class="badge text-dark border fs-4 m-0">{{ quiz.category }}</p>
+      <h1 class="text-center fw-bold fs-1 mb-0">{{ quiz.title }}</h1>
+      <div class="text-end text-secondary fs-6">Your Score:
+        <span *ngIf="!quiz.score" class="badge badge-secondary bg-secondary fs-5">N/A</span>
+        <span *ngIf="quiz.score" class="badge badge-success bg-success fs-5">{{quiz.score}}/{{quiz.numQuestions}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-2">
+      <div class="card">
+        <div class="card-body">
+          <div class="fs-5 mb-2 text-center">Timer</div>
+          <div class="fs-3 mb-3 text-center">{{ formatTime(timeLeft) }}</div>
+          <div class="fs-6 text-secondary text-center">
+            You answered <br /><b>{{ questionsAnswered }}/{{ totalQuestions }}</b> questions
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-8">
+      <div *ngFor="let question of questions; let i = index">
+        <ng-container
+          *ngTemplateOutlet="questionTemplate; context: { index: i + 1, question: question }"
+        ></ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <button class="btn btn-lg btn-secondary mt-4 mb-5"
+            (click)="submitQuiz()"
+            [disabled]="questionsAnswered !== totalQuestions || timerExpired">
+      Submit Quiz
+    </button>
+  </div>
+</div>
+
+<ng-template #questionTemplate let-index="index" let-question="question">
+  <div class="col-12">
+    <div class="card my-4 shadow-sm">
+      <div class="card-header bg-secondary text-white">
+        <h2 class="card-title mb-0">Question {{ index }}</h2>
+      </div>
+      <div class="card-body">
+        <h3 class="fs-3">{{ question.questionTitle }}</h3>
+        <hr class="my-3" />
+        <div class="form-check mb-2" *ngFor="let option of [question.option1, question.option2, question.option3]; let optIndex = index">
+          <input
+            type="radio"
+            [id]="'option' + index + '_' + (optIndex + 1)"
+            [name]="'question' + index"
+            class="form-check-input"
+            [value]="optIndex + 1"
+            (change)="selectAnswer(question.id!, optIndex + 1)"
+            [checked]="userAnswers[question.id!] === 'option' + (optIndex + 1)"
+            [disabled]="timerExpired"
+          />
+          <label
+            [for]="'option' + index + '_' + (optIndex + 1)"
+            class="form-check-label fs-5"
+          >
+            {{ option }}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -165,10 +165,11 @@ export class CertificatComponent implements OnInit {
       }
     );
   }
-  getCertificate(score: number) {
+  getCertificate(score: number, certifId: number) {
     this.studentService.getStudentById(this.authService.getId()).subscribe(
       (student) => {
         this.studentService.decrementerPoints(student.id, score).subscribe();
+        this.studentService.obtenirCertif(student.id, certifId).subscribe();
       },
       (error) => {
         console.log(error);

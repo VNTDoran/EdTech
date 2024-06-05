@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 import { Certificate } from '../model/certificate';
 import { Comment } from '../model/comment';
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class CertificateService {
   private baseUrl = 'http://localhost:7777/api/certificates';
+  private baseUrl2 = 'http://localhost:7777/api/students';
 
   constructor(private http: HttpClient) {}
 
@@ -38,15 +38,28 @@ export class CertificateService {
     return this.http.put<Certificate>(`${this.baseUrl}/modify`, certificate);
   }
   getComments(certificateId: number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`${this.baseUrl}/${certificateId}/comments`);
+    return this.http.get<Comment[]>(
+      `${this.baseUrl}/${certificateId}/comments`
+    );
   }
 
   addComment(certificateId: number, comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(`${this.baseUrl}/${certificateId}/comments`, comment);
+    return this.http.post<Comment>(
+      `${this.baseUrl}/${certificateId}/comments`,
+      comment
+    );
   }
 
   addRating(certificateId: number, rating: number): Observable<Certificate> {
-    console.log(rating)
-    return this.http.post<Certificate>(`${this.baseUrl}/${certificateId}/ratings`, rating);
+    console.log(rating);
+    return this.http.post<Certificate>(
+      `${this.baseUrl}/${certificateId}/ratings`,
+      rating
+    );
+  }
+  getCertificates(studentId: number): Observable<Certificate[]> {
+    return this.http.get<Certificate[]>(
+      `${this.baseUrl2}/getcertif/${studentId}`
+    );
   }
 }

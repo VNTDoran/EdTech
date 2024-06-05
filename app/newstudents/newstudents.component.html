@@ -1,0 +1,19 @@
+<div class="card-container">
+    <div class="card" *ngFor="let student of filteredStudents; let i = index">
+      <div class="student-card">
+        <div class="profile-picture">
+          <img
+            src="https://i.ibb.co/v3Cy7r0/512px-130-man-student-2-svg.png"
+            alt="512px-130-man-student-2-svg"
+          />
+        </div>
+        <div class="details">
+          <h3 class="name">{{ student.name }}</h3>
+          <p class="major">{{ student.cin }}</p>
+          <button (click)="Schedule()">Schedule</button>
+          <button (click)="Accept(student.id)">Accept</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

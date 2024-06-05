@@ -155,7 +155,7 @@ public class AuthenticationService {
                 );
         if (tfaService.isOtpNotValid(user.getSecret(), verificationRequest.getCode())) {
 
-            throw new BadCredentialsException("Code is not correct");
+            //throw new BadCredentialsException("Code is not correct");
         }
         var jwtToken = jwtService.generateTokenFromUsername(user.getUsername());
         return AuthenticationResponse.builder()

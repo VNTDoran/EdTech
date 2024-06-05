@@ -1,5 +1,6 @@
 package pi.tn.esprit.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,9 +28,11 @@ public class Certificate {
     private Major major;
     @ElementCollection
     private List<String> categories; // Add categories field
+    @JsonIgnore
+    @ManyToMany(mappedBy = "certificateList", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Student> students = new ArrayList<>();
     @ElementCollection
     private List<Integer> ratings = new ArrayList<>();
-
-    @OneToMany(mappedBy = "certificate", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 }

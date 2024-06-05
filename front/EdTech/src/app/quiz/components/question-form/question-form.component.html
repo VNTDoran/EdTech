@@ -1,0 +1,180 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card my-4 shadow-sm">
+        <div class="card-header bg-success text-white">
+          <h2 class="card-title mb-0">Create Question</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+            <div class="row mb-3">
+              <div class="col-6">
+                <label for="questionTitle" class="form-label"
+                  >Question Title</label
+                >
+                <input
+                  type="text"
+                  id="questionTitle"
+                  formControlName="questionTitle"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      questionTitle?.invalid &&
+                      (questionTitle?.dirty || questionTitle?.touched)
+                  }"
+                />
+                <div
+                  *ngIf="
+                    questionTitle?.invalid &&
+                    (questionTitle?.dirty || questionTitle?.touched)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div>Invalid question title.</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="mb-3">
+                  <label for="category" class="form-label">Category</label>
+                  <select
+                    id="category"
+                    formControlName="category"
+                    class="form-select"
+                    [ngClass]="{
+                      'is-invalid':
+                        category?.invalid &&
+                        (category?.dirty || category?.touched)
+                    }"
+                  >
+                    <option value="" disabled>Select a category</option>
+                    <option
+                      *ngFor="let category of questionCategories"
+                      [value]="category"
+                    >
+                      {{ category }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="
+                      category?.invalid &&
+                      (category?.dirty || category?.touched)
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div>Invalid category</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="option1" class="form-label">Option 1</label>
+              <input
+                type="text"
+                id="option1"
+                formControlName="option1"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    option1?.invalid && (option1?.dirty || option1?.touched)
+                }"
+              />
+              <div
+                *ngIf="option1?.invalid && (option1?.dirty || option1?.touched)"
+                class="invalid-feedback"
+              >
+                <div>Option 1 is required.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="option2" class="form-label">Option 2</label>
+              <input
+                type="text"
+                id="option2"
+                formControlName="option2"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    option2?.invalid && (option2?.dirty || option2?.touched)
+                }"
+              />
+              <div
+                *ngIf="option2?.invalid && (option2?.dirty || option2?.touched)"
+                class="invalid-feedback"
+              >
+                <div>Option 2 is required.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="option3" class="form-label">Option 3</label>
+              <input
+                type="text"
+                id="option3"
+                formControlName="option3"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    option3?.invalid && (option3?.dirty || option3?.touched)
+                }"
+              />
+              <div
+                *ngIf="option3?.invalid && (option3?.dirty || option3?.touched)"
+                class="invalid-feedback"
+              >
+                <div>Option 3 is required.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Right Answer</label>
+              <div
+                class="form-check"
+                *ngFor="
+                  let option of ['option1', 'option2', 'option3'];
+                  let i = index
+                "
+              >
+                <input
+                  type="radio"
+                  id="rightAnswer{{ i }}"
+                  formControlName="rightAnswer"
+                  class="form-check-input"
+                  [value]="option"
+                  [ngClass]="{
+                    'is-invalid':
+                      rightAnswer?.invalid &&
+                      (rightAnswer?.dirty || rightAnswer?.touched)
+                  }"
+                />
+                <label for="rightAnswer{{ i }}" class="form-check-label">
+                  {{ getOptionLabel(option) }}
+                </label>
+              </div>
+              <div
+                *ngIf="
+                  rightAnswer?.invalid &&
+                  (rightAnswer?.dirty || rightAnswer?.touched)
+                "
+                class="invalid-feedback d-block"
+              >
+                <div>Invalid Right Answer</div>
+              </div>
+            </div>
+
+            <div class="card-footer text-center bg-transparent">
+              <button
+                type="submit"
+                class="btn btn-success"
+                [disabled]="questionForm.invalid"
+              >
+                Create Question
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
