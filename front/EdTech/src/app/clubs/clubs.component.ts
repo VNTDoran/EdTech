@@ -117,6 +117,7 @@ export class ClubsComponent implements OnInit {
       this.clubService.assignEventToClub(this.selectedClub.id, event.id).subscribe(() => {
         this.assignConfirmationMessage = `Event "${event.name}" has been assigned to Club "${this.selectedClub?.name}".`;
         this.showEventModal = false; // Hide the event list after assigning
+        this.getClubsWithEventCount(); // Update club statistics after assigning event
       });
     }
   }
