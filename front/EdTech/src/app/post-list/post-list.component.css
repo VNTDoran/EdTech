@@ -1,12 +1,14 @@
-/* Style for the post list */
 .post-list {
-  display: block;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  padding-right: 320px; /* Adjust according to the chart container's width */
 }
 
 /* Style for the post card */
 .post-card {
   width: 700px;
-  margin: auto;
+  margin-left: 380px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -100,18 +102,19 @@
 .reaction-options {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
   border-top: 1px solid #ddd;
+  padding: 5px;
 }
 
 /* Style for the reaction button */
 .reaction-btn {
   display: flex;
   align-items: center;
-  padding: 1px;
+  padding: 0.5px;
+  margin-top: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 /* Style for the reaction button icon */
@@ -128,37 +131,78 @@
   color: red;
 }
 
-/* Style for the comment section */
+.post-date {
+  margin-left: 0.5rem;
+  font-size: 13px;
+}
+
+/* CSS for Comment Section */
 .comment-section {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-top: 1px solid #ddd;
+  margin-top: 5px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+.comment-section > div {
+  margin-bottom: 10px;
+}
+
+.comment-section strong {
+  font-weight: bold;
+}
+
+.comment-section .comment-date {
+  font-size: 0.875em;
+  color: #777;
 }
 
 .comment-section input[type="text"] {
-  flex: 1;
+  width: calc(100% - 60px);
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-right: 10px;
 }
 
-.comment-section button {
-  padding: 10px 15px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.add-comment {
+  display: flex;
 }
 
-.comment-section button:hover {
+.button-post {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.comment-section .button-post:hover {
   background-color: #0056b3;
 }
-.post-date {
-  font-size: 0.8rem;
-  color: #999; /* Light gray color for date */
-  margin-left: 10px;
+
+.comment-actions{
+  display: flex;
+  gap: 1rem;
+  align-self: center;
+   margin-right: 10px;
+}
+
+.comment-action button{
+  margin-right: 10px; /* Adjust the margin as needed */
+  border: none; /* Remove the border */
+  background: none; /* Remove the background */
+  cursor: pointer; /* Add cursor pointer */
+  font-size: 0.9em;
+  color: #777;
+  font-weight: bold;
+}
+
+.chart-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 300px; /* Adjust the width as needed */
+  height: 200px; /* Adjust the height as needed */
+  margin: 20px; /* Optional: adds some margin around the chart */
 }

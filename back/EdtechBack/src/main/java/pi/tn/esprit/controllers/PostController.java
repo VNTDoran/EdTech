@@ -60,47 +60,25 @@ public class PostController {
     public ResponseEntity<Post> editPost(@PathVariable Long postId, @RequestBody Post updatedPost, HttpServletRequest request) {
         String token = authtok.parseJwt(request);
         if (token != null && jwtUtils.validateToken(token)) {
-            // Get username from the token
             String username = jwtUtils.getUserNameFromJwtToken(token);
-
-            Optional<User> currentUser = userRepository.findByUsername(username);
-            User user = new User();
-            if (currentUser.isPresent()) {
-                user = currentUser.get();
-            }
-            // Check if the current user is the owner of the post being edited
-            if (postService.isPostOwner(postId, user)) {
-                try {
-                    Post editedPost = postService.editPost(postId, updatedPost);
-                    return ResponseEntity.ok().body(editedPost);
-                } catch (IllegalArgumentException e) {
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }
-            } else {
-                // User is not authorized to edit this post
-                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-            }
+            Post editedPost = postService.editPost(postId, updatedPost, username);
+            return ResponseEntity.ok().body(editedPost);
         } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-
 
     @DeleteMapping("/delete-post/{postId}")
     public ResponseEntity<Void> deletePost(@PathVariable Long postId, HttpServletRequest request) {
         String token = authtok.parseJwt(request);
         if (token != null && jwtUtils.validateToken(token)) {
-            try {
-                postService.deletePost(postId);
-                return new ResponseEntity<>(HttpStatus.OK);
-            } catch (IllegalArgumentException e) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
+            String username = jwtUtils.getUserNameFromJwtToken(token);
+            postService.deletePost(postId, username);
+            return ResponseEntity.noContent().build();
         } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-
     @PostMapping("/{postId}/like")
     public ResponseEntity<Post> likePost(@PathVariable Long postId, HttpServletRequest request) {
         String token = authtok.parseJwt(request);
@@ -128,6 +106,18 @@ public class PostController {
             } catch (IllegalArgumentException e) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Operation(description = "get User by id")
+    @GetMapping("/loggedUser/{UserId}")
+    public ResponseEntity<User> getUserById(@PathVariable Long UserId,HttpServletRequest request) {
+        String token = authtok.parseJwt(request);
+        if (token != null && jwtUtils.validateToken(token)) {
+            User user = postService.getUserById(UserId);
+            return ResponseEntity.ok().body(user);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

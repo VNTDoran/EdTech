@@ -45,4 +45,26 @@ public class PostCommentServiceImpl implements PostCommentService {
                 .sorted((c1, c2) -> c2.getCreationDate().compareTo(c1.getCreationDate()))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public PostComment editComment(Long commentId, PostComment updatedComment, String username) {
+        PostComment existingComment = commentRepository.findById(commentId).orElseThrow(() -> new RuntimeException("Comment not found"));
+        if (existingComment.getUser().getUsername().equals(username)) {
+            existingComment.setContent(updatedComment.getContent());
+            return commentRepository.save(existingComment);
+        } else {
+            throw new RuntimeException("You are not authorized to edit this comment");
+        }
+    }
+
+    @Override
+    public void deleteComment(Long commentId, String username) {
+        PostComment existingComment = commentRepository.findById(commentId).orElseThrow(() -> new RuntimeException("Comment not found"));
+        if (existingComment.getUser().getUsername().equals(username)) {
+            commentRepository.delete(existingComment);
+        } else {
+            throw new RuntimeException("You are not authorized to delete this comment");
+        }
+    }
+
 }

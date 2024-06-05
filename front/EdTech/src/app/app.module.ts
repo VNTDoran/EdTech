@@ -48,6 +48,8 @@ import { DocumentDetailsComponent } from './document-details/document-details.co
 import { LivreDetailsComponent } from './livre-details/livre-details.component';
 import { DocumentsComponent } from './document/document.component';
 import { LivresComponent } from './livre/livre.component';
+import { EditCommentDialogComponent } from './edit-comment-dialog/edit-comment-dialog.component';
+import { DeleteCommentDialogComponent } from './delete-comment-dialog/delete-comment-dialog.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +92,9 @@ import { LivresComponent } from './livre/livre.component';
     LivreDetailsComponent,
     DocumentsComponent,
     LivresComponent,
+    EditCommentDialogComponent,
+    DeleteCommentDialogComponent,
+    
   ],
   imports: [
     BrowserModule,

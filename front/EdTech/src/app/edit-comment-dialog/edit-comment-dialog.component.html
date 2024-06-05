@@ -1,0 +1,10 @@
+<div class="dialog">
+  <h1 class="dialog-title">Edit Comment</h1>
+  <div class="dialog-content">
+    <textarea class="dialog-textarea" [(ngModel)]="editedCommentText" rows="5"></textarea>
+  </div>
+  <div class="dialog-actions">
+    <button class="dialog-btn save-btn" (click)="onSaveClick()">Save</button>
+    <button class="dialog-btn cancel-btn" (click)="onCancelClick()">Cancel</button>
+  </div>
+</div>

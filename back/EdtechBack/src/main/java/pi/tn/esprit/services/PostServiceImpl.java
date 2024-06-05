@@ -36,36 +36,23 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post editPost(Long postId, Post updatedPost) {
-        Optional<Post> postOptional = postRepository.findById(postId);
-        if (postOptional.isPresent()) {
-            Post existingPost = postOptional.get();
+    public Post editPost(Long postId, Post updatedPost, String username) {
+        Post existingPost = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
+        if (existingPost.getUser().getUsername().equals(username)) {
             existingPost.setContent(updatedPost.getContent());
-            // Update other fields as needed
             return postRepository.save(existingPost);
         } else {
-            throw new IllegalArgumentException("Post not found");
+            throw new RuntimeException("You are not authorized to edit this post");
         }
     }
 
-    public User getPostOwner(Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
-        return userRepository.getUserById(post.getUser().getId());
-    }
-
-    public boolean isPostOwner(Long postId, User currentUser) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
-        return post.getUser().equals(currentUser);
-    }
-
-
     @Override
-    public void deletePost(Long postId) {
-        Optional<Post> postOptional = postRepository.findById(postId);
-        if (postOptional.isPresent()) {
-            postRepository.deleteById(postId);
+    public void deletePost(Long postId, String username) {
+        Post existingPost = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
+        if (existingPost.getUser().getUsername().equals(username)) {
+            postRepository.delete(existingPost);
         } else {
-            throw new IllegalArgumentException("Post not found");
+            throw new RuntimeException("You are not authorized to delete this post");
         }
     }
 
@@ -93,6 +80,10 @@ public class PostServiceImpl implements PostService {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException("User not found"));
         post.getLikes().remove(user);
         return postRepository.save(post);
+    }
+
+    public User getUserById (Long UserId)  {
+        return userRepository.getUserById(UserId);
     }
 
 }

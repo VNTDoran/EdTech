@@ -13,15 +13,13 @@ public interface PostService {
 
     List<Post> getAllPosts();
 
-    public User getPostOwner(Long postId);
 
-    public boolean isPostOwner(Long postId, User currentUser);
-
-    public Post editPost(Long postId, Post updatedPost);
-
-    public void deletePost(Long postId);
+    Post editPost(Long postId, Post updatedPost, String username);
+    void deletePost(Long postId, String username);;
     public Post likePost(Long postId, String username);
     public Post unlikePost(Long postId, String username);
+
+    public User getUserById (Long UserId);
 
 
 

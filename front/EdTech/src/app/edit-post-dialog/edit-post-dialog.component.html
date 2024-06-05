@@ -1,1 +1,26 @@
-<p>edit-post-dialog works!</p>
+<div class="dialog">
+    <div class="title">
+      <div class="topic"><b>Edit post</b></div>
+      <div class="cross" (click)="closeDialog()">
+        <div aria-label="Close" class="" role="button" tabindex="0">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="write-post">
+      <textarea
+        placeholder="Edit your post"
+        id="textarea"
+        [(ngModel)]="postContent"
+        name="postContent"
+        #postContentInput="ngModel"
+        required
+      ></textarea>
+    </div>
+    <div class="buttons">
+      <button class="button-cancel" (click)="closeDialog()">Cancel</button>
+      <button class="button-post" (click)="saveChanges()">Save Changes</button>
+    </div>
+  </div>
+  

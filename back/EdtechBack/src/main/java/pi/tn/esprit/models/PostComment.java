@@ -1,5 +1,6 @@
 package pi.tn.esprit.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +29,7 @@ public class PostComment {
 
     @ManyToOne
     @JoinColumn(name = "post_id", referencedColumnName = "id")
+    @JsonIgnore
     private Post post;
 
     @ManyToOne

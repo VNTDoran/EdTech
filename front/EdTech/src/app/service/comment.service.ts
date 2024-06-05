@@ -15,21 +15,28 @@ export class CommentService {
     private userAuthService: UserAuthService
   ) {}
 
-  getCommentsByPostId(postId: number): Observable<Comment[]> {
+  private getAuthHeaders(): HttpHeaders {
     const jwtToken = this.userAuthService.getToken();
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${jwtToken}`
-    );
-    return this.http.get<Comment[]>(`${this.apiUrl}/${postId}`);
+    return new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+  }
+
+  getCommentsByPostId(postId: number): Observable<Comment[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<Comment[]>(`${this.apiUrl}/${postId}`, { headers });
   }
 
   addComment(postId: number, comment: Partial<Comment>): Observable<Comment> {
-    const jwtToken = this.userAuthService.getToken();
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${jwtToken}`
-    );
-    return this.http.post<Comment>(`${this.apiUrl}/${postId}`, comment);
+    const headers = this.getAuthHeaders();
+    return this.http.post<Comment>(`${this.apiUrl}/${postId}`, comment, { headers });
+  }
+
+  editComment(commentId: number, comment: Partial<Comment>): Observable<Comment> {
+    const headers = this.getAuthHeaders();
+    return this.http.put<Comment>(`${this.apiUrl}/${commentId}`, comment, { headers });
+  }
+
+  deleteComment(commentId: number): Observable<void> {
+    const headers = this.getAuthHeaders();
+    return this.http.delete<void>(`${this.apiUrl}/${commentId}`, { headers });
   }
 }

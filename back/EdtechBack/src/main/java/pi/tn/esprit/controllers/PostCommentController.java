@@ -43,4 +43,28 @@ public class PostCommentController {
         List<PostComment> comments = commentService.getCommentsByPostId(postId);
         return ResponseEntity.ok().body(comments);
     }
+
+    @PutMapping("/{commentId}")
+    public ResponseEntity<PostComment> editComment(@PathVariable Long commentId, @RequestBody PostComment updatedComment, HttpServletRequest request) {
+        String token = authtok.parseJwt(request);
+        if (token != null && jwtUtils.validateToken(token)) {
+            String username = jwtUtils.getUserNameFromJwtToken(token);
+            PostComment editedComment = commentService.editComment(commentId, updatedComment, username);
+            return ResponseEntity.ok().body(editedComment);
+        } else {
+            return ResponseEntity.status(401).build();
+        }
+    }
+
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId, HttpServletRequest request) {
+        String token = authtok.parseJwt(request);
+        if (token != null && jwtUtils.validateToken(token)) {
+            String username = jwtUtils.getUserNameFromJwtToken(token);
+            commentService.deleteComment(commentId, username);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(401).build();
+        }
+    }
 }

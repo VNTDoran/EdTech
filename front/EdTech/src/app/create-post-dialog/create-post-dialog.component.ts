@@ -29,9 +29,25 @@ export class CreatePostDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.username = this.userAuth.getName();
+    this.loadUsername();
   }
 
+  loadUsername() {
+    const userId = this.userAuth.getId();
+    if (userId) {
+      this.userAuth.getUserById(userId).subscribe(
+        (user) => {
+          this.username = user.username;
+        },
+        (error) => {
+          console.error('Error fetching user:', error);
+        }
+      );
+    } else {
+      console.error('No user ID found');
+    }
+  }
+  
   closeDialog() {
     this.closeDialogEvent.emit();
   }

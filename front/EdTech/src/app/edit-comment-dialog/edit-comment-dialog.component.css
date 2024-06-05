@@ -1,0 +1,57 @@
+/* Styles for the dialog container */
+.dialog {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  /* Styles for the dialog title */
+  .dialog-title {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+  
+  /* Styles for the dialog content */
+  .dialog-content {
+    margin-bottom: 20px;
+  }
+  
+  /* Styles for the edit comment textarea */
+  .dialog-textarea {
+    width: 100%;
+    min-height: 150px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    resize: vertical;
+  }
+  
+  /* Styles for the dialog actions */
+  .dialog-actions {
+    text-align: right;
+  }
+  
+  /* Styles for the dialog buttons */
+  .dialog-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Styles for the Save button */
+  .save-btn {
+    background-color: #007bff;
+    color: #fff;
+    margin-right: 10px;
+  }
+  
+  /* Styles for the Cancel button */
+  .cancel-btn {
+    background-color: #ccc;
+    color: #333;
+  }
+  

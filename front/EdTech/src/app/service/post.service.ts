@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post } from '../model/post';
 import { UserAuthService } from './user-auth.service';
+import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,9 @@ export class PostService {
     const token = this.userAuthService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const newPost = { ...post, likes: [], comments: [] } as Post;
-    return this.http.post<Post>(`${this.apiUrl}/add-post`, newPost, { headers });
+    return this.http.post<Post>(`${this.apiUrl}/add-post`, newPost, {
+      headers,
+    });
   }
 
   getAllPosts(): Observable<Post[]> {
@@ -28,7 +31,9 @@ export class PostService {
       'Authorization',
       `Bearer ${jwtToken}`
     );
-    return this.http.get<Post[]>(`${this.apiUrl}/retrieve-all-posts`, {headers});
+    return this.http.get<Post[]>(`${this.apiUrl}/retrieve-all-posts`, {
+      headers,
+    });
   }
 
   deletePost(postId: number): Observable<any> {
@@ -52,13 +57,16 @@ export class PostService {
   likePost(postId: number): Observable<Post> {
     const token = this.userAuthService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<Post>(`${this.apiUrl}/${postId}/like`, null, { headers });
+    return this.http.post<Post>(`${this.apiUrl}/${postId}/like`, null, {
+      headers,
+    });
   }
 
   unlikePost(postId: number): Observable<Post> {
     const token = this.userAuthService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete<Post>(`${this.apiUrl}/${postId}/unlike`, { headers });
+    return this.http.delete<Post>(`${this.apiUrl}/${postId}/unlike`, {
+      headers,
+    });
   }
-  
 }
