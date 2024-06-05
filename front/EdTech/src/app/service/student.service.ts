@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Student } from '../model/student';
 import { UserAuthService } from './user-auth.service';
+import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root',
@@ -54,6 +55,11 @@ export class StudentService {
   getStudentById(id: number): Observable<Student> {
     const url = `${this.apiUrl}/retrievebyuserid/${id}`;
     return this.http.get<Student>(url);
+  }
+
+  getUserByStudentId(id: number): Observable<User> {
+    const url = `${this.apiUrl}/retrieveUser/${id}`;
+    return this.http.get<User>(url);
   }
 
   getPaid(id: number): Observable<boolean> {

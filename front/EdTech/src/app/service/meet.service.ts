@@ -4,14 +4,10 @@ import { Observable } from 'rxjs';
 import { UserAuthService } from './user-auth.service';
 import { tap, catchError } from 'rxjs/operators';
 
-
 @Injectable({
   providedIn: 'root',
 })
-  
-  
 export class MeetService {
-
   constructor(
     private http: HttpClient,
     private userAuthService: UserAuthService
@@ -19,19 +15,17 @@ export class MeetService {
 
   private apiUrl = 'http://localhost:7777/api/students';
 
-
-  createEvent(time: string): Observable<string> {
+  createEvent(time: string, email: string): Observable<string> {
     const jwtToken = this.userAuthService.getToken();
-    
+
     const headers = new HttpHeaders().set(
       'Authorization',
       `Bearer ${jwtToken}`
     );
-  
+
     return this.http.get<string>(
-      `${this.apiUrl}/retrievemeet/${time}`,
+      `${this.apiUrl}/retrievemeet/${time}/${email}`,
       { headers }
     );
   }
-  
 }

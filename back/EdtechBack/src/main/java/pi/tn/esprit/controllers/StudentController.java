@@ -109,6 +109,18 @@ public class StudentController {
         }
     }
     @Operation(description = "Retrieves a specific student by ID")
+    @GetMapping("/retrieveUser/{studentId}")
+    public ResponseEntity<User> retrieveUser(@PathVariable int studentId, HttpServletRequest request) {
+        System.out.println("test");
+        String token = authtok.parseJwt(request);
+        if (token != null && jwtUtils.validateToken(token)) {
+            Student student = studentService.retrieveStudent(studentId);
+            return student != null ? ResponseEntity.ok(student.getUser()) : ResponseEntity.notFound().build();
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+    @Operation(description = "Retrieves a specific student by ID")
     @GetMapping("/retrievebyuserid/{studentId}")
     public ResponseEntity<Student> retrieveStudentbyUserId(@PathVariable Long studentId, HttpServletRequest request) {
         String token = authtok.parseJwt(request);
@@ -121,15 +133,15 @@ public class StudentController {
     }
 
     @Operation(description = "Retrieves a new meeting")
-    @GetMapping("/retrievemeet/{time}")
-    public ResponseEntity<String> retrieveNewMeet(@PathVariable String time, HttpServletRequest request) {
+    @GetMapping("/retrievemeet/{time}/{email}")
+    public ResponseEntity<String> retrieveNewMeet(@PathVariable String time,@PathVariable String email, HttpServletRequest request) {
         String token = authtok.parseJwt(request);
         if (token != null && jwtUtils.validateToken(token)) {
             String meeting = studentService.retrieveNewMeeting(time);
             if (meeting != null){
                 String url = "https://us05web.zoom.us/s/";
 
-                Mailer.sendMail(time,url+meeting,"houssemkacem@yahoo.fr");
+                Mailer.sendMail(time,url+meeting,email);
             }
             return meeting != null ? ResponseEntity.ok(meeting) : ResponseEntity.notFound().build();
         } else {
